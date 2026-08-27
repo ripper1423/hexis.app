@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HEXIS — Fortaleza del cuerpo. Claridad de la mente.</title>
+<meta name="description" content="HEXIS no es una app de fitness. Es un sistema de optimización humana — cuerpo, mente, hábito e identidad, como una sola cosa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050505;
+    --bg2:#0a0a0a;
+    --card:#0c0c0c;
+    --line:#1a1a1a;
+    --gold:#C8AA50;
+    --ink:#f2ede4;
+    --muted:#8a8a8a;
+    --muted2:#5c5c5c;
+    --alpha:#C8AA50;
+    --hera:#D4C5A9;
+    --zen:#8BA4A0;
+    --shape:#A09060;
+    --atenea:#7C8FA6;
+    --gaia:#A8B98C;
+    --serif:'Playfair Display',Georgia,serif;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  .wrap-narrow{max-width:760px;margin:0 auto;padding:0 28px;}
+  section{padding:120px 0;position:relative;}
+  .eyebrow{
+    font-size:11px;letter-spacing:4px;text-transform:uppercase;
+    color:var(--gold);margin-bottom:20px;font-weight:500;
+  }
+  h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-0.01em;}
+  h2{font-size:clamp(28px,4vw,44px);line-height:1.15;margin-bottom:24px;}
+  h2 em{font-style:italic;color:var(--gold);}
+  p.lead{font-size:18px;color:#c9c2b4;font-weight:300;max-width:620px;line-height:1.7;}
+  .center{text-align:center;margin-left:auto;margin-right:auto;}
+  .divider{height:1px;background:var(--line);width:100%;}
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(5,5,5,0.85);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;padding-top:0;padding-bottom:0;}
+  .logo{font-family:var(--serif);font-size:18px;letter-spacing:3px;}
+  .navlinks{display:flex;gap:32px;font-size:12px;letter-spacing:1px;color:var(--muted);}
+  .navlinks a:hover{color:var(--ink);}
+  .navcta{
+    font-size:12px;letter-spacing:1px;border:1px solid var(--gold);color:var(--gold);
+    padding:9px 20px;border-radius:2px;white-space:nowrap;
+  }
+  @media(max-width:760px){ .navlinks{display:none;} }
+
+  /* HERO */
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding-top:64px;
+  }
+  .hero .eyebrow{margin-bottom:28px;}
+  .hero h1{
+    font-size:clamp(30px,5.5vw,54px);line-height:1.25;max-width:820px;
+    font-weight:400;color:#efe8db;
+  }
+  .hero .sub{margin-top:22px;color:var(--muted);font-size:15px;letter-spacing:1px;}
+  .scrolldown{margin-top:80px;font-size:11px;letter-spacing:3px;color:var(--muted2);}
+  .scrolldown .arrow{display:block;margin-top:8px;animation:bob 2s infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+
+  /* SISTEMA */
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:64px;}
+  .flow-step{padding:0 20px;border-left:1px solid var(--line);position:relative;}
+  .flow-step:first-child{border-left:none;}
+  .flow-num{font-family:var(--serif);font-size:13px;color:var(--gold);margin-bottom:14px;}
+  .flow-step h3{font-size:17px;color:var(--ink);margin-bottom:10px;font-weight:500;font-family:var(--sans);}
+  .flow-step p{font-size:13px;color:var(--muted);line-height:1.6;}
+  @media(max-width:860px){ .flow{grid-template-columns:1fr;gap:36px;} .flow-step{border-left:none;border-top:1px solid var(--line);padding:28px 0 0;} .flow-step:first-child{border-top:none;} }
+
+  /* PERFILES */
+  .profiles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:60px;border:1px solid var(--line);}
+  .profile-card{background:var(--bg2);padding:40px 28px;transition:background .25s;}
+  .profile-card:hover{background:var(--card);}
+  .profile-card .pname{font-family:var(--serif);font-size:22px;margin-bottom:6px;}
+  .profile-card .psub{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;}
+  .profile-card .ptag{font-size:14px;font-style:italic;color:#d8d2c4;margin-bottom:18px;min-height:44px;}
+  .profile-card .penemy{font-size:11px;color:var(--muted2);letter-spacing:0.5px;}
+  .profile-card .penemy b{color:var(--muted);font-weight:500;}
+  .profile-card a.plink{display:inline-block;margin-top:18px;font-size:11px;letter-spacing:1px;border-bottom:1px solid currentColor;padding-bottom:2px;}
+  @media(max-width:860px){ .profiles-grid{grid-template-columns:1fr;} }
+
+  /* CONTROL (app) */
+  .control-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;margin-top:50px;}
+  .control-features{display:flex;flex-direction:column;gap:34px;}
+  .cf h3{font-size:16px;font-family:var(--sans);font-weight:500;margin-bottom:8px;color:var(--gold);}
+  .cf p{font-size:14px;color:var(--muted);line-height:1.6;}
+  .phone-mock{
+    background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px;
+    box-shadow:0 40px 80px -30px rgba(0,0,0,0.8);
+  }
+  @media(max-width:860px){ .control-grid{grid-template-columns:1fr;} }
+
+  /* METODO */
+  .pillars{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .pillar{background:var(--bg2);padding:34px 30px;}
+  .pillar .pn{font-family:var(--serif);color:var(--gold);font-size:13px;margin-bottom:10px;}
+  .pillar h3{font-size:17px;font-family:var(--sans);font-weight:500;margin-bottom:10px;}
+  .pillar p{font-size:13px;color:var(--muted);line-height:1.65;}
+  @media(max-width:760px){ .pillars{grid-template-columns:1fr;} }
+
+  /* CONOCIMIENTO / HEXISPEDIA */
+  .kb-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-top:48px;margin-bottom:40px;}
+  .kb-tab{
+    font-size:12px;letter-spacing:0.5px;padding:9px 16px;border:1px solid var(--line);
+    border-radius:2px;color:var(--muted);cursor:pointer;transition:.2s;
+  }
+  .kb-tab.active,.kb-tab:hover{border-color:var(--gold);color:var(--gold);}
+  .kb-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);min-height:120px;}
+  .kb-card{background:var(--bg2);padding:26px 28px;}
+  .kb-org{font-size:10px;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;}
+  .kb-card h4{font-family:var(--serif);font-size:16px;font-weight:400;margin-bottom:8px;line-height:1.35;}
+  .kb-card p{font-size:12.5px;color:var(--muted);line-height:1.6;}
+  .kb-loading{color:var(--muted2);font-size:13px;padding:40px 0;text-align:center;grid-column:1/-1;background:var(--bg2);}
+  @media(max-width:760px){ .kb-grid{grid-template-columns:1fr;} }
+
+  /* SOON sections */
+  .soon{
+    border:1px dashed var(--line);padding:70px 40px;text-align:center;margin-top:50px;border-radius:2px;
+  }
+  .soon .eyebrow{margin-bottom:14px;}
+  .soon p{color:var(--muted);font-size:14px;}
+
+  /* CORAZON */
+  .heart{margin-top:50px;padding:70px 60px;border:1px solid var(--line);text-align:left;}
+  .heart p{color:var(--muted2);font-size:13px;font-style:italic;}
+  .heart-story{text-align:left;}
+  .heart-story p{
+    color:#c9c2b4;font-size:16px;font-style:normal;line-height:1.85;
+    margin-bottom:22px;font-weight:300;
+  }
+  .heart-story p:first-child::first-letter{
+    font-family:var(--serif);font-size:52px;float:left;line-height:0.8;
+    padding-right:10px;padding-top:8px;color:var(--gold);
+  }
+  .heart-story p.heart-final{
+    color:var(--gold);font-family:var(--serif);font-size:20px;font-style:italic;
+    margin-bottom:0;margin-top:32px;text-align:center;
+  }
+  @media(max-width:760px){ .heart{padding:44px 26px;} }
+
+  /* TESTIMONIOS */
+  #testi-section{display:none;}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:50px;}
+  .testi-card{background:var(--bg2);padding:32px 26px;}
+  .testi-card .stars{color:var(--gold);font-size:13px;margin-bottom:14px;}
+  .testi-card .quote{font-size:14px;color:#d8d2c4;line-height:1.65;font-style:italic;margin-bottom:16px;}
+  .testi-card .who{font-size:12px;color:var(--muted);letter-spacing:0.5px;}
+  @media(max-width:860px){ .testi-grid{grid-template-columns:1fr;} }
+
+  /* PRICING */
+  .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;}
+  .price-card{border:1px solid var(--line);padding:36px 30px;background:var(--bg2);display:flex;flex-direction:column;}
+  .price-card.hi{border-color:var(--gold);}
+  .price-step{font-size:11px;color:var(--muted2);letter-spacing:1px;margin-bottom:10px;}
+  .price-card h3{font-family:var(--serif);font-size:22px;margin-bottom:6px;}
+  .price-amount{font-size:30px;font-family:var(--serif);color:var(--gold);margin-bottom:18px;}
+  .price-list{list-style:none;font-size:13px;color:var(--muted);line-height:2.1;margin-bottom:24px;flex:1;}
+  .price-list li:before{content:"— ";color:var(--gold);}
+  .price-cta{
+    display:block;text-align:center;padding:13px;border:1px solid var(--gold);color:var(--gold);
+    font-size:12px;letter-spacing:1px;border-radius:2px;transition:.2s;
+  }
+  .price-cta:hover{background:var(--gold);color:#050505;}
+  @media(max-width:860px){ .pricing-grid{grid-template-columns:1fr;} }
+
+  footer{padding:60px 0;border-top:1px solid var(--line);text-align:center;color:var(--muted2);font-size:12px;}
+  footer .logo{margin-bottom:14px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">HEXIS</div>
+    <div class="navlinks">
+      <a href="#sistema">Sistema</a>
+      <a href="#perfiles">Perfiles</a>
+      <a href="#conocimiento">Conocimiento</a>
+      <a href="#entra">Precios</a>
+    </div>
+    <a class="navcta" href="#entra">Empezar</a>
+  </div>
+</nav>
+
+<!-- ENTRAR -->
+<section class="hero">
+  <div class="eyebrow">HEXIS</div>
+  <h1>No necesitas más motivación.<br>Necesitas algo que puedas sostener.</h1>
+  <div class="sub">Fortaleza del cuerpo · Claridad de la mente</div>
+  <div class="scrolldown">DESCUBRE<span class="arrow">↓</span></div>
+</section>
+
+<!-- TU SISTEMA -->
+<section id="sistema">
+  <div class="wrap">
+    <div class="eyebrow">Tu sistema</div>
+    <h2>No te decimos lo que hiciste.<br><em>Te decimos qué hacer después.</em></h2>
+    <p class="lead">La mayoría de apps de fitness terminan en un número. HEXIS termina en una decisión. Cuatro pasos, siempre con tus datos reales — nunca con una media genérica de internet.</p>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">01</div>
+        <h3>Datos</h3>
+        <p>Lo que entrenas, comes y duermes de verdad — registrado por ti, no estimado por nadie.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">02</div>
+        <h3>Interpretación</h3>
+        <p>Tu Score de Coherencia y tus tendencias reales te dicen si tus acciones encajan con quién quieres ser.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">03</div>
+        <h3>Decisión</h3>
+        <p>Tu plan se ajusta solo — peso, volumen y macros cambian cuando tu rendimiento real lo pide.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">04</div>
+        <h3>Acción</h3>
+        <p>Tu día de hoy, calculado. Sin improvisar, sin decidir desde cero cada mañana.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- TU PERFIL -->
+<section id="perfiles">
+  <div class="wrap">
+    <div class="eyebrow">Tu perfil</div>
+    <h2>No te sale un perfil.<br><em>Eres uno.</em></h2>
+    <p class="lead">90 segundos. Sin email, sin compromiso. Al final: tu arquetipo, tu enemigo real, y qué sistema necesitas — no el de otra persona.</p>
+    <div class="profiles-grid">
+      <div class="profile-card" style="color:var(--alpha)">
+        <div class="pname">ALPHA</div>
+        <div class="psub">El Arquitecto</div>
+        <div class="ptag">"Construyo lo que otros solo desean."</div>
+        <div class="penemy">Enemigo: <b>la comodidad</b></div>
+        <a class="plink" href="#entra">¿Eres tú? →</a>
+      </div>
+      <div class="profile-card" style="color:var(--shape)">
+        <div class="pname">SHAPE</div>
+        <div class="psub">El Recomponedor</div>
+        <div class="ptag">"No elijo entre perder o ganar. Hago ambas cosas."</div>
+        <div class="penemy">Enemigo: <b>la impaciencia</b></div>
+        <a class="plink" href="#entra">¿Eres tú? →</a>
+      </div>
+      <div class="profile-card" style="color:var(--zen)">
+        <div class="pname">ZEN</div>
+        <div class="psub">El que Reinicia</div>
+        <div class="ptag">"Bajo la intensidad para subir la vida."</div>
+        <div class="penemy">Enemigo: <b>el desgaste acumulado</b></div>
+        <a class="plink" href="#entra">¿Eres tú? →</a>
+      </div>
+      <div class="profile-card" style="color:var(--hera)">
+        <div class="pname">HERA</div>
+        <div class="psub">La Escultora</div>
+        <div class="ptag">"Defino sin castigarme."</div>
+        <div class="penemy">Enemigo: <b>la restricción extrema</b></div>
+        <a class="plink" href="#entra">¿Eres tú? →</a>
+      </div>
+      <div class="profile-card" style="color:var(--atenea)">
+        <div class="pname">ATENEA</div>
+        <div class="psub">La Estratega</div>
+        <div class="ptag">"Mi tiempo es finito. Mi sistema, no."</div>
+        <div class="penemy">Enemigo: <b>la falta de tiempo</b></div>
+        <a class="plink" href="#entra">¿Eres tú? →</a>
+      </div>
+      <div class="profile-card" style="color:var(--gaia)">
+        <div class="pname">GAIA</div>
+        <div class="psub">La Sostenedora</div>
+        <div class="ptag">"Reconecto, no fuerzo."</div>
+        <div class="penemy">Enemigo: <b>la prisa por volver a como era</b></div>
+        <a class="plink" href="#entra">¿Eres tú? →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- HEXIS CONTROL -->
+<section id="control">
+  <div class="wrap">
+    <div class="eyebrow">HEXIS Control</div>
+    <h2>Tu sistema, <em>en tu bolsillo.</em></h2>
+    <div class="control-grid">
+      <div class="control-features">
+        <div class="cf">
+          <h3>Entreno adaptativo</h3>
+          <p>Tu plan sube de peso o baja de volumen solo cuando tu rendimiento real lo pide — nunca a ciegas.</p>
+        </div>
+        <div class="cf">
+          <h3>Nutrición de precisión</h3>
+          <p>Tus macros exactos, calculados con tu peso, altura y actividad reales — no una media genérica de internet.</p>
+        </div>
+        <div class="cf">
+          <h3>Espejo de Coherencia</h3>
+          <p>Un cierre diario opcional para ver si tus acciones de hoy encajan con quién eliges ser.</p>
+        </div>
+        <div class="cf">
+          <h3>Cuerpo Griego</h3>
+          <p>Toca un músculo, descubre qué entrenar ahí y por qué — en el momento, no en una lista aparte.</p>
+        </div>
+      </div>
+      <div class="phone-mock">
+        <div style="font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;">Fase 1 · Fundamentals</div>
+        <div style="font-family:var(--serif);font-size:26px;margin-bottom:6px;">ALPHA</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:26px;">El Arquitecto · Superávit +250 kcal</div>
+        <div style="display:flex;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line);">
+          <span style="font-size:12px;color:var(--muted)">Entreno de hoy</span>
+          <span style="font-size:12px;">Press banca · 4×8</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line);">
+          <span style="font-size:12px;color:var(--muted)">Objetivo calórico</span>
+          <span style="font-size:12px;">2.650 kcal</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+          <span style="font-size:12px;color:var(--muted)">Score de Coherencia</span>
+          <span style="font-size:12px;color:var(--gold)">78</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- EL METODO -->
+<section id="metodo">
+  <div class="wrap">
+    <div class="eyebrow">El código HEXIS</div>
+    <h2>Los 6 pilares que separan <em>el sistema del fracaso.</em></h2>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pn">I</div>
+        <h3>Identidad antes que resultado</h3>
+        <p>No "quiero perder 10kg". Sino "soy alguien que cuida su cuerpo" — por eso el test te da un arquetipo, no una dieta.</p>
+      </div>
+      <div class="pillar">
+        <div class="pn">II</div>
+        <h3>Sistemas antes que motivación</h3>
+        <p>La motivación no se siente, se ejecuta — por eso tu plan llega calculado, no en blanco.</p>
+      </div>
+      <div class="pillar">
+        <div class="pn">III</div>
+        <h3>Progreso antes que perfección</h3>
+        <p>El que sigue avanzando llega. El que espera ser perfecto no sale — por eso tu racha no se rompe por un mal día, solo por dejarlo del todo.</p>
+      </div>
+      <div class="pillar">
+        <div class="pn">IV</div>
+        <h3>Coherencia antes que intensidad</h3>
+        <p>Una hora diaria 300 días vale más que 10 horas un mes — por eso el Score de Coherencia mide constancia, no picos de intensidad.</p>
+      </div>
+      <div class="pillar">
+        <div class="pn">V</div>
+        <h3>Datos antes que sensaciones</h3>
+        <p>La motivación miente. Los números no — por eso cada gráfica sale de un dato que tú registraste, nunca de un promedio.</p>
+      </div>
+      <div class="pillar">
+        <div class="pn">VI</div>
+        <h3>Eficiencia antes que cantidad</h3>
+        <p>Máximo resultado útil. Mínima fricción innecesaria — por eso cada sesión dura justo lo que tu arquetipo necesita, ni un minuto de relleno.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- EL CONOCIMIENTO -->
+<section id="conocimiento">
+  <div class="wrap">
+    <div class="eyebrow">HEXISPEDIA</div>
+    <h2>El conocimiento, <em>siempre con fuente.</em></h2>
+    <p class="lead">Actualización constante de información en fichas, auditadas contra guías de sociedades científicas reconocidas (ACSM, NSCA, ISSN) — nunca principios genéricos sin citar. Explora por categoría.</p>
+    <div class="kb-tabs" id="kb-tabs"></div>
+    <div class="kb-grid" id="kb-grid">
+      <div class="kb-loading">Cargando HEXISPEDIA…</div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="wrap-narrow center">
+    <div class="eyebrow">Los servicios</div>
+    <h2>Cuando el sistema <em>no basta solo.</em></h2>
+  </div>
+</section>
+
+<!-- STORE -->
+<section id="store">
+  <div class="wrap-narrow center">
+    <div class="eyebrow">HEXIS Store</div>
+    <h2>El sistema, <em>también fuera de la pantalla.</em></h2>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- EL CORAZON DE HEXIS -->
+<!-- Texto pendiente de Oscar — no se rellena con contenido inventado. -->
+<section id="corazon">
+  <div class="wrap-narrow center">
+    <div class="eyebrow">El corazón de HEXIS</div>
+    <h2>Antes de ser un sistema, <em>fue una historia.</em></h2>
+    <div class="heart heart-story">
+      <p>No voy a hablarte de HEXIS sin hablarte primero de mi historia personal. Durante mucho tiempo pensé que ya era demasiado tarde. Llegué a pesar 110,7 kilos. No era feliz con lo que veía en el espejo, pero lo peor era sentir que me estaba apagando.</p>
+      <p>Tenía una hija pequeña, trabajo, obligaciones, cansancio acumulado. Y aun así, en mi cabeza siempre había la misma excusa: «cuando tenga motivación». Pero la motivación nunca llegó.</p>
+      <p>Y un día entendí algo que me cambió la vida: la motivación es una emoción, y las emociones cambian. Si dependía de eso, estaba condenada a fallar.</p>
+      <p>Así que dejé de negociar conmigo. No prometí hacerlo perfecto. Solo prometí aparecer. Aunque no quisiera, aunque doliera, aunque lloviera. Solo un paso. Después otro… y otro.</p>
+      <p>Sin darme cuenta, el hábito empezó a decidir por encima de mi ánimo. Ya no era fuerza de voluntad. Era identidad. Era la persona que no se rendía.</p>
+      <p>Con el tiempo llegó una tarima, llegó un trofeo. Pero ese nunca fue mi mayor logro. Mi mayor logro fue entender que ya no necesitaba motivación para cuidarme…</p>
+      <p>Y con el paso del tiempo descubrí algo todavía más importante: el mayor premio no estaba al final; estaba en cada día que no me rendí.</p>
+      <p class="heart-final">Fue entonces cuando nació HEXIS.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS (oculto hasta que haya alguno publicado) -->
+<section id="testi-section">
+  <div class="wrap">
+    <div class="eyebrow">Lo que dicen</div>
+    <h2>No lo decimos nosotros. <em>Lo dicen ellos.</em></h2>
+    <div class="testi-grid" id="testi-grid"></div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- ENTRA EN HEXIS -->
+<section id="entra">
+  <div class="wrap">
+    <div class="eyebrow">Tu camino dentro de HEXIS</div>
+    <h2>Empieza, evoluciona, <em>o entra con todo.</em></h2>
+    <p class="lead">START es tu plan inicial calculado con tus datos reales. PRO es la capa de inteligencia que lo hace ajustarse solo a ti. No son productos distintos: es el mismo sistema, en el punto en el que tú decidas empezar.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-step">Paso 1</div>
+        <h3>HEXIS START</h3>
+        <div class="price-amount">77 €</div>
+        <ul class="price-list">
+          <li>Test de arquetipo + PDF personalizado</li>
+          <li>Plan de macros con tus datos reales</li>
+          <li>Entreno por arquetipo</li>
+          <li>Hábitos, racha e HEXISPEDIA</li>
+        </ul>
+        <a class="price-cta" href="https://pay.hotmart.com/K107014697X">Empezar con START →</a>
+      </div>
+      <div class="price-card hi">
+        <div class="price-step">Paso 2 · si ya tienes START</div>
+        <h3>PRO Actualización</h3>
+        <div class="price-amount">72,99 €</div>
+        <ul class="price-list">
+          <li>Motor adaptativo</li>
+          <li>Métricas completas y gráficas</li>
+          <li>Score de Coherencia y Recovery</li>
+          <li>Análisis con IA de plato y físico</li>
+        </ul>
+        <a class="price-cta" href="https://pay.hotmart.com/K107168260M">Actualizar a PRO →</a>
+      </div>
+      <div class="price-card">
+        <div class="price-step">O entra directo</div>
+        <h3>PRO Completo</h3>
+        <div class="price-amount">149 €</div>
+        <ul class="price-list">
+          <li>Todo lo de START</li>
+          <li>Todo lo de PRO Actualización</li>
+          <li>El sistema completo desde hoy</li>
+        </ul>
+        <a class="price-cta" href="https://pay.hotmart.com/B107168387J">Empezar con todo →</a>
+      </div>
+    </div>
+
+    <div style="margin-top:56px;padding-top:40px;border-top:1px solid var(--line);">
+      <div class="eyebrow" style="margin-bottom:16px;">O mes a mes, sin compromiso</div>
+      <div style="display:flex;gap:48px;flex-wrap:wrap;margin-bottom:20px;">
+        <div>
+          <div style="font-family:var(--serif);font-size:20px;color:var(--ink);">HEXIS START</div>
+          <div style="font-family:var(--serif);font-size:22px;color:var(--gold);margin-bottom:12px;">9,99 €/mes</div>
+          <a class="price-cta" style="display:inline-block;padding:10px 22px;" href="https://pay.hotmart.com/T107350999G">Suscribirme a START →</a>
+        </div>
+        <div>
+          <div style="font-family:var(--serif);font-size:20px;color:var(--ink);">HEXIS PRO</div>
+          <div style="font-family:var(--serif);font-size:22px;color:var(--gold);margin-bottom:12px;">19,99 €/mes</div>
+          <a class="price-cta" style="display:inline-block;padding:10px 22px;" href="https://pay.hotmart.com/Q107351037R">Suscribirme a PRO →</a>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:18px;">Vía independiente del pago único. Usa el mismo email al pagar y al entrar en la app: el acceso se activa solo, sin códigos.</p>
+      <p style="font-size:11px;color:var(--muted2);line-height:1.7;max-width:640px;">El primer pago se realiza al confirmar la compra; después, la suscripción se renueva automáticamente cada mes por el importe correspondiente hasta que la canceles. Puedes cancelar en cualquier momento desde tu perfil, y el acceso sigue activo hasta el final del periodo ya pagado.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo" style="font-family:var(--serif);letter-spacing:3px;">HEXIS</div>
+  <div>Fortaleza del cuerpo · Claridad de la mente</div>
+  <div style="margin-top:10px;">© 2026 HEXIS</div>
+</footer>
+
+<script>
+(function(){
+  var SUPA_URL = 'https://xdrgwlynhpjypcbbfxnp.supabase.co';
+  var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhkcmd3bHluaHBqeXBjYmJmeG5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ4NDE3NDMsImV4cCI6MjEwMDQxNzc0M30.EKgCtupnGv31v54WJk7tEJJYxqKbEn48Lfx962o7icM';
+
+  var CATEGORY_LABELS = {
+    suplementacion:'Suplementación', entreno:'Entreno', nutricion:'Nutrición', sueno:'Sueño',
+    biomecanica:'Biomecánica', ejercicios:'Ejercicios', longevidad:'Longevidad', metabolica:'Metabólica',
+    rutinas:'Rutinas', hormonal:'Hormonal', mental:'Mental'
+  };
+
+  var allFichas = [];
+  var currentCat = 'all';
+
+  function esc(s){
+    var d = document.createElement('div');
+    d.textContent = s || '';
+    return d.innerHTML;
+  }
+
+  function renderTabs(cats){
+    var tabsEl = document.getElementById('kb-tabs');
+    var html = '<div class="kb-tab active" data-cat="all">Todo</div>';
+    cats.forEach(function(c){
+      html += '<div class="kb-tab" data-cat="'+esc(c)+'">'+esc(CATEGORY_LABELS[c] || c)+'</div>';
+    });
+    tabsEl.innerHTML = html;
+    tabsEl.querySelectorAll('.kb-tab').forEach(function(tab){
+      tab.addEventListener('click', function(){
+        tabsEl.querySelectorAll('.kb-tab').forEach(function(t){ t.classList.remove('active'); });
+        tab.classList.add('active');
+        currentCat = tab.getAttribute('data-cat');
+        renderCards();
+      });
+    });
+  }
+
+  function renderCards(){
+    var grid = document.getElementById('kb-grid');
+    var seen = {};
+    var list = allFichas.filter(function(f){
+      if (currentCat !== 'all' && f.category !== currentCat) return false;
+      var key = f.title;
+      if (seen[key]) return false;
+      seen[key] = true;
+      return true;
+    }).slice(0, 20);
+    if (!list.length){
+      grid.innerHTML = '<div class="kb-loading">Sin fichas en esta categoría todavía.</div>';
+      return;
+    }
+    grid.innerHTML = list.map(function(f){
+      return '<div class="kb-card">'
+        + '<div class="kb-org">'+esc(f.org)+' · '+esc(CATEGORY_LABELS[f.category] || f.category)+'</div>'
+        + '<h4>'+esc(f.title)+'</h4>'
+        + '<p>'+esc((f.body||'').slice(0,160))+(f.body && f.body.length>160 ? '…' : '')+'</p>'
+        + '</div>';
+    }).join('');
+  }
+
+  fetch(SUPA_URL + '/rest/v1/hexispedia_fichas?select=category,title,body,org,tag&order=category.asc', {
+    headers: { apikey: SUPA_KEY, Authorization: 'Bearer ' + SUPA_KEY }
+  }).then(function(r){ return r.json(); }).then(function(data){
+    if (!Array.isArray(data)) throw new Error('respuesta inesperada');
+    allFichas = data;
+    var cats = [];
+    data.forEach(function(f){ if (f.category && cats.indexOf(f.category) === -1) cats.push(f.category); });
+    cats.sort();
+    renderTabs(cats);
+    renderCards();
+  }).catch(function(e){
+    document.getElementById('kb-grid').innerHTML = '<div class="kb-loading">No se pudo cargar HEXISPEDIA ahora mismo.</div>';
+  });
+
+  // Testimonios publicados (la sección solo aparece si hay alguno)
+  fetch(SUPA_URL + '/rest/v1/testimonials?select=name,archetype,quote,rating&published=eq.true&order=display_order.asc&limit=9', {
+    headers: { apikey: SUPA_KEY, Authorization: 'Bearer ' + SUPA_KEY }
+  }).then(function(r){ return r.json(); }).then(function(data){
+    if (!Array.isArray(data) || !data.length) return;
+    var section = document.getElementById('testi-section');
+    var grid = document.getElementById('testi-grid');
+    grid.innerHTML = data.map(function(t){
+      var stars = '★'.repeat(t.rating || 5);
+      return '<div class="testi-card">'
+        + '<div class="stars">'+stars+'</div>'
+        + '<div class="quote">"'+esc(t.quote)+'"</div>'
+        + '<div class="who">'+esc(t.name)+(t.archetype ? ' · '+esc(t.archetype) : '')+'</div>'
+        + '</div>';
+    }).join('');
+    section.style.display = 'block';
+  }).catch(function(){});
+})();
+</script>
+
+</body>
+</html>
