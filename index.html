@@ -187,6 +187,14 @@
     font-size:12px;letter-spacing:1px;border-radius:2px;transition:.2s;
   }
   .price-cta:hover{background:var(--gold);color:#050505;}
+  .price-tagline{font-family:var(--serif);font-size:19px;color:var(--ink);margin-bottom:8px;}
+  .price-sub{font-size:13px;color:var(--gold);letter-spacing:.3px;margin-bottom:14px;}
+  .price-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px;}
+  .price-includes{font-size:11px;color:var(--muted2);letter-spacing:1px;margin-bottom:8px;text-transform:uppercase;}
+  .price-list.rich{line-height:1.5;}
+  .price-list.rich li{margin-bottom:12px;}
+  .price-list.rich li strong{color:var(--ink);font-weight:500;}
+  .price-closing{font-size:13px;color:var(--muted);margin-bottom:20px;}
   @media(max-width:860px){ .pricing-grid{grid-template-columns:1fr;} }
 
   footer{padding:60px 0;border-top:1px solid var(--line);text-align:center;color:var(--muted2);font-size:12px;}
@@ -443,22 +451,7 @@
 
 <div class="wrap"><div class="divider"></div></div>
 
-<!-- SERVICIOS -->
-<section id="servicios">
-  <div class="ambient landscape"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABMNDhEODBMRDxEVFBMXHTAfHRoaHToqLCMwRT1JR0Q9Q0FMVm1dTFFoUkFDX4JgaHF1e3x7SlyGkIV3j214e3b/wAALCAE5AUABAREA/8QAGwAAAgMBAQEAAAAAAAAAAAAAAAECAwYEBQf/xABAEAACAgECBAMGBAMHAgYDAAAAAQIRAwQhBRIxQVFhcQYTIjKBkRRCobEVI1IkM0NicsHRJYI1c5Ky4fE0U2P/2gAIAQEAAD8AzcoRktyPI4NNNtfqepi4jijCEcvMm11qztxZIZY82OSkvIlQUKgoKBIdDodDodBRKhqI6GkOgofKOh0FDSGkFBQUOgoKHQUKg5RcoKJkH4B1b33F5PqT0uaWlzqa37PzPUfE9Osjg3KLXijoxZsWZXjmpehYIKHQ6HQ6GkNIKGkSoaQ6HQUOh0FDodBQ6CgodBQUOhUFBQUCRi1KPKpqdN9fISnFTioLaurJuKTV992PluVvstiGapZU1/Sh4ZZMWRTxupLoztjxdxpZsL9Ys79Pq8OpXwSqX9L2Z0JDoaQ6HQ6Ch0OiVDodAkOh0OgodBQ6Ch0HKFDoKCgoKCgoaR87acW00012ZKM/HsdUZrJUurRY91t4CilSXkSa+FoqcW477oSjyK4vb9js0/E82Co5Pjj/AJv+T2NLqYavG5wTVbNPsX0FDSJUOgokkFDodDodDoKHQUOgodBQ6CgodBQUFCoKJJGF1WpjnTvFFeEm9zjUfF0i7BkhjlTW3idajCSuDRGn6iatbje6capMri2pcskSaoE3CDWOcovr8Lo9fhmujHTVqstST+aT6npQlGcVKElJPunZJIkkSoKGkNIdDSHQUOh0FDoaQUFDoKCh0FBQUFBQUNI+eZtPPTT5csfi6p9bKrvsOl4E4Nr5WzrxrJKDkoWl1rqEckJ9CvHqIt1L4W31fQmqlKXK9qtyZFN5HttFfqTSpbEoR54yxv8AMtvU5sWfJgd4pyg/JnscN4vJRf42Vx7TS3+p6+LU4M391mhP0ZfQ6Ch0Oh0OgodDoKHQUOh0FDoKAKHQUFCoKGkZXiGlWfBJ18cFcf8Ag8Cumw1FsnihJuluz2NBo56lS943HDF8tR25juXC9GoOKwrfvbs4NTwC7enyf9s/+Ty8+k1Okf8AMxyivHqvuQx6lxpS3R0Ys0Mm3R+Zb3TXUpenpqS38UW12RS8VTuLq2d2l4nqdI+WU3lhfSW5otHqIazTxy47p7NeDL6HQUOgodDodDoKChjoEgoKHQ6CgChBQ0jLcQfLos3+mjONvbYmvQtxU335rTTTNRoZKeli1WzktlXdnQc+u1P4TTPLyc+9VdHhZeMaydpShBPsoo86dzk5S6vrsRi3GVo6oZ+byfgXxyp9dmP5fif0RCPzc328gXf1Cc8mOK91klC5flk0dGn4rrdNLfK8sfCe5oNNxXSZscHLNjx5Gt4SlVHbFqUVKLTi+jXRkh0NIdBQUOgodDoAoKHQUFAFBQUNIzOtgno8yav4WzN80V2Y04uXTYswr+dCl36WanRY/d6XGvFX9y9DcVJNNJp9U+54/E+DwWJ5tJDllHeUF3XkeBIVFmLE5ySS6s9nHwbNmx45QcIRq25fmODWaHW6TJKeTE+Vu7jvE5Y6l38S+x0Y5Rl8srJ5V8K/1IhksioXVryLtNq9VoneDI+XvF9H9DS8H4n/ABGE1OChkhV10Z6SQUOh0FDoKHQUFDCh0AUFAFBQUZbiu2gyVe9LbtuZp817lsfRluGN79HFrqarSJ/hcXN15EXJDHRiMtOcmttyCq+h6HDI45arCprZyp/obB7Lp0M5m9o8rbWLBCK6fE7Z42qyy1OV5JxhGT/pjRVDlhNPfY7oZI5I/DLfwfUMqUVb23Ffwr1HW1M7+Azlj4nCMemRNP0qzVjQ6AdBQUOh0AAMKCgoKCgoaRk+NNLQu+rkqM8otssjHqdGCLWNOm7yRjXiajTvm0+N/wCVFqRJIUtk34KzDTdyb8RJfEd3DIuWswJPrI2bPM4lwbDq4SnihGGfqpLZN+ZlMuOWOcoTVSi6afZkEdWi02TU5lDBFznTdJleqx6rBcNRjnjvtJHPCcoPZnRDUrpNfVHp8Ek48VwNdJNx+jRr6AdAkOhgA6Ch0FBQwAKAARj+PZIx0sIP5nK19DwVN2TjN+R16TNGLgpK/j29aNNo6ejxU7+Gti+iSRDM1HBkk+ii2/sYfatwpNno8GxqWvwb07s19AkYvik3PiOob/ra2RyRe6Pc9mci/GyjyxuWN71v1PU45w7NxDTwjhmlKEr5W6UjIZtPPBlljyxcZxdNMrquhfhyZLjCr7KuppuBPiKzyx6mOX3Ci6eRd/Jnu0MB0FBQ6ChgADCgoKCgoaRiPaKO2CV+Ko8anzMcU+tnRhxy5sNq059DT8ITWgjfeUmvuztRI5uJy5OG6mX/APNmLbQ73O7g7/6hpk+8jZjSMNxDbXaj/wAyX7nMuqPb9mov+IXW3u5X9zU0Z/2rxQWPBm5am24t11Rm19T2PZ2OKfE4LInJ03HbvRr6HQwoYDCgHQUFDoKABgIZhfaKX87DHwi3+p4yacmWRaovwup4G7rnr9UajhO/D8b73L/3M7aJJFHEMLz6DPjTScoPd/cxPLe+wKHmelwTFevxO+kjYUNLcwmtyc+tzSa6zl09SpOLfQ9v2Zl/bpRVU8bfpuaijP8AtbJe708L3uTozcUet7Or/q+H0l/7TY0FDGADoYAADoKAB0FBQJGA9oX/AG2C8IL92eXFbvYmoumdGn5ufAnF0p3080ajhDvhuLbvL92dqJIo4h/4dqd6/ly3+higPU4A64lje2+xrqHRgNRvqMr/AM7/AHK0j2fZqL/icXv/AHcvqa2jNe1yanpmqrlkvMzlu+jPW9m3J8XxJRb2le3TY2gwGFDAYUFDCgoBgAAB854w74nmvxr9EcMe9lkK5Ts09KeldtO5f7mr0UVHRYEqf8tdPQvokkcnF6XCtTzNL4DFuVAnuer7PpfxLG3Xka+h0YHPXvcjrbmf7ldrwPd9luV6zI63UGrfqjUUZn2tX87Tb/klt9TPq7PW9nIzlxbHKKdRUnL0o2QwoYDChhQwAAoAGAAfNeKV/E9Rf9bOVVT3LIpcp2aZJzxJvopNfY1ukhyaTDFKqhH9i4aR5ntHG+FPyyRMm4LpXcahTZ28LU/x2n5W9pXt6m3rcOxgMjuUvVkNj3fZb/8ALy/6P90agy/tY2tXp9nXu3+54XLJ7tnt+y6a4k/itOD2NZQwGAwGAAMAABgAHzTjGTn4pm6Uny9PA4oyvqWxmX4cso5MTXW6++xsOGaiWq0OPLNJS3W3TZ0daJI8f2om48PhFPaWRX9EzJ+G403b3O7huWUNVgklaUt/ubp9SOSXJjlKr5U3R88nJym5VV7iUn4Ht+y+RriPJ2ljl+hrTLe1k29dhil8uO7+p4XxX1PW9nLXFsXXfmX6GzAdAMYAMAAYAAAMR8w10Zfj8/Mt+eV/cojBpLYmtu36F2naeXCvh2km79TXcFjy8Lw2qu392zvRJHi+1D/seGL75P8AYzHLv2Hy2ehwePNrcMXV83+5tBZIuWOUVs2mkfPMkHCcoum4umJJ30Pb9l4SfEuZdIY5Xfma0yHtU3/FEr2WOP8AueOr3PV9nZNcXw7Np2v0NoMYDAYAMAAAABgB8s1dvVZm5X8Ut/qVx6dSyHqdGCF5sG63kv3NZwbm/heDmbbp9fC3R3IkeB7Vy+DTLzk/2M65U+gKXkenwOMpa/Ful8SNmRyNRxTk+ii2z53LdtiSfkaL2TnH8RmhKK53DZrwT/8Ao05jfaafPxecf6YxSr0s8lLy/U9n2ZX/AFaG35ZfsbIBjAYAMAAYAAAAHyrNCUM2SL3abWxGKZbGLq6Z0aaN6jCt+t9DW8KhLFw3BGfzct/qdiGZ32rknPTQrdRk78rM+1v1Ed/Csnu9Zhd91t9Tc9yOVxWKfP8ALyu/Sj57Jdaquwlfkez7NTUOJQ52k5xlGPqa8xHtE3/Gc9U/lXh2PNi5eCPb9l7/AImrW7i/2NiAxgAwGAAMAAAAD5VKbuTdWEZbb0Wxk6pdPGzs00mtTpqj3/5NPw6Tlw/A5deRHUmOzM+075tdjSfTGv3Z4zi76iSOzh8a1mnbtrmv9TdN7s59fk5NBqJeGOX7GDktmJXaPT4G1Himmb/ra/Q2tmI49N5OMai96lyq/BI4EvJHsezcnDicEmkpJp7dVRsLHY7HYWFjsLCx2FhYOSirk0l5kVnxOXKskW/CydhYAAHymW6kNfKTj0R2aRP8ThfVQVt+C3NPw9/2DB/oR0pkkzN+00GtXjmq+KFV6M8Vt30BSl4HocISnr8Klsr3v1Nne5y8UTnwzUpNJ8jZiJPrSYottrZnq8CwyycRwPZcsnLdmxsw/GpL+Lan/X/scSkvE9f2bp8Vg+tRlXrRsLHY7Cx2Fj5gsdlWXU48W0nb8Ec8+IS/w8f1bOees1Mvz8q8kUzc5u5ylJ+bI8js7dPrcmOKjNc6XfudcNZil1bi/NFkc2OTqM4v6k7Cws+Wcuz9SSg9kWKG1HZpYcueCu1KDs0WimoaLCmqagi9ZYj97Ez3tDPn1sKeygv3Z5Xca6nfwqKetx3te6+6Nd7yNnPxDLBcP1Fvb3bMS1uPv2PS4NNR4jpm3Xxtfoa9TiYLXO9bnb75JdfUpX0PQ4NLl4rpv/M7ehtfeRD3kR+8iHvIj95HxD3kfEPeR8SM8+OC3e/gjlyamc3s+VeCKgpBSHQ6QUgpDL8WplBVL4l+pbHVxfzRa/Us9/i/qPl7r0Jr12JrZdT0NDyLLC0nJYm0e3zSaTUWrQql4DXN32PE40/7Yra+Rdzz7W/QafmdnDlKWrx/5d/1NK5NP5n9jl4q3Lh2Zcz6L9zLvm7LYNz0eD4pT1uKSlXLJy9djTKfqZHXSUtbmaqud19ylP4VaR38G34jjaS2vp6GmvzC/MlfqNPzHYWO0FRfZByx/pQcsfBByx8EPlj4IOWPgPlj4IajHwQcsfBBS8EFR8EOo+CBJeCPnTS28ycFzIs5F4Ho8MgsjnLkVxhyrz3PTc2+7oVvxGmeFxN/27J06pfoctMfK0jt4fGT1WLd/LvXqaJ9epy8Tajw7NfdJfqZzxEtz0eEy5NZitXcmv2NHy0zI6qcXqcrrrN/uVKd9KO7hTb4hhSa+bx8jTV4sewBY7Cx2Ox2OxcyDmHzD5kNSC/MdhYWFnzdpruTi59mTTn4no8Mcnkl8TUfdtt+DPXUXypu90NQS7fWySpeBntdvrsu/wCZlHiCe2538NtavG1/T/uaJqSbvY4+Lf8Ah2XmfhV+Nmb+g2/JnpcGinrcdu9pbV0dGhrfdr7mOzpSzTak95P9yuMV3bPT4KofjE290m0e85+DGprvY1NdrHzrwBT8A52HM/AabHfiwUl4kuZBzi5g5hqSJKddhqRK0K32FzPufPOVtWTimvzFqi6W7+iO/hyjDVLHK+WcGpJvys9lRfLHo1XUOV+KSJpJdGjM61r8bm6/O+hTtWzY4Rj3s9LhvLHURk4t1BV90e85NPqefxqTeg/70Z7maJXfqd/CHza7Cls7dmkyVCEpP8qb2RjJSTd+IJ2kejwqfJrcfwvd1fqj3ZSp9P1F7zyDnDnY1JvxZK2uuwOX1DnYOXmLmHzC5h8wKddiXP5Asi7Jj50P3jsfvH5fcam32X3MDzUtl0HzN9mWJy5Kr7ndo4SnrIXJ7Rb+FeET14JrHF3W3ckl/UxpJSV8xm9Q1PU5JLo5N/qVroycejPQ4a8a1UXkeyjHfw3R7k9booya9/Hbw3s8zi+u0+fSPHhc3LmT3jseHUv6X9iVST+WR1aCWXHlWTGlFp0m33ZdrdZmk4xzZJTi1s06Xo0cjhi5lapeT3Lc2mwxxPJjyKlFPr38B48MnjuuSXZqVUetw/UTzqWKScpQXzeJ0uL7IKbqycYro7YN8uy2I3v1DmrwHzD5hp2hWPYBj6AGwB5jTMLSS6ssi6XcnzNLoj0tHK9c6/8A1SW3+k68eqxLFBPJG1FXb7ifEsXbmb8kcep1+py7YqhH+rucHu8rfy2Sjp8rW0SS086qTivVnRgccfNzStSjyuiGozRgrxpp/wCbdMsxZovCpSUbrekPFnjkvl2a7MhqJ/FFSatv7EU0t00KeWHLL4l0KVmeR7JRaK5XKld0+hb77I1cZJLyQ8WpyYm3Gcm313J/jtQ1XvJNeFjWuyQSacub/UyceIaib2zTX1OjBxLLCDjOPvW+jb3JPiephfPpK+jEuNtLfT/aROPGsb+bDNejLI8Z0/eORfQsXF9LLZykvWJNcS0kv8ZL1LI67TNbZ4WvFk1qsMltmx/+oks2N/LOL9GTUk+6aHY0/HqO1fRjtMOZIwlPwZOEZPom/oXrHN18DR3abUQwaqWVx5k4uKTfiilyxqTbt35jjkhe0a9SOTNJK4Uq8Cp5cslTdIsjz7XNVXqNpScU32tipQ3dJeDKs2VThd0/BEMUXOqLVg7ttoJYsiqTW3REfduTp7X0RBtxVV6poh7uXVUkSjjnjbd2xrBNdHs+w44ci/K/sTjhnfh6kcuOk2+vkyvGpLInX2OiGVcyfmPHqss3KEskqTe7ewmlzVad+BL3N9KZCUVDeS8gioP81eoPGv6kxe78iPKvIOQKa6N/calNdJz/APUyS1GePTNkXpJklrtVHpqMv3JLiWsX+PJ+qJri2tX+In/2o5fxCV069BLUtvpsiyOfD+aE/pIvjk0j7ZIu76WW+5wSipwm2n2K8nLFpNLayp5YLZPeuxzt88nWyS6sblkhC4q4+NFXvsl3bLMSi3/MVt/YteHBOO0WpeKZLT6aOaXu4c0X4shqcDwTfJlWReK2K1kl/VL7nqRhc4SpP4d6VJ7FPEJY0saUakld+NnDPI6+FFmDWclLJFOK8jrWp0aakk1L0oktXgyNR95ON7WtiGoyRwuL+HmXWEt7ObmhKPxeN0lRZGOHljUZW+rcjmyTgptQV79WV9exLFJR2Z1QmpElOPy0mn1OFtW0CZKL3JwTknVvcdNeIkkh9Owmw5vqR5l3ZK11RzNgnTJplmKbhOM4vdO0dEpe8k5OLblu6Ldcl+D0mSMd6ae93uee223tS8ASfjRPmnVSb5fC9iPLQ0ySlVbHfBpYqinHm6+ZyyXvJ0lsrT3KJL3cmn2PT0etxyXLllGFLv0Zy6jPHPllO9ui9Dmk99mDaVbeqZ2afknH+7gq8iWoiouDSinXY5ZYZZWn07XZfDHDHFc7v1/4LMWTDiXNlim38qW5z6nLinFxUale21FChJ9Fa8iTx31Tv0EscktuZByNPq/uNY/qHJ5DWOPdFikoroqJwzpdI/Ziebd0nXmHvMfh+gc2B7On9KCMINtJJ30UpVQ/w8X1g78pWQjp229tvVHCAWSU2iznnJf8ElztVtSJNJMj57g2+wmmyDjJdCS5l+Ut99l5FFpbdGyLlKvm+yIWqut76sU3dCQPsTfQtxZ/d43FXd2QlklJt7030LYSksaSa8WUOb3d72NZGkkqElFu5S/Q6dNLkg0qdvqX+9ls+WG3kWYsnPOMZY4u3RbqccHhpQS5U9zz0SqyMoX/APBW1T6bEubFVNSi/uQdV1shzeQlIOZvahKTa2T260Lm/wAxWo2iXIv6r+g1CKe7skkk9lZZG+0fuPlvvQtkK0hWhKUWyUmlvG2vEFOTj1peQLxe4KDl0W3iS91DpKweOD23BYYX1Y5aZONw5m12KHKiWNKUq+7OjlilSivqQcINvqiPuE+j+4niruWxwuEXKk5dkyStLeKT8EHM+6f0ZKGTknGTvZpnorJgyY5y976RS3PPjON7/oS5ovomhbdmFq//AJE4xa2Sv0IuCq6X2IvGpbJC/D+KaIywdlZXLDKO/T1BYZutk7K1GT2HyPvJjSS6kk/Ak35pA9luyEpRQe8SSqKsUpuTT6bUR67lii3srsmsE+W1T7dSM1LG1zp77ok8i/8AoFlTHzrsNSTPT0ji8CUF16+p5OtwPFndfLLdCxJRTfcc5N9CKcrtu/Iby3028xc7rdb9i5OS8fEOZ+ND52u9j97a3iJz7HRjljlFXFcy7+JKUoPpCvAi1Xb7EGokVjTe1g8aj+eiLjJdJWiHvJqNRar0E8uTukyqWXdXHZeYLOr/ADIStyW/UJtwlyzQLJDr+4e+i4tcu/iQ5mFNj5eg3Wy6BW3gEbeyTfoThzJ/EmmifO13I3fmG3ci+VPqHLz7RZPHhyN1cW/U7dI3p5PnlFx8E9yHEMuPNGLh8yfSji5uXYXOPnISdt0CbtWnRe8qez6C54vqrQ+a0Rbp7bCc3KO/VBHI0rTpnRHJLl69Q9414gslofPvvQTdPyfcSTe4m30/3IOS8CufTdblTjW41kS/LYSyObuUU2QW4cpOtiMmk3sNS2Jwj7yat8q8Tqjgxx3a535limoK0kkU6jUe8jGN3TOZ5BRybk+YqlLcsg1yj5q6MkpO93YOVvsD6Ak32JxxQntKdPwLI4oxTXJfmu5GUMfg06IOKaXKk79CUYRi9415smoxbvmVeLKZ9Wkl5NFEr6fsThjk1vsW00quyDc0JTl3CeRosjlnKEb/ACqkXY8WSbUpOKXh3LJLFH5otvyK/wAPCcFNNq3VXZyyjKM3Fqmitt9FZEO1iJRUpOopv0Lo4MklaSXqxy0tLfIr9CqWNwaTp3vaGpUhRyzXyyaQnNy+ZtidioKCgrYN+gKyfNJdCWNZMkqjG2XLHOD/AJiaJxnCEbkwvHKXNVtk6Sj1bS7WV0+inL69iE8iVNK+zK3Jvm614DtrZvsN0k3fYccjSpVXoP3q3sXNHzC1XWyt5Et0kV/FOXTqdUIqC+OS6dmTepiujSIe+t0uX69DoeRRiumyvYo5r7keqddTkGvl+ojswfIXx6Mo1X92c0fkROXT6FfdgD7C7MENAxdyXYZdi6M69P8AIy6PQ5sn94yC7hP54+hz9vqD6SB9foQl8jGgJP5QKl0+p0S/uvqVPoJ9xR+ZHVPo/QqfUU/lP//Z" alt=""></div>
-  <div class="wrap-narrow center">
-    <div class="eyebrow">Los servicios</div>
-    <h2>Cuando el sistema <em>no basta solo.</em></h2>
-  </div>
-</section>
 
-<!-- STORE -->
-<section id="store">
-  <div class="wrap-narrow center">
-    <div class="eyebrow">HEXIS Store</div>
-    <h2>El sistema, <em>también fuera de la pantalla.</em></h2>
-  </div>
-</section>
 
 <div class="wrap"><div class="divider"></div></div>
 
@@ -500,42 +493,47 @@
     <div class="eyebrow">Tu camino dentro de HEXIS</div>
     <h2>Empieza, evoluciona, <em>o entra con todo.</em></h2>
     <p class="lead">START es tu plan inicial calculado con tus datos reales. PRO es la capa de inteligencia que lo hace ajustarse solo a ti. No son productos distintos: es el mismo sistema, en el punto en el que tú decidas empezar.</p>
-    <div class="pricing-grid">
+    <div class="pricing-grid" style="grid-template-columns:repeat(2,1fr);max-width:820px;margin:56px auto 0;">
       <div class="price-card">
-        <div class="price-step">Paso 1</div>
         <h3>HEXIS START</h3>
         <div class="price-amount">77 €</div>
-        <ul class="price-list">
-          <li>Test de arquetipo + PDF personalizado</li>
-          <li>Plan de macros con tus datos reales</li>
-          <li>Entreno por arquetipo</li>
-          <li>Hábitos, racha e HEXISPEDIA</li>
+        <div class="price-tagline">Dejas de improvisar.</div>
+        <p class="price-sub">Tu sistema personal empieza aquí.</p>
+        <p class="price-desc">Descubre tu arquetipo y recibe un punto de partida calculado específicamente para ti: nutrición, entrenamiento y hábitos.</p>
+        <div class="price-includes">Incluye:</div>
+        <ul class="price-list rich">
+          <li><strong>Tu arquetipo HEXIS</strong> — perfil, necesidades y estrategia.</li>
+          <li><strong>Tu nutrición</strong> — calorías y macros calculados con tus datos reales.</li>
+          <li><strong>Tu entrenamiento</strong> — planificación estructurada según tu perfil.</li>
+          <li><strong>Tu sistema de hábitos</strong> — seguimiento, racha e HEXISPEDIA.</li>
         </ul>
+        <p class="price-closing"><em>Tu plan llega calculado. Tú empiezas a ejecutarlo.</em></p>
         <a class="price-cta" href="https://pay.hotmart.com/K107014697X">Empezar con START →</a>
       </div>
       <div class="price-card hi">
-        <div class="price-step">Paso 2 · si ya tienes START</div>
-        <h3>PRO Actualización</h3>
-        <div class="price-amount">72,99 €</div>
-        <ul class="price-list">
-          <li>Motor adaptativo</li>
-          <li>Métricas completas y gráficas</li>
-          <li>Score de Coherencia y Recovery</li>
-          <li>Análisis con IA de plato y físico</li>
-        </ul>
-        <a class="price-cta" href="https://pay.hotmart.com/K107168260M">Actualizar a PRO →</a>
-      </div>
-      <div class="price-card">
-        <div class="price-step">O entra directo</div>
-        <h3>PRO Completo</h3>
+        <h3>HEXIS PRO</h3>
         <div class="price-amount">149 €</div>
-        <ul class="price-list">
-          <li>Todo lo de START</li>
-          <li>Todo lo de PRO Actualización</li>
-          <li>El sistema completo desde hoy</li>
+        <div class="price-tagline">Dejas de ajustar a ciegas.</div>
+        <p class="price-sub">Tu sistema empieza a aprender de ti.</p>
+        <p class="price-desc">Todo lo de START, más la capa adaptativa que utiliza tus datos reales para interpretar tu evolución y ajustar el sistema.</p>
+        <div class="price-includes">Incluye:</div>
+        <ul class="price-list rich">
+          <li><strong>Motor adaptativo</strong> — el sistema evoluciona según tu rendimiento y tus datos.</li>
+          <li><strong>Métricas avanzadas</strong> — seguimiento y visualización de tu evolución.</li>
+          <li><strong>Coherencia + Recovery</strong> — interpreta la relación entre tus hábitos, rendimiento y recuperación.</li>
+          <li><strong>Arquitectura de Dominio</strong> — 6 ciclos para convertir el proceso en una progresión real.</li>
+          <li><strong>Análisis con IA</strong> — análisis de plato y evolución física.</li>
         </ul>
-        <a class="price-cta" href="https://pay.hotmart.com/B107168387J">Empezar con todo →</a>
+        <p class="price-closing"><em>No recibes otro plan. El sistema empieza a responder a ti.</em></p>
+        <a class="price-cta" href="https://pay.hotmart.com/B107168387J">Empezar con PRO →</a>
       </div>
+    </div>
+
+    <div class="wrap-narrow center" style="margin-top:40px;">
+      <div class="eyebrow">¿Ya tienes START?</div>
+      <h3 style="font-family:var(--serif);font-size:22px;margin-bottom:10px;">Activa PRO por 72,99 €</h3>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:18px;">No vuelves a pagar por lo que ya tienes. Desbloqueas la capa adaptativa y continúas desde tu punto actual.</p>
+      <a class="price-cta" style="display:inline-block;max-width:260px;padding-left:24px;padding-right:24px;" href="https://pay.hotmart.com/K107168260M">Actualizar a PRO →</a>
     </div>
 
     <div style="margin-top:56px;padding-top:40px;border-top:1px solid var(--line);">
