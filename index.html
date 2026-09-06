@@ -296,6 +296,7 @@
     <div class="eyebrow">Tu perfil</div>
     <h2>No te sale un perfil.<br><em>Eres uno.</em></h2>
     <p class="lead">90 segundos. Sin email, sin compromiso. Al final: tu arquetipo, tu enemigo real, y qué sistema necesitas — no el de otra persona.</p>
+<button id="quiz-trigger" style="margin-top:26px;padding:13px 30px;border:1px solid var(--gold);color:var(--gold);background:none;font-size:12px;letter-spacing:1px;cursor:pointer;">Descubre tu arquetipo &rarr;</button>
     <div class="profiles-grid">
       <div class="profile-card" style="color:var(--alpha)">
         <div class="pname">ALPHA</div>
@@ -665,5 +666,72 @@
 })();
 </script>
 
+<!-- QUIZ ARQUETIPO -->
+<div id="quiz-overlay" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(5,5,5,0.92);backdrop-filter:blur(6px);overflow-y:auto;padding:60px 20px;">
+<div style="max-width:560px;margin:0 auto;background:var(--bg2);border:1px solid var(--line);padding:44px 32px;position:relative;">
+<button id="quiz-close" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;">&times;</button>
+<div id="quiz-body"></div>
+</div>
+</div>
+<script>
+(function(){
+var DATA = {"QUESTIONS":{"m":[{"text":"¿Qué buscas de verdad ahora mismo?","options":[{"key":"ALPHA","text":"Ganar fuerza y construir físico, con un plan claro que seguir."},{"key":"SHAPE","text":"Cambiar mi cuerpo de verdad — perder grasa y ganar músculo a la vez."},{"key":"ZEN","text":"Recuperar la constancia sin quemarme otra vez."}]},{"text":"¿Qué es lo que más te frena?","options":[{"key":"ALPHA","text":"La comodidad — sé qué hacer, pero no doy el salto."},{"key":"SHAPE","text":"La impaciencia — quiero resultados reales, no ajustes pequeños."},{"key":"ZEN","text":"El desgaste de intentarlo y dejarlo varias veces."}]},{"text":"¿Cómo describirías tu situación actual?","options":[{"key":"ALPHA","text":"Entreno, pero sin una progresión clara de cargas."},{"key":"SHAPE","text":"Llevo tiempo estancado entre dietas y rutinas distintas."},{"key":"ZEN","text":"Vengo de una época de mucho estrés o poco cuidado personal."}]},{"text":"¿Qué intensidad de entreno prefieres ahora?","options":[{"key":"ALPHA","text":"Alta — busco progresión constante de cargas."},{"key":"SHAPE","text":"Alta también — dispuesto a exigirme para ver cambios pronto."},{"key":"ZEN","text":"Suave al principio, subiendo poco a poco."}]},{"text":"¿Qué te describe mejor?","options":[{"key":"ALPHA","text":"Me motiva construir algo a largo plazo, paso a paso."},{"key":"SHAPE","text":"Me cuesta esperar — quiero ver el cambio pronto."},{"key":"ZEN","text":"Necesito sentir que esta vez sí puedo sostenerlo."}]}],"f":[{"text":"¿Qué buscas de verdad ahora mismo?","options":[{"key":"HERA","text":"Definir mi cuerpo sin pasar por restricciones extremas."},{"key":"ATENEA","text":"Conseguir resultados con el poco tiempo que tengo."},{"key":"GAIA","text":"Reconectar con mi cuerpo tras un cambio de vida."}]},{"text":"¿Qué es lo que más te frena?","options":[{"key":"HERA","text":"La restricción extrema — ya la probé y no funciona."},{"key":"ATENEA","text":"La falta de tiempo en mi día a día."},{"key":"GAIA","text":"La prisa por volver a como era antes."}]},{"text":"¿Cómo describirías tu situación actual?","options":[{"key":"HERA","text":"Entreno, pero con dietas muy estrictas que no sostengo."},{"key":"ATENEA","text":"Tengo motivación pero muy poco margen en la agenda."},{"key":"GAIA","text":"Mi cuerpo y mis prioridades han cambiado últimamente."}]},{"text":"¿Qué ritmo prefieres ahora?","options":[{"key":"HERA","text":"Un plan sostenible a largo plazo, sin sufrir."},{"key":"ATENEA","text":"Máxima eficiencia en sesiones cortas."},{"key":"GAIA","text":"Progresivo, sin prisa ni presión."}]},{"text":"¿Qué te describe mejor?","options":[{"key":"HERA","text":"Quiero verme bien sin castigarme."},{"key":"ATENEA","text":"Mi tiempo es finito. Mi sistema, no."},{"key":"GAIA","text":"No quiero volver a como era, quiero avanzar desde donde estoy."}]}]},"LABELS":{"ALPHA":{"sub":"El Arquitecto","why":"Priorizas progresión de fuerza y superávit calculado — tu enemigo real es la comodidad, no la falta de plan."},"SHAPE":{"sub":"El Recomponedor","why":"Buscas recomposición real, no ajustes pequeños — tu enemigo es la impaciencia con procesos a medias."},"ZEN":{"sub":"El que Reinicia","why":"Necesitas reconstruir constancia sin sobrecarga — tu enemigo es el desgaste acumulado, no la falta de ganas."},"HERA":{"sub":"La Escultora","why":"Buscas definición sin castigarte — tu enemigo es la restricción extrema, no la falta de disciplina."},"ATENEA":{"sub":"La Estratega","why":"Tu tiempo es limitado, pero tu sistema no tiene por qué serlo — tu enemigo es la falta de tiempo."},"GAIA":{"sub":"La Sostenedora","why":"Vienes de un cambio de vida y avanzas sin prisa — tu enemigo es la prisa por volver a como eras."}},"PRIORITY":{"m":["ALPHA","SHAPE","ZEN"],"f":["HERA","ATENEA","GAIA"]}};
+var QUESTIONS = DATA.QUESTIONS, LABELS = DATA.LABELS, PRIORITY = DATA.PRIORITY;
+var state = { gender:null, qIndex:0, scores:{} };
+function openQuiz(){ document.getElementById("quiz-overlay").style.display="block"; state={gender:null,qIndex:0,scores:{}}; renderGenderStep(); }
+function closeQuiz(){ document.getElementById("quiz-overlay").style.display="none"; }
+function renderGenderStep(){
+var body = document.getElementById("quiz-body");
+body.innerHTML = "<div class=\"eyebrow\">Tu arquetipo</div><h2 style=\"font-size:26px;margin-bottom:20px;\">\u00bfC\u00f3mo te identificas?</h2><div style=\"display:flex;flex-direction:column;gap:12px;\"><button class=\"quiz-opt\" data-g=\"m\" style=\"text-align:left;padding:16px;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer;font-size:15px;\">Chico</button><button class=\"quiz-opt\" data-g=\"f\" style=\"text-align:left;padding:16px;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer;font-size:15px;\">Chica</button></div>";
+Array.prototype.forEach.call(body.querySelectorAll(".quiz-opt"), function(btn){
+btn.addEventListener("click", function(){
+state.gender = btn.getAttribute("data-g");
+state.qIndex = 0; state.scores = {};
+PRIORITY[state.gender].forEach(function(k){ state.scores[k]=0; });
+renderQuestion();
+});
+});
+}
+function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function renderQuestion(){
+var body = document.getElementById("quiz-body");
+var qs = QUESTIONS[state.gender];
+var q = qs[state.qIndex];
+var html = "<div style=\"font-size:11px;letter-spacing:2px;color:var(--muted2);margin-bottom:18px;\">PREGUNTA " + (state.qIndex+1) + " DE " + qs.length + "</div>";
+html += "<h3 style=\"font-family:var(--serif);font-size:22px;margin-bottom:24px;font-weight:400;\">" + esc(q.text) + "</h3>";
+html += "<div style=\"display:flex;flex-direction:column;gap:10px;\">";
+q.options.forEach(function(opt){
+html += "<button class=\"quiz-opt\" data-key=\"" + opt.key + "\" style=\"text-align:left;padding:14px 16px;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer;font-size:14px;line-height:1.5;\">" + esc(opt.text) + "</button>";
+});
+html += "</div>";
+body.innerHTML = html;
+Array.prototype.forEach.call(body.querySelectorAll(".quiz-opt"), function(btn){
+btn.addEventListener("click", function(){
+var key = btn.getAttribute("data-key");
+state.scores[key] = (state.scores[key]||0) + 1;
+state.qIndex++;
+if (state.qIndex < qs.length) { renderQuestion(); } else { renderResult(); }
+});
+});
+}
+function renderResult(){
+var order = PRIORITY[state.gender];
+var winner = order[0];
+order.forEach(function(k){ if (state.scores[k] > state.scores[winner]) winner = k; });
+var info = LABELS[winner];
+var body = document.getElementById("quiz-body");
+body.innerHTML = "<div class=\"eyebrow\">Tu arquetipo</div><h2 style=\"font-family:var(--serif);font-size:36px;margin-bottom:6px;color:var(--gold);\">" + winner + "</h2><div style=\"font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;\">" + info.sub + "</div><p style=\"color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:28px;\">" + info.why + "</p><a href=\"#entra\" id=\"quiz-cta\" class=\"price-cta\" style=\"display:block;text-align:center;\">Empezar como " + winner + " &rarr;</a>";
+document.getElementById("quiz-cta").addEventListener("click", closeQuiz);
+}
+document.addEventListener("DOMContentLoaded", function(){
+var trigger = document.getElementById("quiz-trigger");
+if (trigger) trigger.addEventListener("click", openQuiz);
+var closeBtn = document.getElementById("quiz-close");
+if (closeBtn) closeBtn.addEventListener("click", closeQuiz);
+var overlay = document.getElementById("quiz-overlay");
+if (overlay) overlay.addEventListener("click", function(e){ if (e.target.id==="quiz-overlay") closeQuiz(); });
+});
+})();
+</script>
 </body>
 </html>
