@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HEXISPEDIA — La base de conocimiento cientifico de HEXIS</title>
+<meta name="description" content="HEXISPEDIA: base de conocimiento cientifico y practico de HEXIS sobre salud, fitness, alimentacion, suplementacion, descanso y hormonas. Evidencia trazable, sin marketing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050505; --bg2:#0a0a0a; --card:#0c0c0c; --line:#1a1a1a;
+    --gold:#C8AA50; --ink:#f2ede4; --muted:#8a8a8a; --muted2:#5c5c5c;
+    --serif:'Playfair Display',Georgia,serif; --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:400;letter-spacing:-0.01em;}
+  h5{font-family:var(--sans);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin:16px 0 6px;font-weight:600;}
+  h5:first-child{margin-top:0;}
+  p{color:#c9c2b4;font-size:13.5px;line-height:1.7;font-weight:300;}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,5,0.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .logo{font-family:var(--serif);font-size:18px;letter-spacing:3px;}
+  .logo .sub{font-size:10px;letter-spacing:2px;color:var(--gold);display:block;font-family:var(--sans);margin-top:-2px;}
+  .back-link{font-size:11px;letter-spacing:1px;color:var(--muted);border:1px solid var(--line);padding:8px 16px;border-radius:20px;}
+  .back-link:hover{color:var(--ink);border-color:var(--gold);}
+
+  header.hero{padding:150px 0 60px;text-align:center;}
+  .eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;font-weight:500;}
+  header.hero h1{font-size:clamp(34px,6vw,56px);margin-bottom:18px;}
+  header.hero h1 em{font-style:italic;color:var(--gold);}
+  header.hero p.lead{max-width:640px;margin:0 auto 30px;font-size:16px;color:#c9c2b4;}
+
+  .legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;}
+  .legend-item{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:7px 14px;background:var(--card);}
+
+  .methodology{max-width:820px;margin:40px auto 0;padding:22px 26px;border:1px solid var(--line);border-radius:14px;background:var(--card);}
+  .methodology h4{font-size:14px;color:var(--gold);margin-bottom:10px;}
+  .methodology p{font-size:12.5px;margin-bottom:8px;}
+
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:36px 0 10px;}
+  .tab{background:var(--card);border:1px solid var(--line);color:var(--muted);font-family:var(--sans);font-size:12px;letter-spacing:0.5px;padding:10px 18px;border-radius:24px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .15s;}
+  .tab-num{color:var(--gold);font-family:var(--serif);font-size:12px;}
+  .tab:hover{color:var(--ink);border-color:var(--gold);}
+  .tab.active{background:var(--gold);color:#050505;border-color:var(--gold);}
+  .tab.active .tab-num{color:#050505;}
+
+  main{padding-bottom:120px;}
+  .area-panel{display:none;padding-top:20px;}
+  .area-panel.active{display:block;}
+  .area-head{display:flex;align-items:baseline;gap:14px;margin-bottom:18px;}
+  .area-num{font-family:var(--serif);color:var(--gold);font-size:18px;}
+  .area-head h3{font-size:26px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}
+  .chip{font-size:11px;color:var(--muted2);border:1px solid var(--line);border-radius:14px;padding:5px 12px;background:var(--bg2);}
+
+  .area-note{font-size:12.5px;color:#c9c2b4;background:rgba(200,170,80,0.06);border:1px solid rgba(200,170,80,0.2);border-radius:10px;padding:14px 18px;margin-bottom:20px;}
+  .area-note-empty{background:var(--card);border-color:var(--line);color:var(--muted);}
+
+  .search{width:100%;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;color:var(--ink);font-family:var(--sans);font-size:13px;margin-bottom:18px;outline:none;}
+  .search:focus{border-color:var(--gold);}
+
+  .fichas-list{display:flex;flex-direction:column;gap:10px;}
+  .ficha{border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden;}
+  .ficha-head{width:100%;background:none;border:none;cursor:pointer;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;color:var(--ink);font-family:var(--sans);text-align:left;}
+  .ficha-head-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .ficha-id{font-size:10px;color:var(--muted2);font-family:monospace;}
+  .ficha-nombre{font-family:var(--serif);font-size:16px;}
+  .ficha-sub{font-size:11px;color:var(--muted);border-left:1px solid var(--line);padding-left:12px;}
+  .ficha-head-right{display:flex;align-items:center;gap:12px;}
+  .evid-badge{font-size:11px;padding:4px 10px;border-radius:12px;font-weight:600;}
+  .fire-badge{font-size:12px;letter-spacing:1px;}
+  .chevron{color:var(--muted);transition:transform .2s;}
+  .ficha.open .chevron{transform:rotate(180deg);}
+  .ficha-body{display:none;padding:0 20px 22px;border-top:1px solid var(--line);}
+  .ficha.open .ficha-body{display:block;}
+  .ficha-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;padding-top:18px;}
+  @media (max-width:820px){.ficha-grid{grid-template-columns:1fr;}}
+  .benef-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:6px;}
+  @media (max-width:820px){.benef-grid{grid-template-columns:1fr;}}
+  .benef-col ul, .mitos-list{padding-left:16px;margin-top:4px;}
+  .benef-col li, .mitos-list li{font-size:12px;color:#c9c2b4;margin-bottom:6px;line-height:1.5;}
+  .conclusion{font-style:italic;color:var(--ink);}
+  .ref{font-size:11px;color:var(--muted2);}
+  .side-box{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:12px;background:var(--bg2);}
+  .obj-row{display:flex;justify-content:space-between;font-size:12px;color:#c9c2b4;margin-bottom:5px;}
+  .obj-stars{color:var(--gold);letter-spacing:1px;}
+
+  footer{border-top:1px solid var(--line);padding:50px 0;text-align:center;}
+  footer p{font-size:11px;color:var(--muted2);max-width:600px;margin:0 auto 8px;}
+  footer .logo{margin-bottom:16px;}
+  .no-results{color:var(--muted);font-size:13px;padding:30px 0;text-align:center;display:none;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">HEXIS<span class="sub">HEXISPEDIA</span></div>
+    <a class="back-link" href="/">← Volver a h3xis.com</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap-narrow" style="max-width:760px;margin:0 auto;">
+    <div class="eyebrow">Base de conocimiento HEXIS</div>
+    <h1>HEXISPEDIA</h1>
+    <p class="lead" style="margin-left:auto;margin-right:auto;">La biblioteca de referencia cientifica de HEXIS sobre salud, entrenamiento, alimentacion, suplementacion, descanso y hormonas. Evidencia trazable, sin marketing, con el nivel de certeza indicado siempre de forma explicita.</p>
+    <div class="legend">
+      <span class="legend-item">🟢 A — Evidencia solida</span>
+      <span class="legend-item">🟡 B — Evidencia moderada</span>
+      <span class="legend-item">🟠 C — Evidencia limitada</span>
+      <span class="legend-item">🔴 D — Evidencia insuficiente</span>
+    </div>
+    <div class="methodology">
+      <h4>Como se construye HEXISPEDIA</h4>
+      <p>Cada ficha se basa en revisiones sistematicas, metaanalisis, ensayos clinicos y posicionamientos de organismos cientificos (ISSN, ACSM, EFSA, NIH/ODS, Cochrane, OMS) segun el tipo de pregunta — rendimiento, seguridad o eficacia clinica. Cuando la evidencia es limitada o insuficiente, se indica explicitamente: nunca se rellenan huecos con especulacion ni con afirmaciones de marketing sin respaldo.</p>
+      <p>Preferimos menos fichas con investigacion rigurosa que cientos de fichas superficiales. Esta pagina crece de forma progresiva.</p>
+    </div>
+  </div>
+</header>
+
+<div class="tabs"><button class="tab " data-area="salud" onclick="showArea('salud')"><span class="tab-num">01</span>Salud</button><button class="tab " data-area="fitness" onclick="showArea('fitness')"><span class="tab-num">02</span>Fitness y entrenamiento</button><button class="tab " data-area="alimentacion" onclick="showArea('alimentacion')"><span class="tab-num">03</span>Alimentacion y nutricion</button><button class="tab active" data-area="suplementacion" onclick="showArea('suplementacion')"><span class="tab-num">04</span>Suplementacion</button><button class="tab " data-area="descanso" onclick="showArea('descanso')"><span class="tab-num">05</span>Descanso y recuperacion</button><button class="tab " data-area="hormonas" onclick="showArea('hormonas')"><span class="tab-num">06</span>Hormonas</button></div>
+
+<main class="wrap">
+
+  <div class="area-panel " id="panel-salud" data-area="salud">
+    <div class="area-head">
+      <span class="area-num">01</span>
+      <h3>Salud</h3>
+    </div>
+    <div class="chips"><span class="chip">Fisiologia humana</span><span class="chip">Anatomia</span><span class="chip">Metabolismo</span><span class="chip">Sistema cardiovascular</span><span class="chip">Sistema respiratorio</span><span class="chip">Sistema digestivo</span><span class="chip">Sistema nervioso</span><span class="chip">Sistema inmunitario</span><span class="chip">Salud osea</span><span class="chip">Salud articular</span><span class="chip">Salud muscular</span><span class="chip">Salud metabolica</span><span class="chip">Salud cerebral</span><span class="chip">Salud cardiovascular</span><span class="chip">Salud gastrointestinal</span><span class="chip">Salud sexual</span><span class="chip">Salud femenina</span><span class="chip">Salud masculina</span><span class="chip">Envejecimiento</span><span class="chip">Longevidad</span><span class="chip">Prevencion</span><span class="chip">Factores de riesgo</span><span class="chip">Enfermedades y patologias relevantes</span></div>
+    
+        <div class="area-note area-note-empty">
+          Estructura definida. Fichas en desarrollo — se publicaran con el mismo rigor cientifico y la misma plantilla que Suplementacion, sin fecha fija ni relleno de contenido superficial mientras tanto.
+        </div>
+        
+  </div>
+  <div class="area-panel " id="panel-fitness" data-area="fitness">
+    <div class="area-head">
+      <span class="area-num">02</span>
+      <h3>Fitness y entrenamiento</h3>
+    </div>
+    <div class="chips"><span class="chip">Principios del entrenamiento</span><span class="chip">Fuerza</span><span class="chip">Hipertrofia</span><span class="chip">Potencia</span><span class="chip">Resistencia</span><span class="chip">HIIT</span><span class="chip">LISS</span><span class="chip">Movilidad</span><span class="chip">Flexibilidad</span><span class="chip">Calentamiento</span><span class="chip">Recuperacion</span><span class="chip">Periodizacion</span><span class="chip">Volumen</span><span class="chip">Intensidad</span><span class="chip">Frecuencia</span><span class="chip">RIR/RPE</span><span class="chip">Progresion</span><span class="chip">Tecnica</span><span class="chip">Biomecanica</span><span class="chip">Entrenamiento femenino</span><span class="chip">Entrenamiento masculino</span><span class="chip">Personas mayores</span><span class="chip">Personas sedentarias</span><span class="chip">Perdida de grasa</span><span class="chip">Recomposicion corporal</span><span class="chip">Rendimiento deportivo</span><span class="chip">Lesiones y readaptacion</span><span class="chip">Prevencion de lesiones</span></div>
+    
+        <div class="area-note area-note-empty">
+          Estructura definida. Fichas en desarrollo — se publicaran con el mismo rigor cientifico y la misma plantilla que Suplementacion, sin fecha fija ni relleno de contenido superficial mientras tanto.
+        </div>
+        
+  </div>
+  <div class="area-panel " id="panel-alimentacion" data-area="alimentacion">
+    <div class="area-head">
+      <span class="area-num">03</span>
+      <h3>Alimentacion y nutricion</h3>
+    </div>
+    <div class="chips"><span class="chip">Macronutrientes</span><span class="chip">Micronutrientes</span><span class="chip">Proteinas</span><span class="chip">Grasas</span><span class="chip">Carbohidratos</span><span class="chip">Fibra</span><span class="chip">Hidratacion</span><span class="chip">Balance energetico</span><span class="chip">Deficit calorico</span><span class="chip">Superavit calorico</span><span class="chip">Mantenimiento</span><span class="chip">Composicion corporal</span><span class="chip">Dietas</span><span class="chip">Ayuno</span><span class="chip">Timing nutricional</span><span class="chip">Nutricion deportiva</span><span class="chip">Nutricion para hipertrofia</span><span class="chip">Nutricion para perdida de grasa</span><span class="chip">Nutricion femenina</span><span class="chip">Nutricion masculina</span><span class="chip">Nutricion en diferentes etapas de la vida</span><span class="chip">Alimentos</span><span class="chip">Bebidas</span><span class="chip">Etiquetado nutricional</span><span class="chip">Seguridad alimentaria</span></div>
+    
+        <div class="area-note area-note-empty">
+          Estructura definida. Fichas en desarrollo — se publicaran con el mismo rigor cientifico y la misma plantilla que Suplementacion, sin fecha fija ni relleno de contenido superficial mientras tanto.
+        </div>
+        
+  </div>
+  <div class="area-panel active" id="panel-suplementacion" data-area="suplementacion">
+    <div class="area-head">
+      <span class="area-num">04</span>
+      <h3>Suplementacion</h3>
+    </div>
+    <div class="chips"><span class="chip">Vitaminas</span><span class="chip">Minerales</span><span class="chip">Proteinas</span><span class="chip">Aminoacidos</span><span class="chip">Creatina</span><span class="chip">Ergogenicos</span><span class="chip">Preentrenamientos</span><span class="chip">Carbohidratos deportivos</span><span class="chip">Electrolitos</span><span class="chip">Omega-3 y acidos grasos</span><span class="chip">Colageno</span><span class="chip">Salud articular</span><span class="chip">Probioticos</span><span class="chip">Prebioticos</span><span class="chip">Enzimas</span><span class="chip">Antioxidantes</span><span class="chip">Adaptogenos</span><span class="chip">Fitoterapia</span><span class="chip">Salud digestiva</span><span class="chip">Sueno</span><span class="chip">Estres</span><span class="chip">Cognicion</span><span class="chip">Salud cardiovascular</span><span class="chip">Salud metabolica</span><span class="chip">Control del peso</span><span class="chip">Salud hormonal</span><span class="chip">Salud masculina</span><span class="chip">Salud femenina</span><span class="chip">Piel, cabello y unas</span><span class="chip">Salud ocular</span><span class="chip">Inmunidad</span><span class="chip">Longevidad</span><span class="chip">Otros compuestos bioactivos</span></div>
+    
+        <div class="area-note">
+          <strong>20 fichas completas</strong> desarrolladas con la plantilla HEXISPEDIA (evidencia ISSN / NIH-ODS / meta-analisis).
+          El resto de sustancias del indice de Suplementacion estan identificadas como candidatas y se desarrollaran progresivamente con el mismo nivel de rigor — no se publican fichas superficiales.
+        </div>
+        <input class="search" id="search-supp" placeholder="Buscar suplemento (ej. creatina, magnesio, omega-3)..." oninput="filterFichas()">
+        <div class="fichas-list" id="fichas-list">
+  <article class="ficha" id="HEX-0001" data-nombre="creatina monohidrato" data-sub="ergogenicos / creatina">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0001')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0001</span>
+        <span class="ficha-nombre">Creatina monohidrato</span>
+        <span class="ficha-sub">Ergogenicos / Creatina</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#2E7D3222;color:#2E7D32;border:1px solid #2E7D3266;">🟢 A</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥🔥🔥</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0001">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Compuesto nitrogenado que el cuerpo produce a partir de arginina, glicina y metionina, y que tambien se obtiene de carne y pescado. Se almacena en el musculo como fosfocreatina.</p>
+          <h5>¿Como funciona?</h5><p>Aumenta las reservas musculares de fosfocreatina, lo que acelera la regeneracion de ATP durante esfuerzos cortos e intensos. Tambien favorece la retencion de agua intracelular, un estimulo anabolico adicional.</p>
+          <h5>¿Para que se utiliza?</h5><p>Mejorar fuerza, potencia y capacidad de repetir esfuerzos de alta intensidad; aumentar masa magra durante el entrenamiento de fuerza.</p>
+          <h5>¿Que dice la evidencia?</h5><p>Es el ergogenico no farmacologico mas estudiado en nutricion deportiva, con cientos de ensayos controlados. El ISSN (2017) lo califica como el suplemento mas eficaz disponible para aumentar la capacidad de ejercicio de alta intensidad y la masa magra durante el entrenamiento.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Aumento de fuerza y potencia en esfuerzos de alta intensidad</li><li>Aumento de masa magra combinado con entrenamiento de fuerza</li><li>Mejora en la capacidad de repetir esfuerzos cortos e intensos</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible apoyo cognitivo leve en privacion de sueno o en dietas veganas (menor creatina basal)</li><li>Posible apoyo en la recuperacion tras dano muscular</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No aumenta fuerza o musculo sin entrenamiento de fuerza asociado</li><li>No es un esteroide anabolico ni actua por via hormonal</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“La creatina dana los rinones en gente sana” — no respaldado por la evidencia en dosis estandar y personas sin enfermedad renal previa.</li><li>“La creatina es un esteroide” — es un compuesto nitrogenado natural, no una hormona esteroidea.</li><li>“Hay que hacer fase de carga si o si” — la carga acelera la saturacion muscular pero no es imprescindible; con 3-5 g/dia se alcanza un nivel similar en 3-4 semanas.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">El suplemento con evidencia mas solida y consistente en fuerza, potencia e hipertrofia. Dosis baja y diaria (3-5 g), sin necesidad de ciclos ni fases de carga obligatorias.</p>
+          <h5>Referencias</h5><p class="ref">ISSN Position Stand: Creatine Supplementation (2017), J Int Soc Sports Nutr. https://pmc.ncbi.nlm.nih.gov/articles/PMC5469049/ | NIH Office of Dietary Supplements, Fact Sheets: https://ods.od.nih.gov/factsheets/list-all/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Creatina; Kre-Alkalyn, HCl, ester etilico (formas alternativas sin ventaja demostrada sobre el monohidrato)</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>3-5 g/dia de mantenimiento (o carga opcional de 20 g/dia repartidos en 4 tomas durante 5-7 dias). Uso continuo, no ciclico.</p>
+            <h5>Timing</h5><p>Cualquier momento del dia; la consistencia diaria importa mas que el horario exacto. Con una comida rica en carbohidratos/proteina mejora ligeramente la captacion.</p>
+            <h5>Biodisponibilidad</h5><p>El monohidrato es la forma con mas evidencia de eficacia y absorcion; no hay evidencia solida de que formas alternativas (HCl, Kre-Alkalyn, ester etilico) sean superiores.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Fuerza</span><span class="obj-stars">★★★★★</span></div><div class="obj-row"><span>Hipertrofia</span><span class="obj-stars">★★★★★</span></div><div class="obj-row"><span>Perdida de grasa</span><span class="obj-stars">★☆☆☆☆</span></div><div class="obj-row"><span>Salud general</span><span class="obj-stars">★★★☆☆</span></div><div class="obj-row"><span>Recuperacion</span><span class="obj-stars">★★★☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Uno de los suplementos mas estudiados en seguridad a largo plazo en poblacion sana; no se han demostrado danos renales o hepaticos en personas sin patologia previa a dosis estandar.</p>
+            <h5>Contraindicaciones</h5><p>Segura en poblacion sana a dosis recomendadas. Precaucion en enfermedad renal preexistente (consultar con nefrologo antes de suplementar).</p>
+            <h5>Interacciones</h5><p>Sin interacciones farmacologicas relevantes conocidas a dosis estandar. Cafeina en dosis muy altas podria atenuar ligeramente el efecto segun estudios antiguos; la evidencia actual lo pone en duda.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Veganos/vegetarianos (niveles basales mas bajos, mayor respuesta relativa); poblacion mayor (apoyo a masa y funcion muscular); precaucion en enfermedad renal preexistente.</p>
+            <h5>Sinergias</h5><p>La ingesta junto a carbohidratos/proteina puede mejorar ligeramente la captacion muscular.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0002" data-nombre="proteina de suero (whey)" data-sub="proteinas">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0002')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0002</span>
+        <span class="ficha-nombre">Proteina de suero (Whey)</span>
+        <span class="ficha-sub">Proteinas</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#2E7D3222;color:#2E7D32;border:1px solid #2E7D3266;">🟢 A</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥🔥🔥</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0002">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Proteina completa derivada del suero de la leche durante la produccion de queso. Rica en aminoacidos esenciales y de rapida digestion.</p>
+          <h5>¿Como funciona?</h5><p>Aporta los 9 aminoacidos esenciales, con alto contenido de leucina, el principal activador de la sintesis de proteina muscular (via mTOR). Su digestion rapida eleva rapidamente los aminoacidos en sangre.</p>
+          <h5>¿Para que se utiliza?</h5><p>Cubrir el requerimiento diario de proteina y maximizar la sintesis proteica muscular tras el entrenamiento.</p>
+          <h5>¿Que dice la evidencia?</h5><p>El ISSN (2017) establece que 0.25 g/kg o 20-40 g de proteina de alta calidad por toma, repartidos cada 3-4h, con 700-3000 mg de leucina por toma, optimiza la sintesis proteica muscular y la composicion corporal.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Aumento/mantenimiento de masa muscular en combinacion con entrenamiento de fuerza</li><li>Mejora de la recuperacion y sintesis proteica post-entreno</li><li>Ayuda practica para alcanzar el objetivo diario de proteina</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible apoyo a la saciedad en fases de deficit calorico</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No aporta beneficios superiores a la proteina de alimentos enteros si el total diario ya es adecuado</li><li>No es imprescindible: es una fuente de proteina practica, no la unica valida</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“La proteina en polvo dana el rinon en gente sana” — no respaldado por la evidencia; el riesgo aplica a personas con enfermedad renal preexistente.</li><li>“Cuanta mas proteina, mas musculo” — el beneficio se satura alrededor de 1.6-2.2 g/kg/dia; el exceso no aporta mas hipertrofia.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Herramienta practica y segura para cubrir el objetivo proteico diario, con evidencia solida en composicion corporal cuando se combina con entrenamiento de fuerza. No es superior a la proteina de alimentos enteros equivalente.</p>
+          <h5>Referencias</h5><p class="ref">ISSN Position Stand: Protein and Exercise (2017), J Int Soc Sports Nutr. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Whey protein; concentrado (WPC), aislado (WPI), hidrolizado (WPH)</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>20-40 g por toma; total diario segun objetivo, tipicamente 1.6-2.2 g/kg/dia de proteina total (no solo whey).</p>
+            <h5>Timing</h5><p>Post-entreno y/o para completar el reparto de proteina a lo largo del dia; tambien util como snack alto en proteina.</p>
+            <h5>Biodisponibilidad</h5><p>El aislado (WPI) tiene menor contenido de lactosa y grasa que el concentrado (WPC); el hidrolizado (WPH) se digiere algo mas rapido pero sin ventaja practica relevante demostrada sobre el aislado para la mayoria de usuarios.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Fuerza</span><span class="obj-stars">★★★★★</span></div><div class="obj-row"><span>Hipertrofia</span><span class="obj-stars">★★★★★</span></div><div class="obj-row"><span>Perdida de grasa</span><span class="obj-stars">★★★☆☆</span></div><div class="obj-row"><span>Salud general</span><span class="obj-stars">★★★☆☆</span></div><div class="obj-row"><span>Recuperacion</span><span class="obj-stars">★★★★☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Segura en poblacion sana a las dosis habituales dentro de un consumo proteico total razonable.</p>
+            <h5>Contraindicaciones</h5><p>Alergia a la proteina de leche (usar aislado, con menos lactosa, o alternativa vegetal). Intolerancia a la lactosa: mejor aislado o hidrolizado.</p>
+            <h5>Interacciones</h5><p>Sin interacciones farmacologicas relevantes. Precaucion en enfermedad renal cronica preexistente (ajustar proteina total con supervision medica).</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Personas con dificultad para llegar a su objetivo diario de proteina mediante comida solida; util en definicion (saciedad + preservacion muscular) y en volumen. Precaucion en enfermedad renal preexistente.</p>
+            <h5>Sinergias</h5><p>Se combina con creatina y carbohidratos post-entreno sin evidencia de interferencia entre ellos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0003" data-nombre="caseina micelar" data-sub="proteinas">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0003')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0003</span>
+        <span class="ficha-nombre">Caseina micelar</span>
+        <span class="ficha-sub">Proteinas</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#2E7D3222;color:#2E7D32;border:1px solid #2E7D3266;">🟢 A</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥··</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0003">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Proteina de la leche (representa ~80% de sus proteinas) que forma un gel en el estomago, ralentizando su digestion y absorcion.</p>
+          <h5>¿Como funciona?</h5><p>Libera aminoacidos de forma lenta y sostenida durante varias horas, manteniendo la sintesis proteica muscular elevada durante periodos largos como el sueno.</p>
+          <h5>¿Para que se utiliza?</h5><p>Mantener un flujo constante de aminoacidos durante ayunos largos, especialmente durante la noche.</p>
+          <h5>¿Que dice la evidencia?</h5><p>El ISSN (2017) senala que 30-40 g de caseina antes de dormir aumenta la sintesis proteica muscular y la tasa metabolica durante la noche sin afectar la lipolisis.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Aumento de la sintesis proteica muscular nocturna cuando se toma antes de dormir</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible ligera reduccion del catabolismo muscular durante ayunos prolongados</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No acelera la perdida de grasa por si misma</li><li>No es superior a la whey si el objetivo es sintesis proteica inmediata post-entreno</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“La proteina de noche engorda” — no hay evidencia de que el momento de la toma, por si solo, afecte a la ganancia de grasa fuera del balance calorico total.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Buena opcion especificamente para la ventana nocturna por su liberacion lenta; no imprescindible si el reparto proteico diario ya es adecuado.</p>
+          <h5>Referencias</h5><p class="ref">ISSN Position Stand: Protein and Exercise (2017), J Int Soc Sports Nutr. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Caseinato (forma de digestion algo mas rapida que la micelar)</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>30-40 g antes de dormir, o como parte del reparto proteico diario.</p>
+            <h5>Timing</h5><p>Antes de dormir es el momento con mas evidencia especifica; tambien valida en cualquier comida.</p>
+            <h5>Biodisponibilidad</h5><p>La caseina micelar forma un gel gastrico que ralentiza su absorcion frente al caseinato, que se digiere algo mas rapido.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Hipertrofia</span><span class="obj-stars">★★★★☆</span></div><div class="obj-row"><span>Fuerza</span><span class="obj-stars">★★★☆☆</span></div><div class="obj-row"><span>Recuperacion</span><span class="obj-stars">★★★☆☆</span></div><div class="obj-row"><span>Salud general</span><span class="obj-stars">★☆☆☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Segura en poblacion sana a las dosis habituales.</p>
+            <h5>Contraindicaciones</h5><p>Alergia a la proteina de leche.</p>
+            <h5>Interacciones</h5><p>Ninguna relevante conocida.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Personas que buscan optimizar la recuperacion nocturna y minimizar el catabolismo muscular durante el ayuno del sueno.</p>
+            <h5>Sinergias</h5><p>Puede combinarse con whey a lo largo del dia (digestion rapida + lenta) sin evidencia de interferencia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0004" data-nombre="cafeina" data-sub="preentrenamientos / ergogenicos">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0004')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0004</span>
+        <span class="ficha-nombre">Cafeina</span>
+        <span class="ficha-sub">Preentrenamientos / Ergogenicos</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#2E7D3222;color:#2E7D32;border:1px solid #2E7D3266;">🟢 A</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥🔥🔥</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0004">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Estimulante del sistema nervioso central, el ergogenico mas consumido del mundo, presente en cafe, te, guarana y como suplemento aislado.</p>
+          <h5>¿Como funciona?</h5><p>Antagonista de los receptores de adenosina, lo que reduce la percepcion de fatiga y esfuerzo, y aumenta la liberacion de adrenalina y la disponibilidad de calcio en el musculo.</p>
+          <h5>¿Para que se utiliza?</h5><p>Mejorar rendimiento en resistencia aerobica, fuerza, potencia y deportes de equipo; aumentar el estado de alerta.</p>
+          <h5>¿Que dice la evidencia?</h5><p>El ISSN (2021) confirma beneficios de pequenos a moderados en resistencia, fuerza, velocidad y salto con dosis de 3-6 mg/kg, siendo la resistencia aerobica donde el efecto es mas consistente.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Mejora del rendimiento en resistencia aerobica</li><li>Mejora leve-moderada en fuerza, potencia y salto</li><li>Aumento del estado de alerta y reduccion de la fatiga percibida</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible efecto termogenico leve que apoya la perdida de grasa dentro de un deficit calorico</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No sustituye al sueno ni revierte los efectos de la privacion cronica de sueno</li><li>No &#x27;quema grasa&#x27; de forma relevante sin deficit calorico</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“Mas cafeina siempre es mejor” — por encima de 9 mg/kg no hay mas beneficio y aumentan los efectos secundarios.</li><li>“La cafeina deshidrata durante el ejercicio” — la evidencia actual no respalda un efecto diuretico relevante en usuarios habituales durante el ejercicio.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Ergogenico con evidencia solida y efecto dosis-dependiente claro; util en resistencia, fuerza y estado de alerta, con margen de seguridad amplio en poblacion sana a dosis moderadas.</p>
+          <h5>Referencias</h5><p class="ref">ISSN Position Stand: Caffeine and Exercise Performance (2021), J Int Soc Sports Nutr. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7777221/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Cafeina anhidra; cafeina de guarana/te/cafe; cafeina de liberacion prolongada</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>3-6 mg/kg de peso corporal (dosis minima eficaz posiblemente desde 2 mg/kg); dosis por encima de 9 mg/kg no aportan mas beneficio y aumentan efectos secundarios.</p>
+            <h5>Timing</h5><p>60 minutos antes del ejercicio.</p>
+            <h5>Biodisponibilidad</h5><p>La cafeina anhidra tiene absorcion mas rapida y predecible que fuentes naturales (cafe, te, guarana), cuyo contenido varia segun la preparacion.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Fuerza</span><span class="obj-stars">★★★☆☆</span></div><div class="obj-row"><span>Perdida de grasa</span><span class="obj-stars">★★★☆☆</span></div><div class="obj-row"><span>Salud general</span><span class="obj-stars">★☆☆☆☆</span></div><div class="obj-row"><span>Recuperacion</span><span class="obj-stars">★☆☆☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Segura en poblacion sana adulta dentro del rango de dosis estudiado; efectos secundarios (ansiedad, insomnio, taquicardia) dependen de la dosis y la tolerancia individual.</p>
+            <h5>Contraindicaciones</h5><p>Ansiedad, insomnio, arritmias, embarazo (limitar a &lt;200 mg/dia), hipertension no controlada.</p>
+            <h5>Interacciones</h5><p>Potencia efectos de otros estimulantes; puede alterar la absorcion de hierro si se toma junto a las comidas; interactua con algunos farmacos (ej. efedrina, ciertos antidepresivos).</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Embarazo: limitar a &lt;200 mg/dia. Personas con arritmias o hipertension no controlada: evaluar con su medico. Consumidores habituales: pueden necesitar dosis algo mayores o un periodo de retirada previo para notar el efecto ergogenico completo.</p>
+            <h5>Sinergias</h5><p>Se combina con L-teanina (ratio habitual 2:1) para reducir el nerviosismo sin perder el efecto estimulante.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0005" data-nombre="vitamina d3 (colecalciferol)" data-sub="vitaminas / salud osea-inmunidad">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0005')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0005</span>
+        <span class="ficha-nombre">Vitamina D3 (colecalciferol)</span>
+        <span class="ficha-sub">Vitaminas / Salud osea-inmunidad</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#2E7D3222;color:#2E7D32;border:1px solid #2E7D3266;">🟢 A</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥🔥🔥</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0005">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Vitamina liposoluble que el cuerpo sintetiza en la piel por exposicion solar, y que actua como precursora de una hormona esteroidea.</p>
+          <h5>¿Como funciona?</h5><p>Se activa en higado y rinon hasta calcitriol, que regula la absorcion intestinal de calcio y fosforo, la salud osea, la funcion inmune y la expresion de cientos de genes.</p>
+          <h5>¿Para que se utiliza?</h5><p>Prevenir y corregir deficit de vitamina D, mantener salud osea, funcion inmune y muscular.</p>
+          <h5>¿Que dice la evidencia?</h5><p>La deficiencia de vitamina D es muy prevalente (especialmente en climas con poco sol o con poca exposicion solar directa). Evidencia solida en salud osea; la evidencia sobre beneficios de la suplementacion en rendimiento deportivo en personas con niveles ya suficientes es mas limitada.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Prevencion y correccion del deficit de vitamina D</li><li>Mantenimiento de la salud osea (junto con calcio adecuado)</li><li>Apoyo a la funcion inmune</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible apoyo a la funcion muscular en personas con deficit previo</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No mejora el rendimiento deportivo en personas con niveles ya suficientes</li><li>No sustituye la exposicion solar responsable ni una dieta equilibrada por si sola</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“Mas vitamina D siempre es mejor” — el exceso no aporta mas beneficio y puede causar hipercalcemia; hay que dosificar segun analitica, no a ciegas.</li><li>“Tomar el sol basta siempre” — la sintesis cutanea depende de latitud, estacion, pigmentacion de la piel y uso de protector solar, por lo que el deficit es comun incluso en climas soleados.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Suplemento de alta prioridad cuando hay deficit confirmado o riesgo elevado (poca exposicion solar, mayores, obesidad); no debe tomarse a dosis altas sin control analitico.</p>
+          <h5>Referencias</h5><p class="ref">NIH Office of Dietary Supplements, Vitamin D Health Professional Fact Sheet. https://ods.od.nih.gov/factsheets/VitaminD-HealthProfessional/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Colecalciferol (D3, origen animal/liquen) vs ergocalciferol (D2, origen vegetal, menos potente)</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>RDA general 600-800 UI/dia; en deficit, se usan dosis terapeuticas de 1000-4000 UI/dia bajo supervision, con limite superior tolerable de 4000 UI/dia para uso sin supervision medica.</p>
+            <h5>Timing</h5><p>Con una comida que contenga grasa, para mejorar su absorcion (es liposoluble).</p>
+            <h5>Biodisponibilidad</h5><p>La forma D3 (colecalciferol) eleva los niveles sanguineos de forma mas eficaz y sostenida que la D2 (ergocalciferol).</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Salud general</span><span class="obj-stars">★★★★★</span></div><div class="obj-row"><span>Recuperacion</span><span class="obj-stars">★★☆☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Segura dentro del limite superior tolerable (4000 UI/dia sin supervision); dosis muy altas y mantenidas pueden causar hipercalcemia.</p>
+            <h5>Contraindicaciones</h5><p>Hipercalcemia, sarcoidosis u otras enfermedades granulomatosas (riesgo de hipercalcemia). No suplementar a dosis altas sin verificar niveles en sangre (25-OH-D).</p>
+            <h5>Interacciones</h5><p>Corticoides reducen su metabolismo; ciertos anticonvulsivos aumentan su degradacion; interactua con digoxina si hay hipercalcemia asociada.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Personas con poca exposicion solar, piel oscura en climas poco soleados, mayores de 65 anos, personas con obesidad, y quienes tengan niveles sanguineos bajos confirmados por analitica.</p>
+            <h5>Sinergias</h5><p>Trabaja junto al calcio y la vitamina K2 para la salud osea; sin evidencia suficiente para recomendar su combinacion sistematica sin necesidad clinica.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0006" data-nombre="magnesio" data-sub="minerales / descanso-hormonas">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0006')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0006</span>
+        <span class="ficha-nombre">Magnesio</span>
+        <span class="ficha-sub">Minerales / Descanso-hormonas</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#F9A82522;color:#F9A825;border:1px solid #F9A82566;">🟡 B</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥🔥·</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0006">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Mineral esencial cofactor de mas de 300 reacciones enzimaticas en el cuerpo, incluyendo produccion de energia y funcion muscular y nerviosa.</p>
+          <h5>¿Como funciona?</h5><p>Regula el transporte de calcio y potasio a traves de membranas celulares (relevante para contraccion muscular y ritmo cardiaco), participa en la sintesis de ATP y en la regulacion del sistema nervioso (modula receptores NMDA y GABA).</p>
+          <h5>¿Para que se utiliza?</h5><p>Funcion muscular y nerviosa, calidad del sueno, regulacion del estres, salud osea y cardiovascular; corregir deficit (frecuente en dietas occidentales).</p>
+          <h5>¿Que dice la evidencia?</h5><p>El NIH ODS documenta su papel esencial y que una parte relevante de la poblacion no llega a la ingesta recomendada. La evidencia es solida para corregir deficit; los efectos especificos sobre rendimiento deportivo en personas con niveles normales son mas modestos.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Correccion del deficit de magnesio (frecuente en dietas occidentales)</li><li>Apoyo a la funcion muscular y nerviosa normal</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible mejora de la calidad de sueno percibida en personas con niveles bajos o insomnio leve</li><li>Posible apoyo en el manejo del estres</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No es un sedante ni un ansiolitico farmacologico</li><li>No mejora el rendimiento deportivo en personas con niveles ya normales de forma relevante</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“El magnesio cura el insomnio y la ansiedad” — evidencia insuficiente para esa afirmacion generalizada; su efecto es mas notable cuando corrige un deficit real.</li><li>“Todas las formas de magnesio son iguales” — el oxido tiene biodisponibilidad claramente menor que citrato o bisglicinato.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Prioritario para corregir deficit (muy comun) y apoyar funcion muscular, nerviosa y sueno; elegir formas de mejor absorcion (citrato/bisglicinato) sobre el oxido.</p>
+          <h5>Referencias</h5><p class="ref">NIH Office of Dietary Supplements, Magnesium Health Professional Fact Sheet. https://ods.od.nih.gov/factsheets/Magnesium-HealthProfessional/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Citrato, bisglicinato, malato, oxido (baja biodisponibilidad), taurato, L-treonato, cloruro, carbonato</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>RDA 310-420 mg/dia segun sexo y edad (aportado por dieta + suplemento). Las formas citrato/bisglicinato tienen mejor absorcion y menos efecto laxante que el oxido.</p>
+            <h5>Timing</h5><p>Por la noche si el objetivo es el sueno/relajacion; en cualquier momento si es para cubrir ingesta general.</p>
+            <h5>Biodisponibilidad</h5><p>Citrato, bisglicinato, malato y taurato se absorben mejor y causan menos molestias digestivas que el oxido, que tiene baja biodisponibilidad.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Salud general</span><span class="obj-stars">★★★★☆</span></div><div class="obj-row"><span>Recuperacion</span><span class="obj-stars">★★★☆☆</span></div><div class="obj-row"><span>Fuerza</span><span class="obj-stars">★★☆☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Segura a las dosis recomendadas en personas con funcion renal normal; el principal efecto adverso es digestivo (diarrea) a dosis altas.</p>
+            <h5>Contraindicaciones</h5><p>Enfermedad renal (riesgo de acumulacion). Dosis altas pueden causar diarrea (especialmente formas oxido/citrato).</p>
+            <h5>Interacciones</h5><p>Puede reducir la absorcion de algunos antibioticos (quinolonas, tetraciclinas) y bifosfonatos si se toman juntos; separar 2h. Diureticos pueden alterar sus niveles.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Personas con dieta baja en frutos secos/verduras de hoja verde/legumbres, deportistas de resistencia (perdidas por sudor), personas con estres cronico o mala calidad de sueno. Precaucion en enfermedad renal.</p>
+            <h5>Sinergias</h5><p>Se combina con vitamina D (cofactor en su metabolismo) y con protocolos de higiene del sueno para mejorar la conciliacion.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0007" data-nombre="omega-3 (epa/dha)" data-sub="acidos grasos / salud cardiovascular">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0007')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0007</span>
+        <span class="ficha-nombre">Omega-3 (EPA/DHA)</span>
+        <span class="ficha-sub">Acidos grasos / Salud cardiovascular</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#F9A82522;color:#F9A825;border:1px solid #F9A82566;">🟡 B</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥🔥·</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0007">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Acidos grasos poliinsaturados de cadena larga (EPA y DHA), presentes principalmente en pescado azul, con ALA como precursor vegetal de conversion limitada.</p>
+          <h5>¿Como funciona?</h5><p>Se incorporan a las membranas celulares modulando la inflamacion (via eicosanoides), la funcion cardiovascular (trigliceridos, funcion endotelial) y la funcion cerebral (DHA es estructural en el cerebro).</p>
+          <h5>¿Para que se utiliza?</h5><p>Salud cardiovascular, control de trigliceridos, funcion cognitiva, posible apoyo a la recuperacion muscular y reduccion de inflamacion.</p>
+          <h5>¿Que dice la evidencia?</h5><p>El NIH ODS respalda su papel en salud cardiovascular; la FDA/EFSA consideran seguro hasta 5 g/dia de EPA+DHA combinados. Evidencia moderada en reduccion de dolor muscular post-ejercicio y en salud cognitiva a largo plazo.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Reduccion de trigliceridos en sangre</li><li>Apoyo a la salud cardiovascular general</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible reduccion del dolor muscular post-ejercicio (DOMS)</li><li>Posible apoyo a la funcion cognitiva a largo plazo</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No sustituye a la medicacion cardiovascular prescrita</li><li>El ALA vegetal no equivale a EPA/DHA por su conversion limitada en el cuerpo</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“El aceite de pescado &#x27;desinflama&#x27; de forma generica” — su efecto antiinflamatorio es especifico y moderado, no un remedio general para cualquier inflamacion.</li><li>“Cualquier omega-3 vegetal (ALA) equivale al de pescado” — la conversion de ALA a EPA/DHA en el cuerpo es muy limitada (menos del 10-15%).</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Recomendable para quienes no consumen pescado azul regularmente, con evidencia solida en salud cardiovascular; elegir EPA+DHA directos (pescado o algas), no solo ALA vegetal.</p>
+          <h5>Referencias</h5><p class="ref">NIH Office of Dietary Supplements, Omega-3 Fatty Acids Health Professional Fact Sheet. https://ods.od.nih.gov/factsheets/Omega3FattyAcids-HealthProfessional/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Aceite de pescado, aceite de kril, aceite de algas (fuente vegana de DHA/EPA), ALA (vegetal, conversion limitada a EPA/DHA)</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>250-1000 mg/dia de EPA+DHA combinados para mantenimiento general; hasta 2-3 g/dia bajo indicacion para control de trigliceridos.</p>
+            <h5>Timing</h5><p>Con una comida que contenga grasa para mejorar absorcion; repartir en 2 tomas reduce reflujo/eructos con sabor a pescado.</p>
+            <h5>Biodisponibilidad</h5><p>El aceite de algas es la unica fuente vegana directa de EPA/DHA preformados; el ALA (linaza, chia, nueces) tiene una tasa de conversion a EPA/DHA muy baja en el cuerpo.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Salud general</span><span class="obj-stars">★★★★★</span></div><div class="obj-row"><span>Recuperacion</span><span class="obj-stars">★★☆☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Segura hasta 5 g/dia de EPA+DHA combinados segun FDA/EFSA; dosis altas pueden aumentar el riesgo de sangrado en personas predispuestas.</p>
+            <h5>Contraindicaciones</h5><p>Trastornos de coagulacion o uso de anticoagulantes (dosis altas pueden aumentar riesgo de sangrado). Alergia al pescado/marisco (usar version de algas).</p>
+            <h5>Interacciones</h5><p>Potencia el efecto de anticoagulantes/antiagregantes (warfarina, aspirina) a dosis altas; consultar con medico si se combinan.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Personas con bajo consumo de pescado azul (menos de 2 raciones/semana); veganos (usar version de algas); personas en tratamiento anticoagulante requieren supervision medica.</p>
+            <h5>Sinergias</h5><p>Sin sinergias de suplementacion con evidencia suficiente para recomendar combinaciones especificas mas alla de una dieta equilibrada.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0008" data-nombre="beta-alanina" data-sub="ergogenicos">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0008')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0008</span>
+        <span class="ficha-nombre">Beta-alanina</span>
+        <span class="ficha-sub">Ergogenicos</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#2E7D3222;color:#2E7D32;border:1px solid #2E7D3266;">🟢 A</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥··</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0008">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Aminoacido no esencial que actua como el sustrato limitante para la sintesis de carnosina en el musculo.</p>
+          <h5>¿Como funciona?</h5><p>Aumenta las reservas musculares de carnosina, un potente tampon del ion hidrogeno que se acumula durante el ejercicio de alta intensidad, retrasando la fatiga por acidosis muscular.</p>
+          <h5>¿Para que se utiliza?</h5><p>Mejorar el rendimiento en esfuerzos de alta intensidad de 1-4 minutos de duracion (series largas, sprints repetidos, CrossFit).</p>
+          <h5>¿Que dice la evidencia?</h5><p>El ISSN (2015) confirma que 4-6 g/dia durante al menos 2-4 semanas aumenta la carnosina muscular hasta un 64% a las 4 semanas y un 80% a las 10, mejorando el rendimiento en tareas de esa duracion.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Aumento de la carnosina muscular con uso continuado</li><li>Mejora del rendimiento en esfuerzos de 1-4 minutos de alta intensidad</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible retraso leve de la fatiga en series largas de musculacion (8-15 repeticiones al fallo)</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No tiene efecto agudo notable (no sirve tomarlo justo antes de entrenar una sola vez)</li><li>No mejora esfuerzos muy cortos (menos de 60 segundos) ni muy largos (resistencia prolongada)</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“El hormigueo significa que esta funcionando o que hay una reaccion alergica” — es un efecto fisiologico benigno (parestesia) sin relacion con la eficacia ni con alergia.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Util especificamente para esfuerzos repetidos de alta intensidad de 1-4 minutos; requiere uso continuado (no puntual) durante varias semanas para notar el efecto.</p>
+          <h5>Referencias</h5><p class="ref">ISSN Position Stand: Beta-Alanine Supplementation (2015), J Int Soc Sports Nutr. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4501114/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Beta-alanina pura; CarnoSyn (marca registrada de liberacion sostenida)</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>4-6 g/dia repartidos en tomas de 1.6 g o menos (o formula de liberacion sostenida) para minimizar parestesia; uso continuo minimo 2-4 semanas para notar efecto.</p>
+            <h5>Timing</h5><p>Repartido a lo largo del dia, con o sin comida; no necesita tomarse justo antes de entrenar (efecto acumulativo, no agudo).</p>
+            <h5>Biodisponibilidad</h5><p>Las formulas de liberacion sostenida reducen la parestesia (hormigueo) sin alterar la eficacia frente a la beta-alanina pura repartida en dosis pequenas.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Fuerza</span><span class="obj-stars">★★★☆☆</span></div><div class="obj-row"><span>Recuperacion</span><span class="obj-stars">★★☆☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Segura a dosis recomendadas; el unico efecto secundario descrito es la parestesia (hormigueo cutaneo), benigna y transitoria.</p>
+            <h5>Contraindicaciones</h5><p>Ninguna grave conocida a dosis recomendadas. Parestesia (hormigueo en piel) es un efecto secundario benigno y transitorio, no una reaccion alergica.</p>
+            <h5>Interacciones</h5><p>Ninguna relevante conocida.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Deportistas de disciplinas con esfuerzos repetidos de alta intensidad de 1-4 minutos: remo, CrossFit, boxeo, natacion de media distancia, series largas en musculacion.</p>
+            <h5>Sinergias</h5><p>Se combina habitualmente con creatina en preentrenos, sin evidencia de interferencia entre ambos suplementos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0009" data-nombre="citrulina malato" data-sub="preentrenamientos">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0009')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0009</span>
+        <span class="ficha-nombre">Citrulina malato</span>
+        <span class="ficha-sub">Preentrenamientos</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#F9A82522;color:#F9A825;border:1px solid #F9A82566;">🟡 B</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥··</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0009">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Aminoacido no esencial que el rinon convierte eficientemente en L-arginina, precursora del oxido nitrico. La forma malato anade acido malico, implicado en la produccion de energia.</p>
+          <h5>¿Como funciona?</h5><p>Aumenta los niveles plasmaticos de arginina y oxido nitrico de forma mas eficaz que la arginina oral directa (que sufre mucho metabolismo de primer paso), mejorando el flujo sanguineo muscular.</p>
+          <h5>¿Para que se utiliza?</h5><p>Reducir la percepcion de esfuerzo y el dolor muscular post-ejercicio; posible mejora leve-moderada en rendimiento de resistencia muscular.</p>
+          <h5>¿Que dice la evidencia?</h5><p>Meta-analisis recientes muestran reduccion consistente del RPE (esfuerzo percibido) y del dolor muscular a las 24-48h, con efectos sobre rendimiento puro mas modestos y variables entre estudios.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Reduccion del esfuerzo percibido (RPE) durante el entrenamiento</li><li>Reduccion del dolor muscular (DOMS) a las 24-48h post-ejercicio</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible aumento leve-moderado de repeticiones/series antes del fallo</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No es un vasodilatador con efecto comparable a farmacos para disfuncion erectil</li><li>El efecto sobre fuerza maxima (1RM) no esta bien establecido</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“La citrulina da una congestion muscular equivalente a esteroides” — el efecto vasodilatador es real pero modesto, no comparable a compuestos farmacologicos.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Util sobre todo para reducir la percepcion de esfuerzo y el dolor muscular; el efecto directo sobre fuerza maxima es mas debil y variable entre estudios.</p>
+          <h5>Referencias</h5><p class="ref">Meta-analisis Nutrients 2024 (Citrulline Malate). https://www.mdpi.com/2072-6643/18/12/1881 | Examine.com: https://examine.com/supplements/citrulline/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>L-citrulina pura vs citrulina malato (combinada con acido malico)</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>6-8 g de citrulina malato (equivalente a 3-4 g de L-citrulina pura) 40-60 minutos antes de entrenar.</p>
+            <h5>Timing</h5><p>40-60 minutos pre-entreno.</p>
+            <h5>Biodisponibilidad</h5><p>La L-citrulina oral eleva la arginina plasmatica de forma mas eficaz que la arginina oral directa, que se degrada mucho en el intestino/higado antes de llegar a circulacion.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Fuerza</span><span class="obj-stars">★★★☆☆</span></div><div class="obj-row"><span>Hipertrofia</span><span class="obj-stars">★★★☆☆</span></div><div class="obj-row"><span>Recuperacion</span><span class="obj-stars">★★★☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Segura a las dosis estudiadas; el principal riesgo son molestias gastrointestinales a dosis muy altas.</p>
+            <h5>Contraindicaciones</h5><p>Hipotension (por su efecto vasodilatador leve). Molestias gastrointestinales a dosis muy altas (&gt;10 g).</p>
+            <h5>Interacciones</h5><p>Precaucion junto a farmacos para la disfuncion erectil (sildenafilo y similares) o antihipertensivos por el efecto vasodilatador combinado.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Practicantes de musculacion que buscan mas series/repeticiones antes de la fatiga, y quienes valoran reducir el dolor muscular post-entreno.</p>
+            <h5>Sinergias</h5><p>Se combina habitualmente con nitratos/remolacha en preentrenos por su mecanismo compartido de oxido nitrico, sin evidencia solida de un efecto aditivo claro.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0010" data-nombre="hmb (beta-hidroxi-beta-metilbutirato)" data-sub="ergogenicos / recuperacion">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0010')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0010</span>
+        <span class="ficha-nombre">HMB (beta-hidroxi-beta-metilbutirato)</span>
+        <span class="ficha-sub">Ergogenicos / Recuperacion</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#F9A82522;color:#F9A825;border:1px solid #F9A82566;">🟡 B</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥···</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0010">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Metabolito de la leucina que se produce de forma natural en el cuerpo en pequenas cantidades.</p>
+          <h5>¿Como funciona?</h5><p>Reduce la degradacion de proteina muscular (via inhibicion de la via ubiquitina-proteasoma) y puede estimular la sintesis proteica, actuando mas como &#x27;anti-catabolico&#x27; que como estimulo anabolico puro.</p>
+          <h5>¿Para que se utiliza?</h5><p>Reducir el dano muscular inducido por el ejercicio y acelerar la recuperacion, especialmente en personas destrenadas o en fases de alto volumen.</p>
+          <h5>¿Que dice la evidencia?</h5><p>El ISSN respalda su uso para atenuar el dano muscular; el beneficio en fuerza/hipertrofia es claro en poblaciones no entrenadas o clinicas, pero mucho mas modesto y menos consistente en levantadores ya entrenados y avanzados.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Reduccion del dano muscular inducido por el ejercicio en personas destrenadas o en sobrecarga</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible apoyo a la preservacion de masa muscular en poblacion mayor con riesgo de sarcopenia</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No aporta beneficios relevantes adicionales en levantadores avanzados y bien entrenados</li><li>No es comparable en magnitud a la creatina o la proteina</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“El HMB es un sustituto de la creatina o la proteina” — su magnitud de efecto es mucho menor y su indicacion principal es distinta (anti-catabolico, no ganancia de fuerza/masa per se).</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Prioridad baja para deportistas avanzados; puede tener sentido en personas destrenadas, poblacion mayor o fases puntuales de sobrecarga de entrenamiento.</p>
+          <h5>Referencias</h5><p class="ref">ISSN Position Stand: HMB. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3568064/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Ca-HMB (calcio HMB, la forma mas estudiada) vs HMB-FA (acido libre)</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>3 g/dia (Ca-HMB), idealmente comenzando 2 semanas antes de un bloque de entrenamiento exigente.</p>
+            <h5>Timing</h5><p>Repartido en 3 tomas de 1 g a lo largo del dia, o cerca del entrenamiento.</p>
+            <h5>Biodisponibilidad</h5><p>El HMB-FA (acido libre) se absorbe mas rapido que el Ca-HMB, pero la mayoria de la evidencia respalda especificamente al Ca-HMB.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Recuperacion</span><span class="obj-stars">★★★☆☆</span></div><div class="obj-row"><span>Hipertrofia</span><span class="obj-stars">★★☆☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Sin efectos adversos relevantes descritos a las dosis estudiadas.</p>
+            <h5>Contraindicaciones</h5><p>Ninguna grave conocida a dosis recomendadas.</p>
+            <h5>Interacciones</h5><p>Ninguna relevante conocida.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Personas destrenadas que retoman el ejercicio, atletas en fases de sobrecarga/alto volumen, poblacion mayor con riesgo de sarcopenia.</p>
+            <h5>Sinergias</h5><p>Sin sinergias con evidencia suficiente para recomendar combinaciones especificas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0011" data-nombre="eaa (aminoacidos esenciales)" data-sub="aminoacidos">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0011')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0011</span>
+        <span class="ficha-nombre">EAA (aminoacidos esenciales)</span>
+        <span class="ficha-sub">Aminoacidos</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#F9A82522;color:#F9A825;border:1px solid #F9A82566;">🟡 B</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥··</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0011">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Mezcla de los 9 aminoacidos que el cuerpo no puede sintetizar y debe obtener de la dieta, necesarios en conjunto para la sintesis de proteina muscular completa.</p>
+          <h5>¿Como funciona?</h5><p>Aportan todos los sustratos necesarios para activar y sostener la sintesis de proteina muscular, a diferencia de los BCAA aislados que carecen de varios EAA imprescindibles para ese proceso.</p>
+          <h5>¿Para que se utiliza?</h5><p>Estimular la sintesis proteica muscular cuando no es posible tomar una fuente de proteina completa; util en ayuno o entrenos en ayunas.</p>
+          <h5>¿Que dice la evidencia?</h5><p>La evidencia muestra que los EAA completos son superiores a los BCAA aislados para estimular sintesis proteica, ya que esta requiere el conjunto completo de aminoacidos esenciales, no solo los de cadena ramificada.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Estimulacion de la sintesis proteica muscular de forma equivalente a fuentes de proteina completa en la misma cantidad de EAA</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible utilidad practica en entrenos en ayunas o cuando no es posible una comida completa</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No aporta beneficio adicional sobre la proteina completa (whey, alimentos) si esta ya se consume en cantidad suficiente</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“Los EAA son imprescindibles si ya tomas suficiente proteina” — no aportan beneficio adicional relevante sobre una dieta con proteina completa suficiente.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Alternativa util cuando no es practico tomar una fuente de proteina completa (ayuno, viajes), pero no superior a la proteina completa cuando esta ya es adecuada.</p>
+          <h5>Referencias</h5><p class="ref">ISSN Position Stand: Protein and Exercise (2017), J Int Soc Sports Nutr. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Perfil completo de los 9 EAA (incluye los 3 BCAA + lisina, metionina, fenilalanina, treonina, triptofano, histidina)</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>10-15 g por toma, con 2-3 g de leucina como minimo dentro de esa mezcla.</p>
+            <h5>Timing</h5><p>Antes o durante el entreno (especialmente en ayunas), o entre comidas si hay dificultad para llegar al objetivo proteico total.</p>
+            <h5>Biodisponibilidad</h5><p>Formato libre (no unido en cadenas proteicas), por lo que su absorcion es mas rapida que la de una proteina completa que requiere digestion previa.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Hipertrofia</span><span class="obj-stars">★★★☆☆</span></div><div class="obj-row"><span>Fuerza</span><span class="obj-stars">★★☆☆☆</span></div><div class="obj-row"><span>Recuperacion</span><span class="obj-stars">★★★☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Sin efectos adversos relevantes descritos a las dosis habituales.</p>
+            <h5>Contraindicaciones</h5><p>Ninguna grave conocida. No sustituye a la proteina completa de la dieta como fuente calorica/nutricional global.</p>
+            <h5>Interacciones</h5><p>Ninguna relevante conocida.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Personas que entrenan en ayunas, veganos que combinan fuentes incompletas, o quienes buscan una opcion baja en calorias para estimular sintesis proteica.</p>
+            <h5>Sinergias</h5><p>Sin sinergias especificas mas alla de complementar el reparto proteico diario.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0012" data-nombre="bcaa (aminoacidos de cadena ramificada)" data-sub="aminoacidos">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0012')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0012</span>
+        <span class="ficha-nombre">BCAA (aminoacidos de cadena ramificada)</span>
+        <span class="ficha-sub">Aminoacidos</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#EF6C0022;color:#EF6C00;border:1px solid #EF6C0066;">🟠 C</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥····</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0012">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Subgrupo de 3 de los 9 aminoacidos esenciales (leucina, isoleucina, valina), historicamente el suplemento deportivo mas popular junto a la proteina.</p>
+          <h5>¿Como funciona?</h5><p>La leucina activa la via mTOR de sintesis proteica, pero sin los otros 6 EAA restantes el cuerpo no dispone de todos los sustratos necesarios para completar ese proceso de forma optima.</p>
+          <h5>¿Para que se utiliza?</h5><p>Historicamente usado para &#x27;anti-catabolismo&#x27; y recuperacion, aunque su utilidad real es limitada si la ingesta de proteina total ya es adecuada.</p>
+          <h5>¿Que dice la evidencia?</h5><p>La evidencia actual (y el propio ISSN) considera que los BCAA aislados aportan poco beneficio adicional si la dieta ya cubre proteina suficiente (1.6-2.2 g/kg/dia); los EAA completos o la proteina whey son opciones superiores para el mismo objetivo.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Activacion de la via de senalizacion mTOR (leucina) a nivel bioquimico</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible utilidad marginal en dietas muy bajas en proteina total</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No estimula la sintesis proteica muscular completa por si solo (faltan 6 de los 9 EAA)</li><li>No reduce el catabolismo de forma relevante si la proteina total diaria ya es adecuada</li><li>No supera a la proteina completa o a los EAA para ningun objetivo practico</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“Los BCAA son esenciales para evitar el catabolismo muscular” — no respaldado si la ingesta de proteina total ya es suficiente; es uno de los suplementos con mas marketing historico y menos respaldo relativo a su popularidad.</li><li>“Tomar BCAA durante el entreno mejora el rendimiento” — evidencia insuficiente comparado con una ingesta proteica diaria adecuada.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Prioridad baja: los EAA completos o la proteina de alta calidad cubren el mismo objetivo de forma mas eficaz. No recomendado como suplemento aislado prioritario.</p>
+          <h5>Referencias</h5><p class="ref">ISSN Position Stand: Protein and Exercise (2017), J Int Soc Sports Nutr. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/ (superioridad de EAA completos frente a BCAA aislados)</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Leucina, isoleucina, valina; ratios comerciales 2:1:1, 4:1:1, 8:1:1</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>5-10 g, aunque su relevancia practica es cuestionable si la proteina total diaria ya es adecuada.</p>
+            <h5>Timing</h5><p>Peri-entreno si se usan, aunque es preferible priorizar proteina completa o EAA.</p>
+            <h5>Biodisponibilidad</h5><p>Absorcion rapida al ser aminoacidos libres, pero irrelevante si el objetivo (sintesis proteica completa) no se cumple por la falta del resto de EAA.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Recuperacion</span><span class="obj-stars">★☆☆☆☆</span></div><div class="obj-row"><span>Hipertrofia</span><span class="obj-stars">★☆☆☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Sin efectos adversos relevantes descritos a dosis habituales; el problema no es de seguridad sino de eficacia limitada.</p>
+            <h5>Contraindicaciones</h5><p>Ninguna grave conocida a dosis recomendadas.</p>
+            <h5>Interacciones</h5><p>Ninguna relevante conocida.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Utilidad limitada en general; puede tener algun sentido en dietas muy bajas en proteina total, pero en ese caso es preferible corregir la ingesta de proteina completa.</p>
+            <h5>Sinergias</h5><p>No aplica; se recomienda sustituir por EAA completos o proteina antes que combinar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0013" data-nombre="bicarbonato sodico" data-sub="ergogenicos">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0013')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0013</span>
+        <span class="ficha-nombre">Bicarbonato sodico</span>
+        <span class="ficha-sub">Ergogenicos</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#F9A82522;color:#F9A825;border:1px solid #F9A82566;">🟡 B</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥···</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0013">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Sal alcalina de uso comun (el bicarbonato de cocina), utilizada como ayuda ergogenica para tamponar la acidez producida durante el ejercicio intenso.</p>
+          <h5>¿Como funciona?</h5><p>Aumenta el pH y la capacidad tampon de bicarbonato en sangre, facilitando la salida de iones hidrogeno desde el musculo hacia la sangre durante el ejercicio anaerobico, retrasando la fatiga por acidosis.</p>
+          <h5>¿Para que se utiliza?</h5><p>Mejorar el rendimiento en esfuerzos anaerobicos de alta intensidad de 1-10 minutos (natacion, remo, sprints repetidos, deportes de combate).</p>
+          <h5>¿Que dice la evidencia?</h5><p>Evidencia consistente de mejora del rendimiento en esa ventana de duracion, aunque con alta incidencia de molestias gastrointestinales que limitan su uso practico en varios deportistas.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Mejora del rendimiento en esfuerzos anaerobicos de 1-10 minutos</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible beneficio en series repetidas de sprint en deportes de equipo</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No es util para esfuerzos de resistencia prolongada ni para fuerza maxima pura</li><li>No debe usarse de forma diaria continua; es una ayuda puntual pre-competicion</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“Es seguro tomarlo en cualquier dosis y momento sin probarlo antes” — dada la alta incidencia de molestias digestivas, se recomienda siempre probarlo en entrenamiento antes de usarlo en competicion.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Ayuda ergogenica especifica para esfuerzos anaerobicos cortos-medios, de uso puntual; su limitante practico son las molestias digestivas, no la falta de eficacia.</p>
+          <h5>Referencias</h5><p class="ref">Examine.com: https://examine.com/supplements/sodium-bicarbonate/ | Revision ISSN sobre ayudas ergogenicas alcalinizantes.</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Bicarbonato sodico; citrato sodico (alternativa con menos molestias digestivas)</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>0.2-0.3 g/kg de peso corporal, 60-90 minutos antes del ejercicio, repartido para reducir molestias digestivas.</p>
+            <h5>Timing</h5><p>60-90 minutos pre-competicion/entreno especifico; no es de uso diario continuo.</p>
+            <h5>Biodisponibilidad</h5><p>El citrato sodico es una alternativa con menor incidencia de molestias gastrointestinales, aunque algo menos estudiada que el bicarbonato.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Fuerza</span><span class="obj-stars">★★★☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Alta incidencia de molestias gastrointestinales (nauseas, diarrea) que limitan su uso practico; no recomendado en personas con hipertension no controlada por su contenido en sodio.</p>
+            <h5>Contraindicaciones</h5><p>Problemas gastrointestinales frecuentes tras su uso; hipertension (contenido en sodio); insuficiencia renal.</p>
+            <h5>Interacciones</h5><p>Puede alterar la absorcion de otros farmacos al modificar el pH gastrico; evitar combinar con otros antiacidos sin supervision.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Deportistas de disciplinas anaerobicas de 1-10 minutos: natacion, remo, boxeo, artes marciales, atletismo de media distancia.</p>
+            <h5>Sinergias</h5><p>Sin sinergias con evidencia suficiente para recomendar combinaciones especificas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0014" data-nombre="nitratos (jugo de remolacha)" data-sub="ergogenicos / resistencia">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0014')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0014</span>
+        <span class="ficha-nombre">Nitratos (jugo de remolacha)</span>
+        <span class="ficha-sub">Ergogenicos / Resistencia</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#F9A82522;color:#F9A825;border:1px solid #F9A82566;">🟡 B</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥···</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0014">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Nitratos inorganicos presentes de forma natural en vegetales de hoja verde y remolacha, precursores de oxido nitrico en el organismo.</p>
+          <h5>¿Como funciona?</h5><p>Se reducen a nitrito y luego a oxido nitrico en el cuerpo, mejorando la eficiencia mitocondrial y reduciendo el coste de oxigeno del ejercicio submaximo, ademas de mejorar el flujo sanguineo muscular.</p>
+          <h5>¿Para que se utiliza?</h5><p>Mejorar la economia de carrera/pedaleo y el rendimiento en resistencia aerobica, especialmente en esfuerzos submaximos prolongados.</p>
+          <h5>¿Que dice la evidencia?</h5><p>Evidencia consistente de mejora en economia de ejercicio y rendimiento de resistencia, con efecto mas marcado en deportistas recreativos que en elite muy entrenada.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Mejora de la economia de ejercicio (menor coste de oxigeno a la misma intensidad)</li><li>Mejora del rendimiento en esfuerzos submaximos prolongados</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible beneficio en deportes de equipo con demanda aerobica intermitente</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>El efecto es menor y mas inconsistente en deportistas de elite ya muy entrenados</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“Cualquier verdura verde suple lo mismo que el jugo concentrado” — la dosis efectiva estudiada corresponde a una cantidad especifica y concentrada de nitratos, dificil de igualar con el consumo dietetico ocasional.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Opcion util y de bajo riesgo para deportistas de resistencia recreativos-amateur; efecto mas modesto en atletas de elite ya muy entrenados.</p>
+          <h5>Referencias</h5><p class="ref">Consenso AIS (Australian Institute of Sport) sobre nitratos dieteticos, categoria A | Examine.com: https://examine.com/supplements/nitrate/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Nitrato de sodio/potasio, jugo de remolacha concentrado, extracto de remolacha en polvo</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>300-600 mg de nitratos (aprox. 500 ml de jugo de remolacha o su equivalente concentrado), 2-3 horas antes del ejercicio.</p>
+            <h5>Timing</h5><p>2-3 horas pre-ejercicio; el efecto puede mantenerse con tomas repetidas en dias previos a una competicion.</p>
+            <h5>Biodisponibilidad</h5><p>El uso de enjuague bucal antiseptico elimina las bacterias orales necesarias para convertir nitrato en nitrito, reduciendo la eficacia del suplemento.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Salud general</span><span class="obj-stars">★★★☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Sin efectos adversos relevantes descritos; puede colorear la orina/heces de rojo, un efecto inofensivo.</p>
+            <h5>Contraindicaciones</h5><p>Ninguna grave conocida. Puede colorear la orina/heces de rojo (inofensivo). Precaucion en quienes usan enjuague bucal antiseptico habitualmente, ya que elimina las bacterias orales necesarias para la conversion de nitrato a nitrito.</p>
+            <h5>Interacciones</h5><p>Potencia el efecto de farmacos vasodilatadores/para disfuncion erectil; evitar combinar sin supervision medica.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Corredores, ciclistas y deportistas de resistencia en general, especialmente a nivel recreativo-amateur.</p>
+            <h5>Sinergias</h5><p>Comparte via de accion (oxido nitrico) con la citrulina malato, aunque no hay evidencia solida de un efecto aditivo claro al combinarlos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0015" data-nombre="zinc" data-sub="minerales / inmunidad-hormonas">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0015')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0015</span>
+        <span class="ficha-nombre">Zinc</span>
+        <span class="ficha-sub">Minerales / Inmunidad-hormonas</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#F9A82522;color:#F9A825;border:1px solid #F9A82566;">🟡 B</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥··</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0015">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Mineral traza esencial implicado en mas de 300 enzimas del cuerpo, con papel clave en inmunidad, cicatrizacion y sintesis hormonal.</p>
+          <h5>¿Como funciona?</h5><p>Cofactor enzimatico esencial para la sintesis de ADN/proteinas, la funcion inmune (produccion y funcion de linfocitos) y la regulacion de hormonas incluyendo testosterona en caso de deficit.</p>
+          <h5>¿Para que se utiliza?</h5><p>Mantener funcion inmune, cicatrizacion, sentido del gusto/olfato, y niveles hormonales normales; corregir deficit.</p>
+          <h5>¿Que dice la evidencia?</h5><p>Evidencia solida en reduccion de duracion del resfriado comun si se toma en las primeras 24h de sintomas. La suplementacion en personas con niveles ya normales no mejora la testosterona ni el rendimiento deportivo de forma relevante.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Reduccion de la duracion del resfriado comun si se toma en las primeras 24h</li><li>Correccion del deficit de zinc y sus consecuencias (inmunidad, cicatrizacion)</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible normalizacion hormonal solo en caso de deficit real confirmado</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No aumenta la testosterona en personas con niveles ya normales de zinc</li><li>No mejora el rendimiento deportivo por si mismo fuera de un contexto de deficit</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“El zinc sube la testosterona en cualquiera” — solo corrige la testosterona cuando hay un deficit real de zinc; en personas con niveles normales no hay efecto demostrado.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Prioridad media: util para corregir deficit y acortar resfriados; no es un potenciador hormonal en personas con niveles normales.</p>
+          <h5>Referencias</h5><p class="ref">NIH Office of Dietary Supplements, Zinc Health Professional Fact Sheet. https://ods.od.nih.gov/factsheets/Zinc-HealthProfessional/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Picolinato, bisglicinato, citrato, gluconato, oxido (menor biodisponibilidad)</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>RDA 8-11 mg/dia segun sexo; dosis terapeuticas puntuales de 40-75 mg/dia para resfriado, no de forma cronica (interfiere con cobre).</p>
+            <h5>Timing</h5><p>Con o sin comida; alejado del calcio y el hierro en suplementos separados para evitar competencia por absorcion.</p>
+            <h5>Biodisponibilidad</h5><p>Picolinato, bisglicinato y citrato tienen mejor absorcion que el oxido, de biodisponibilidad claramente menor.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Salud general</span><span class="obj-stars">★★★★☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Segura a dosis RDA; el uso cronico a dosis altas (&gt;40 mg/dia mantenido) puede causar deficit de cobre secundario.</p>
+            <h5>Contraindicaciones</h5><p>Dosis cronicas altas (&gt;40 mg/dia mantenido) pueden causar deficit de cobre y alterar el sistema inmune paradojicamente.</p>
+            <h5>Interacciones</h5><p>Reduce la absorcion de antibioticos (quinolonas, tetraciclinas) si se toman juntos; separar 2h. Compite con hierro y calcio por absorcion.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Deportistas con perdidas elevadas por sudor, veganos/vegetarianos (menor biodisponibilidad del zinc vegetal), personas con dietas restrictivas.</p>
+            <h5>Sinergias</h5><p>Sin sinergias de suplementacion con evidencia suficiente mas alla de evitar tomarlo junto a hierro/calcio por competencia de absorcion.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0016" data-nombre="vitamina b12" data-sub="vitaminas">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0016')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0016</span>
+        <span class="ficha-nombre">Vitamina B12</span>
+        <span class="ficha-sub">Vitaminas</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#2E7D3222;color:#2E7D32;border:1px solid #2E7D3266;">🟢 A</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥🔥·</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0016">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Vitamina hidrosoluble presente casi exclusivamente en alimentos de origen animal, esencial para la formacion de globulos rojos y la funcion neurologica.</p>
+          <h5>¿Como funciona?</h5><p>Cofactor en la sintesis de ADN y en el metabolismo de acidos grasos y aminoacidos; esencial para la mielinizacion de nervios y la maduracion de globulos rojos.</p>
+          <h5>¿Para que se utiliza?</h5><p>Prevenir y corregir el deficit (anemia megaloblastica, neuropatia); mantener energia y funcion cognitiva.</p>
+          <h5>¿Que dice la evidencia?</h5><p>Deficit bien documentado y clinicamente relevante en veganos/vegetarianos estrictos sin suplementacion, personas mayores (menor absorcion) y usuarios cronicos de metformina o inhibidores de la bomba de protones.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Prevencion y correccion de la anemia megaloblastica por deficit de B12</li><li>Mantenimiento de la funcion neurologica normal</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible mejora de energia/fatiga solo cuando existe un deficit real</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No aumenta la energia en personas sin deficit (&#x27;inyecciones de energia&#x27; sin base en niveles normales)</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“La B12 &#x27;da energia&#x27; a cualquiera que la tome” — solo hay beneficio energetico claro cuando existe un deficit real, confirmado por analitica.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Suplementacion sistematica recomendada en veganos/vegetarianos estrictos y otras poblaciones de riesgo; en el resto, solo si hay deficit confirmado.</p>
+          <h5>Referencias</h5><p class="ref">NIH Office of Dietary Supplements, Vitamin B12 Health Professional Fact Sheet. https://ods.od.nih.gov/factsheets/VitaminB12-HealthProfessional/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Cianocobalamina (sintetica, estable), metilcobalamina, adenosilcobalamina, hidroxocobalamina (formas activas/naturales)</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>RDA 2.4 mcg/dia; en veganos se recomienda suplementar de forma sistematica (25-100 mcg/dia o 1000-2000 mcg/semana segun formulacion).</p>
+            <h5>Timing</h5><p>Cualquier momento del dia, con o sin comida.</p>
+            <h5>Biodisponibilidad</h5><p>La cianocobalamina es la forma mas estable y economica; metilcobalamina y adenosilcobalamina son formas &#x27;activas&#x27; sin ventaja clinica demostrada de forma consistente sobre la cianocobalamina en personas sin trastornos geneticos especificos.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Salud general</span><span class="obj-stars">★★★★★</span></div><div class="obj-row"><span>Recuperacion</span><span class="obj-stars">★☆☆☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Muy segura; al ser hidrosoluble, el exceso se excreta por orina sin toxicidad conocida relevante.</p>
+            <h5>Contraindicaciones</h5><p>Ninguna relevante a dosis suplementarias habituales; es hidrosoluble y el exceso se excreta.</p>
+            <h5>Interacciones</h5><p>Metformina y los inhibidores de la bomba de protones reducen su absorcion a largo plazo.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Veganos y vegetarianos estrictos, mayores de 50 anos, personas con cirugia bariatrica o trastornos de absorcion, usuarios cronicos de metformina.</p>
+            <h5>Sinergias</h5><p>Se combina con folato y B6 en el metabolismo de la homocisteina, sin necesidad de suplementacion conjunta sistematica salvo deficit confirmado.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0017" data-nombre="hierro" data-sub="minerales">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0017')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0017</span>
+        <span class="ficha-nombre">Hierro</span>
+        <span class="ficha-sub">Minerales</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#2E7D3222;color:#2E7D32;border:1px solid #2E7D3266;">🟢 A</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥··</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0017">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Mineral esencial para el transporte de oxigeno en la sangre (hemoglobina) y musculo (mioglobina).</p>
+          <h5>¿Como funciona?</h5><p>Componente central del grupo hemo, imprescindible para la union y transporte de oxigeno; tambien participa en la produccion de energia mitocondrial.</p>
+          <h5>¿Para que se utiliza?</h5><p>Prevenir y corregir la anemia ferropenica y su impacto en la capacidad aerobica y la fatiga.</p>
+          <h5>¿Que dice la evidencia?</h5><p>El deficit de hierro (con o sin anemia) es frecuente en mujeres en edad fertil, deportistas de resistencia y dietas vegetarianas, y perjudica claramente el rendimiento aerobico; su correccion mediante analitica y suplementacion dirigida tiene evidencia solida.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Correccion de la anemia ferropenica y mejora de la capacidad aerobica asociada</li><li>Reduccion de la fatiga ligada a deficit de hierro confirmado</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible mejora del rendimiento en deportistas con deficit de hierro sin anemia manifiesta (&#x27;deficit funcional&#x27;)</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No mejora el rendimiento en personas con niveles de hierro ya normales</li><li>No debe tomarse &#x27;por si acaso&#x27; sin confirmacion analitica</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“Tomar hierro &#x27;por si acaso&#x27; da energia” — sin deficit confirmado por analitica, la suplementacion no aporta beneficio y puede ser perjudicial por acumulacion.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Solo suplementar con deficit confirmado por analitica; en ese caso, la evidencia de beneficio sobre fatiga y rendimiento aerobico es solida.</p>
+          <h5>Referencias</h5><p class="ref">NIH Office of Dietary Supplements, Iron Health Professional Fact Sheet. https://ods.od.nih.gov/factsheets/Iron-HealthProfessional/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Bisglicinato (mejor tolerancia digestiva), sulfato ferroso, fumarato, gluconato</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>RDA 8-18 mg/dia segun sexo/edad; dosis terapeuticas (habitualmente 30-60 mg de hierro elemental en dias alternos) solo si hay deficit confirmado por analitica.</p>
+            <h5>Timing</h5><p>En ayunas o alejado de comidas para mejor absorcion, aunque puede causar mas molestias digestivas; la vitamina C mejora su absorcion.</p>
+            <h5>Biodisponibilidad</h5><p>El bisglicinato ferroso tiene mejor tolerancia digestiva que el sulfato ferroso clasico, con absorcion comparable.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Salud general</span><span class="obj-stars">★★★★☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>La suplementacion sin deficit confirmado no es inocua: el exceso de hierro es toxico (hemocromatosis) y no se elimina facilmente del cuerpo.</p>
+            <h5>Contraindicaciones</h5><p>No suplementar sin analitica previa: la sobrecarga de hierro es toxica (hemocromatosis) y el hierro en exceso no se elimina facilmente del cuerpo.</p>
+            <h5>Interacciones</h5><p>El calcio, el te, el cafe y los antiacidos reducen su absorcion; la vitamina C la mejora. Interactua con levotiroxina y algunos antibioticos (separar 2h).</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Mujeres con menstruaciones abundantes, deportistas de resistencia (especialmente corredoras), veganos/vegetarianos, embarazadas.</p>
+            <h5>Sinergias</h5><p>La vitamina C mejora significativamente la absorcion del hierro no-hemo (vegetal) cuando se toman juntos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0018" data-nombre="vitamina c (acido ascorbico)" data-sub="vitaminas / inmunidad">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0018')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0018</span>
+        <span class="ficha-nombre">Vitamina C (acido ascorbico)</span>
+        <span class="ficha-sub">Vitaminas / Inmunidad</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#F9A82522;color:#F9A825;border:1px solid #F9A82566;">🟡 B</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥··</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0018">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Vitamina hidrosoluble antioxidante que el ser humano no puede sintetizar (a diferencia de la mayoria de mamiferos) y debe obtener de la dieta.</p>
+          <h5>¿Como funciona?</h5><p>Cofactor en la sintesis de colageno, carnitina y neurotransmisores; potente antioxidante hidrosoluble; mejora la absorcion de hierro no-hemo de origen vegetal.</p>
+          <h5>¿Para que se utiliza?</h5><p>Sintesis de colageno (piel, tendones, articulaciones), funcion inmune, antioxidante, mejora de absorcion de hierro vegetal.</p>
+          <h5>¿Que dice la evidencia?</h5><p>No previene el resfriado comun en poblacion general pero puede reducir ligeramente su duracion. Evidencia solida en su papel estructural (colageno) y como antioxidante; la suplementacion en dosis muy altas de forma cronica no ha mostrado beneficios adicionales claros y puede interferir con adaptaciones al entrenamiento.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Apoyo a la sintesis de colageno (piel, tendones, articulaciones)</li><li>Ligera reduccion de la duracion (no de la incidencia) del resfriado comun</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible apoyo antioxidante general dentro de una dieta equilibrada</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No previene el resfriado comun en poblacion general</li><li>Dosis muy altas y cronicas no aportan mas beneficio y podrian atenuar adaptaciones al entrenamiento de resistencia</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“La vitamina C previene los resfriados” — la evidencia en poblacion general no respalda la prevencion, solo una ligera reduccion de la duracion en algunos casos.</li><li>“Mas antioxidantes en dosis megadosis siempre ayudan a recuperarte” — dosis cronicas muy altas podrian interferir con algunas adaptaciones fisiologicas al entrenamiento de resistencia.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Util para sintesis de colageno y como acompanante de hierro vegetal; no es un preventivo de resfriados y no requiere megadosis.</p>
+          <h5>Referencias</h5><p class="ref">NIH Office of Dietary Supplements, Vitamin C Health Professional Fact Sheet. https://ods.od.nih.gov/factsheets/VitaminC-HealthProfessional/</p>
+        </div>
+        <div class="ficha-col-side">
+            <h5>Sinonimos</h5><p>Acido ascorbico, ascorbato calcico/sodico (formas &#x27;tamponadas&#x27;, menos acidas)</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>RDA 75-90 mg/dia; dosis de 500-1000 mg/dia son habituales en contextos deportivos/piel-articulaciones sin riesgo relevante.</p>
+            <h5>Timing</h5><p>Con las comidas, especialmente junto a fuentes de hierro vegetal para mejorar su absorcion.</p>
+            <h5>Biodisponibilidad</h5><p>Las formas &#x27;tamponadas&#x27; (ascorbato calcico/sodico) son menos acidas y mejor toleradas digestivamente, sin diferencia relevante en absorcion.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Salud general</span><span class="obj-stars">★★★★☆</span></div><div class="obj-row"><span>Recuperacion</span><span class="obj-stars">★★☆☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Muy segura; dosis muy altas (&gt;2000 mg/dia) pueden causar molestias digestivas y aumentar el riesgo de calculos renales de oxalato en personas predispuestas.</p>
+            <h5>Contraindicaciones</h5><p>Dosis muy altas (&gt;2000 mg/dia) pueden causar molestias digestivas y aumentar el riesgo de calculos renales de oxalato en personas predispuestas.</p>
+            <h5>Interacciones</h5><p>Mejora la absorcion de hierro no-hemo; en dosis antioxidantes muy altas y cronicas podria atenuar algunas adaptaciones al entrenamiento de resistencia segun algunos estudios.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Fumadores (mayor requerimiento), dietas bajas en fruta/verdura fresca, y como acompanante de colageno para su sintesis.</p>
+            <h5>Sinergias</h5><p>Mejora la absorcion del hierro no-hemo (vegetal) cuando se toma junto a el; se combina con colageno para apoyar su sintesis.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0019" data-nombre="melatonina" data-sub="sueno">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0019')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0019</span>
+        <span class="ficha-nombre">Melatonina</span>
+        <span class="ficha-sub">Sueno</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#F9A82522;color:#F9A825;border:1px solid #F9A82566;">🟡 B</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥··</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0019">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Hormona producida por la glandula pineal en respuesta a la oscuridad, que regula el ritmo circadiano de sueno-vigilia.</p>
+          <h5>¿Como funciona?</h5><p>Actua sobre receptores MT1/MT2 en el nucleo supraquiasmatico del cerebro, senalizando al cuerpo que es de noche y facilitando el inicio del sueno.</p>
+          <h5>¿Para que se utiliza?</h5><p>Facilitar el inicio del sueno, especialmente util en jet lag, trabajo a turnos, o desajustes puntuales del ritmo circadiano.</p>
+          <h5>¿Que dice la evidencia?</h5><p>Evidencia solida para reducir la latencia de sueno (tiempo en dormirse) y ajustar el ritmo circadiano en jet lag; menos efectiva para el insomnio de mantenimiento (despertares nocturnos) que para el de conciliacion.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Reduccion de la latencia de sueno (tiempo en dormirse)</li><li>Ajuste del ritmo circadiano en jet lag y trabajo a turnos</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible ligero apoyo en insomnio ocasional de conciliacion</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No es eficaz para el insomnio de mantenimiento (despertares nocturnos)</li><li>No es un sedante potente ni sustituye el tratamiento de un trastorno del sueno subyacente</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“Mas dosis de melatonina duerme mejor” — dosis mas altas (5-10 mg) no son mas eficaces que 0.5-3 mg y aumentan el riesgo de somnolencia residual al dia siguiente.</li><li>“La melatonina es un sedante fuerte” — es una senal circadiana, no un hipnotico; su efecto es mas sutil que el de un sedante farmacologico.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Util para desajustes puntuales del ritmo circadiano (jet lag, turnos) y para acortar el tiempo en dormirse; no es la herramienta principal para el insomnio de mantenimiento.</p>
+          <h5>Referencias</h5><p class="ref">NIH NCCIH, Melatonin: What You Need To Know. https://www.nccih.nih.gov/health/melatonin-what-you-need-to-know</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>Melatonina de liberacion inmediata vs liberacion prolongada</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>0.5-3 mg suele ser suficiente y tan o mas eficaz que dosis mas altas (5-10 mg), que pueden causar somnolencia residual al dia siguiente.</p>
+            <h5>Timing</h5><p>30-60 minutos antes de la hora deseada de dormir.</p>
+            <h5>Biodisponibilidad</h5><p>Las formulaciones de liberacion prolongada mantienen niveles mas estables durante la noche, utiles para quienes se despiertan a mitad de la noche; la liberacion inmediata favorece la conciliacion.</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Salud general</span><span class="obj-stars">★★☆☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Segura a corto plazo en adultos a dosis bajas (0.5-3 mg); la evidencia sobre uso cronico prolongado es mas limitada.</p>
+            <h5>Contraindicaciones</h5><p>Embarazo/lactancia (evidencia insuficiente), enfermedades autoinmunes (posible interaccion con el sistema inmune), no recomendado para uso cronico sin evaluar la causa de base del insomnio.</p>
+            <h5>Interacciones</h5><p>Puede potenciar sedantes y anticoagulantes; interactua con anticonceptivos hormonales (pueden aumentar sus niveles).</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Viajeros con jet lag, trabajadores a turnos, personas con dificultad puntual para conciliar el sueno en horarios nuevos. Precaucion en embarazo/lactancia y enfermedades autoinmunes.</p>
+            <h5>Sinergias</h5><p>Se combina con higiene del sueno (luz, horarios) para un efecto mas consistente que su uso aislado.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article class="ficha" id="HEX-0020" data-nombre="l-teanina" data-sub="sueno / cognicion">
+    <button class="ficha-head" onclick="toggleFicha('HEX-0020')">
+      <div class="ficha-head-left">
+        <span class="ficha-id">HEX-0020</span>
+        <span class="ficha-nombre">L-teanina</span>
+        <span class="ficha-sub">Sueno / Cognicion</span>
+      </div>
+      <div class="ficha-head-right">
+        <span class="evid-badge" style="background:#F9A82522;color:#F9A825;border:1px solid #F9A82566;">🟡 B</span>
+        <span class="fire-badge" title="Utilidad HEXIS">🔥🔥🔥··</span>
+        <span class="chevron">▾</span>
+      </div>
+    </button>
+    <div class="ficha-body" id="body-HEX-0020">
+      <div class="ficha-grid">
+        <div class="ficha-col-main">
+          <h5>¿Que es?</h5><p>Aminoacido no proteico presente de forma natural en las hojas del te (Camellia sinensis), estructuralmente similar al glutamato.</p>
+          <h5>¿Como funciona?</h5><p>Aumenta la actividad de ondas cerebrales alfa asociadas a un estado de relajacion sin sedacion, y modula los niveles de GABA, serotonina y dopamina.</p>
+          <h5>¿Para que se utiliza?</h5><p>Reducir la ansiedad leve y mejorar el enfoque, especialmente en combinacion con cafeina (reduce el nerviosismo asociado a esta sin perder el efecto estimulante).</p>
+          <h5>¿Que dice la evidencia?</h5><p>Evidencia consistente de un efecto calmante sin sedacion y de mejora de la atencion cuando se combina con cafeina (ratio habitual 2:1 teanina:cafeina) frente a cafeina sola.</p>
+          <h5>Beneficios</h5>
+          <div class="benef-grid">
+            <div class="benef-col"><h5>Demostrados</h5><ul><li>Efecto calmante sin sedacion (relajacion sin somnolencia)</li><li>Reduccion del nerviosismo asociado a la cafeina cuando se combinan</li></ul></div>
+            <div class="benef-col"><h5>Posibles / en investigacion</h5><ul><li>Posible mejora leve de la atencion sostenida en combinacion con cafeina</li></ul></div>
+            <div class="benef-col"><h5>No demostrados / mitos</h5><ul><li>No es un ansiolitico farmacologico ni sustituye tratamiento para trastornos de ansiedad diagnosticados</li></ul></div>
+          </div>
+          <h5>Mitos y marketing</h5>
+          <ul class="mitos-list"><li>“La L-teanina sola te deja &#x27;grogui&#x27;” — su efecto es calmante sin sedacion, distinto de un sedante o somnifero.</li></ul>
+          <h5>Conclusion HEXIS</h5><p class="conclusion">Buen acompanante de la cafeina para reducir su nerviosismo asociado sin perder el efecto estimulante; tambien util de forma aislada para relajacion sin somnolencia.</p>
+          <h5>Referencias</h5><p class="ref">Revision sistematica sobre L-teanina y funcion cognitiva/relajacion | Examine.com: https://examine.com/supplements/theanine/</p>
+        </div>
+        <div class="ficha-col-side">
+          <div class="side-box">
+            <h5>Sinonimos</h5><p>L-teanina aislada; presente de forma natural en te verde y negro</p>
+          </div>
+          <div class="side-box">
+            <h5>Dosis</h5><p>100-200 mg, tipicamente junto a 50-100 mg de cafeina para el efecto combinado de foco sin nerviosismo.</p>
+            <h5>Timing</h5><p>Junto con la cafeina pre-entreno/trabajo, o sola por la tarde/noche para relajacion sin somnolencia.</p>
+            <h5>Biodisponibilidad</h5><p>Se absorbe bien por via oral; el te natural aporta cantidades mucho menores que la dosis aislada estudiada (100-200 mg).</p>
+          </div>
+          <div class="side-box">
+            <h5>Objetivos HEXIS</h5>
+            <div class="obj-row"><span>Salud general</span><span class="obj-stars">★★☆☆☆</span></div>
+          </div>
+          <div class="side-box">
+            <h5>Seguridad</h5><p>Sin efectos adversos relevantes descritos a dosis habituales.</p>
+            <h5>Contraindicaciones</h5><p>Ninguna grave conocida a dosis habituales.</p>
+            <h5>Interacciones</h5><p>Puede potenciar levemente el efecto de medicacion antihipertensiva por su ligero efecto relajante vascular.</p>
+          </div>
+          <div class="side-box">
+            <h5>Poblaciones especiales</h5><p>Personas sensibles a los efectos secundarios de la cafeina (nerviosismo, taquicardia), y quienes buscan mejorar el foco mental de forma sostenida.</p>
+            <h5>Sinergias</h5><p>Combinacion clasica con cafeina (ratio 2:1 teanina:cafeina) para foco sin nerviosismo, con evidencia consistente a su favor.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article></div>
+        
+  </div>
+  <div class="area-panel " id="panel-descanso" data-area="descanso">
+    <div class="area-head">
+      <span class="area-num">05</span>
+      <h3>Descanso y recuperacion</h3>
+    </div>
+    <div class="chips"><span class="chip">Sueno</span><span class="chip">Ritmo circadiano</span><span class="chip">Melatonina</span><span class="chip">Higiene del sueno</span><span class="chip">Recuperacion muscular</span><span class="chip">Fatiga</span><span class="chip">Estres</span><span class="chip">Sistema nervioso autonomo</span><span class="chip">Recuperacion deportiva</span><span class="chip">Descanso entre sesiones</span><span class="chip">Sobreentrenamiento</span><span class="chip">Deload</span><span class="chip">Tecnicas de recuperacion</span></div>
+    
+        <div class="area-note area-note-empty">
+          Estructura definida. Fichas en desarrollo — se publicaran con el mismo rigor cientifico y la misma plantilla que Suplementacion, sin fecha fija ni relleno de contenido superficial mientras tanto.
+        </div>
+        
+  </div>
+  <div class="area-panel " id="panel-hormonas" data-area="hormonas">
+    <div class="area-head">
+      <span class="area-num">06</span>
+      <h3>Hormonas</h3>
+    </div>
+    <div class="chips"><span class="chip">Sistema endocrino</span><span class="chip">Testosterona</span><span class="chip">Estrogenos</span><span class="chip">Progesterona</span><span class="chip">Cortisol</span><span class="chip">Insulina</span><span class="chip">Glucagon</span><span class="chip">Hormona de crecimiento</span><span class="chip">IGF-1</span><span class="chip">T3/T4</span><span class="chip">TSH</span><span class="chip">Leptina</span><span class="chip">Grelina</span><span class="chip">Adiponectina</span><span class="chip">Hormonas sexuales</span><span class="chip">Ciclo menstrual</span><span class="chip">Menopausia</span><span class="chip">Andropausia</span><span class="chip">Respuesta hormonal al ejercicio</span><span class="chip">Hormonas y composicion corporal</span><span class="chip">Hormonas y nutricion</span></div>
+    
+        <div class="area-note area-note-empty">
+          Estructura definida. Fichas en desarrollo — se publicaran con el mismo rigor cientifico y la misma plantilla que Suplementacion, sin fecha fija ni relleno de contenido superficial mientras tanto.
+        </div>
+        
+  </div>
+<div class="no-results" id="no-results">Ningun suplemento coincide con la busqueda.</div>
+</main>
+
+<footer>
+  <div class="logo">HEXIS</div>
+  <p>HEXISPEDIA es un documento vivo. El criterio cientifico se define en un marco fijo y no se decide ficha a ficha. Ultima actualizacion de esta pagina: ver fecha de despliegue.</p>
+  <p><a href="/" style="color:var(--gold);">Volver a h3xis.com</a></p>
+</footer>
+
+<script>
+function showArea(id){
+  document.querySelectorAll('.area-panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+  document.getElementById('panel-'+id).classList.add('active');
+  document.querySelector('.tab[data-area="'+id+'"]').classList.add('active');
+}
+function toggleFicha(id){
+  document.getElementById(id).classList.toggle('open');
+}
+function filterFichas(){
+  var q = document.getElementById('search-supp').value.toLowerCase().trim();
+  var items = document.querySelectorAll('#fichas-list .ficha');
+  var visible = 0;
+  items.forEach(function(el){
+    var match = el.dataset.nombre.includes(q) || el.dataset.sub.includes(q);
+    el.style.display = match ? '' : 'none';
+    if(match) visible++;
+  });
+  document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+}
+</script>
+</body>
+</html>
