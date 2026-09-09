@@ -35214,10 +35214,7 @@ function filterFichas(areaId){
       }
     }
   });
-  function escapeRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\}
-</script>
-</body>
-</html>'); }
+  function escapeRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
   function wordMatch(term, text){
     var re = new RegExp('(?:^|[^a-z0-9])' + escapeRe(term) + '(?:[^a-z0-9]|$)');
     return re.test(text);
