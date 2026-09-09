@@ -35234,12 +35234,16 @@ function filterFichas(areaId){
     esc = esc.replace(/a/g,'[a\u00e1]').replace(/e/g,'[e\u00e9]').replace(/i/g,'[i\u00ed]').replace(/o/g,'[o\u00f3]').replace(/u/g,'[u\u00fa\u00fc]').replace(/n/g,'[n\u00f1]');
     return esc;
   }
-  var BIG_RE = null;
+    var BIG_RE = null;
   if(VOCAB.length){
-    var src = '(?<![\\p{L}\\p{N}_])(?:' + VOCAB.map(toPattern).join('|') + ')(?![\\p{L}\\p{N}_])';
+    var src = '(?:' + VOCAB.map(toPattern).join('|') + ')';
     try{ BIG_RE = new RegExp(src, 'giu'); }catch(e){ BIG_RE = null; }
   }
   function lookup(matchedText){ return TERM_TARGETS[norm(matchedText)] || null; }
+  function isWordChar(ch){
+    if(!ch) return false;
+    try{ return /[\p{L}\p{N}_]/u.test(ch); }catch(e){ return /[a-zA-Z0-9_]/.test(ch); }
+  }
 
   function linkifyFicha(fichaEl){
     if(!BIG_RE || fichaEl.dataset.hxLinked) return;
@@ -35265,18 +35269,24 @@ function filterFichas(areaId){
       var lastIndex = 0, m;
       while((m = BIG_RE.exec(text))){
         var matchText = m[0];
+        var startIdx = m.index;
+        var endIdx = startIdx + matchText.length;
+        if(endIdx === startIdx){ BIG_RE.lastIndex++; continue; }
+        var beforeCh = startIdx > 0 ? text.charAt(startIdx-1) : '';
+        var afterCh = endIdx < text.length ? text.charAt(endIdx) : '';
+        if(isWordChar(beforeCh) || isWordChar(afterCh)){ continue; }
         var idsSet = lookup(matchText);
         if(!idsSet){ continue; }
         var relevant = Array.from(idsSet).filter(function(id){ return id !== selfId; });
         if(relevant.length===0){ continue; }
-        if(m.index > lastIndex) frag.appendChild(document.createTextNode(text.slice(lastIndex, m.index)));
+        if(startIdx > lastIndex) frag.appendChild(document.createTextNode(text.slice(lastIndex, startIdx)));
         var a = document.createElement('a');
         a.href = 'javascript:void(0)';
         a.className = 'hx-term-link';
         a.textContent = matchText;
         a.setAttribute('data-hx-ids', relevant.join(','));
         frag.appendChild(a);
-        lastIndex = BIG_RE.lastIndex;
+        lastIndex = endIdx;
       }
       if(lastIndex===0) return;
       frag.appendChild(document.createTextNode(text.slice(lastIndex)));
