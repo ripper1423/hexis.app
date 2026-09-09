@@ -67,7 +67,12 @@
     font-size:12px;letter-spacing:1px;border:1px solid var(--gold);color:var(--gold);
     padding:9px 20px;border-radius:2px;white-space:nowrap;
   }
-  @media(max-width:760px){ .navlinks{display:none;} }
+  @media(max-width:760px){
+    nav .wrap{flex-wrap:wrap;height:auto;padding-top:12px;padding-bottom:10px;row-gap:10px;}
+    nav .logo{order:1;}
+    nav .navcta{order:2;padding:7px 14px;font-size:11px;}
+    .navlinks{display:flex;order:3;width:100%;justify-content:center;flex-wrap:wrap;gap:14px 18px;font-size:11px;}
+  }
 
   /* HERO */
   .hero{
