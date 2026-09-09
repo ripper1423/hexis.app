@@ -35155,5 +35155,213 @@ function filterFichas(areaId){
   if(nr) nr.style.display = visible === 0 ? 'block' : 'none';
 }
 </script>
+
+<style>
+.hx-term-link{color:var(--gold);text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;cursor:pointer;font-weight:600;}
+.hx-term-link:hover{text-decoration-style:solid;}
+.hx-jump-flash{animation:hxFlash 1.6s ease;}
+@keyframes hxFlash{0%{background:rgba(200,170,80,0.22);}100%{background:transparent;}}
+.hx-pop-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:flex-end;justify-content:center;}
+@media(min-width:760px){.hx-pop-overlay{align-items:center;}}
+.hx-pop{background:#0c0c0c;border:1px solid #1a1a1a;border-radius:14px 14px 0 0;max-width:520px;width:100%;max-height:70vh;overflow-y:auto;padding:18px;box-sizing:border-box;}
+@media(min-width:760px){.hx-pop{border-radius:14px;}}
+.hx-pop h4{margin:0 0 4px;color:#fff;font-size:15px;}
+.hx-pop .hx-pop-sub{color:#8a8a8a;font-size:12px;margin:0 0 14px;}
+.hx-pop-item{display:block;width:100%;text-align:left;background:transparent;border:1px solid #1a1a1a;border-radius:10px;padding:12px 14px;margin-bottom:8px;color:#eee;cursor:pointer;font-size:13.5px;font-family:inherit;}
+.hx-pop-item:hover{border-color:var(--gold);}
+.hx-pop-item .hx-pop-area{color:var(--gold);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:3px;}
+.hx-pop-close{display:block;width:100%;text-align:center;background:transparent;border:none;color:#8a8a8a;padding:10px;margin-top:4px;cursor:pointer;font-size:13px;}
+</style>
+<script>
+(function(){
+  if(window.__hxLinksInit) return;
+  window.__hxLinksInit = true;
+  var STOPWORDS = new Set(['de','la','el','en','y','o','u','a','con','para','del','las','los','su','sus','un','una','unos','unas','vs','al','por','entre','segun','mas','menos','no','si','es','son','como','sobre','tras','durante','sin']);
+  function stripAccents(s){ return s.normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+  function norm(s){ return stripAccents(String(s||'').toLowerCase().trim()); }
+  var AREA_LABELS = {salud:'Salud', fitness:'Fitness y Entrenamiento', alimentacion:'Alimentacion y Nutricion', suplementacion:'Suplementacion', descanso:'Descanso', hormonas:'Hormonas'};
+  var CORE_TERMS = ['fuerza','hipertrofia','potencia','resistencia','hiit','liss','movilidad','flexibilidad','calentamiento','recomposicion corporal','sobrecarga progresiva','volumen de entrenamiento','frecuencia de entrenamiento','periodizacion','deload','repeticion maxima','rango de movimiento','estiramiento','pliometria','propiocepcion','vo2 max','umbral anaerobico','umbral de lactato','entrenamiento en ayunas','falla muscular','isometria','excentrica','concentrica','dano muscular','agujetas','superavit calorico','deficit calorico','mantenimiento calorico','macronutrientes','proteina','carbohidratos','fibra','ayuno intermitente','cetosis','indice glucemico','hidratacion','electrolitos','microbiota','creatina','cafeina','proteina en polvo','whey','bcaa','omega 3','vitamina d','magnesio','zinc','colageno','glutamina','beta alanina','citrulina','insulina','resistencia a la insulina','inflamacion','sistema inmune','salud cardiovascular','colesterol','presion arterial','densidad osea','salud mental','estres','sueno','sueno rem','ritmo circadiano','apnea del sueno','higiene del sueno','siesta','recuperacion','sobreentrenamiento','testosterona','cortisol','melatonina','hormona del crecimiento','estrogeno','tiroides','leptina','grelina'];
+
+  var articles = Array.prototype.slice.call(document.querySelectorAll('article.ficha'));
+  var fichaInfo = {};
+  articles.forEach(function(a){
+    var panel = a.closest('.area-panel');
+    var areaId = panel ? panel.id.replace('panel-','') : '';
+    fichaInfo[a.id] = { nombre: a.dataset.nombre || '', areaId: areaId, el: a, nnombre: norm(a.dataset.nombre) };
+  });
+
+  var TERM_TARGETS = {};
+  function addTarget(term, id){
+    var key = norm(term);
+    if(!key || key.length<3) return;
+    if(!TERM_TARGETS[key]) TERM_TARGETS[key] = new Set();
+    TERM_TARGETS[key].add(id);
+  }
+  articles.forEach(function(a){
+    if(a.dataset.nombre) addTarget(a.dataset.nombre, a.id);
+    var boxes = a.querySelectorAll('.side-box');
+    for(var i=0;i<boxes.length;i++){
+      var h5 = boxes[i].querySelector('h5');
+      if(h5 && /sinonimo/i.test(h5.textContent)){
+        var p = boxes[i].querySelector('p');
+        if(p){
+          p.textContent.split(';').forEach(function(syn){
+            syn = syn.trim();
+            if(syn && syn.length>=3 && norm(syn).indexOf('no aplica')===-1) addTarget(syn, a.id);
+          });
+        }
+        break;
+      }
+    }
+  });
+  function escapeRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\}
+</script>
+</body>
+</html>'); }
+  function wordMatch(term, text){
+    var re = new RegExp('(?:^|[^a-z0-9])' + escapeRe(term) + '(?:[^a-z0-9]|$)');
+    return re.test(text);
+  }
+  CORE_TERMS.forEach(function(term){
+    var key = norm(term);
+    articles.forEach(function(a){
+      if(wordMatch(key, fichaInfo[a.id].nnombre)) addTarget(term, a.id);
+    });
+  });
+
+  var VOCAB = Object.keys(TERM_TARGETS).filter(function(t){ return t.length>=3; });
+  VOCAB.sort(function(a,b){ return b.length - a.length; });
+  function toPattern(term){
+    var esc = escapeRe(term);
+    esc = esc.replace(/a/g,'[a\u00e1]').replace(/e/g,'[e\u00e9]').replace(/i/g,'[i\u00ed]').replace(/o/g,'[o\u00f3]').replace(/u/g,'[u\u00fa\u00fc]').replace(/n/g,'[n\u00f1]');
+    return esc;
+  }
+  var BIG_RE = null;
+  if(VOCAB.length){
+    var src = '(?<![\\p{L}\\p{N}_])(?:' + VOCAB.map(toPattern).join('|') + ')(?![\\p{L}\\p{N}_])';
+    try{ BIG_RE = new RegExp(src, 'giu'); }catch(e){ BIG_RE = null; }
+  }
+  function lookup(matchedText){ return TERM_TARGETS[norm(matchedText)] || null; }
+
+  function linkifyFicha(fichaEl){
+    if(!BIG_RE || fichaEl.dataset.hxLinked) return;
+    fichaEl.dataset.hxLinked = '1';
+    var selfId = fichaEl.id;
+    var nodes = fichaEl.querySelectorAll('.ficha-col-main p, .ficha-col-main li');
+    nodes.forEach(function(node){
+      if(node.classList && node.classList.contains('ref')) return;
+      linkifyNode(node, selfId);
+    });
+  }
+  function linkifyNode(node, selfId){
+    var walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null, false);
+    var textNodes = []; var n;
+    while((n = walker.nextNode())) textNodes.push(n);
+    textNodes.forEach(function(tn){
+      var text = tn.nodeValue;
+      if(!text || text.length<3) return;
+      BIG_RE.lastIndex = 0;
+      if(!BIG_RE.test(text)) return;
+      BIG_RE.lastIndex = 0;
+      var frag = document.createDocumentFragment();
+      var lastIndex = 0, m;
+      while((m = BIG_RE.exec(text))){
+        var matchText = m[0];
+        var idsSet = lookup(matchText);
+        if(!idsSet){ continue; }
+        var relevant = Array.from(idsSet).filter(function(id){ return id !== selfId; });
+        if(relevant.length===0){ continue; }
+        if(m.index > lastIndex) frag.appendChild(document.createTextNode(text.slice(lastIndex, m.index)));
+        var a = document.createElement('a');
+        a.href = 'javascript:void(0)';
+        a.className = 'hx-term-link';
+        a.textContent = matchText;
+        a.setAttribute('data-hx-ids', relevant.join(','));
+        frag.appendChild(a);
+        lastIndex = BIG_RE.lastIndex;
+      }
+      if(lastIndex===0) return;
+      frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+      tn.parentNode.replaceChild(frag, tn);
+    });
+  }
+
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('.hx-term-link');
+    if(!a) return;
+    e.preventDefault();
+    var ids = (a.getAttribute('data-hx-ids')||'').split(',').filter(Boolean);
+    if(ids.length===0) return;
+    if(ids.length===1){ jumpToFicha(ids[0]); return; }
+    showPicker(ids, a.textContent);
+  });
+
+  function jumpToFicha(id){
+    var info = fichaInfo[id];
+    if(!info) return;
+    if(info.areaId && typeof window.showArea==='function') window.showArea(info.areaId);
+    var el = info.el;
+    if(!el.classList.contains('open')) el.classList.add('open');
+    linkifyFicha(el);
+    setTimeout(function(){
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+      el.classList.add('hx-jump-flash');
+      setTimeout(function(){ el.classList.remove('hx-jump-flash'); }, 1600);
+    }, 60);
+  }
+  window.hxJumpToFicha = jumpToFicha;
+
+  function closePicker(){
+    var ov = document.querySelector('.hx-pop-overlay');
+    if(ov) ov.remove();
+  }
+  function showPicker(ids, termText){
+    closePicker();
+    var overlay = document.createElement('div');
+    overlay.className = 'hx-pop-overlay';
+    overlay.addEventListener('click', function(e){ if(e.target===overlay) closePicker(); });
+    var pop = document.createElement('div');
+    pop.className = 'hx-pop';
+    var h4 = document.createElement('h4');
+    h4.textContent = termText;
+    var sub = document.createElement('p');
+    sub.className = 'hx-pop-sub';
+    sub.textContent = ids.length + ' fichas relacionadas - toca una para ir directamente';
+    pop.appendChild(h4); pop.appendChild(sub);
+    ids.forEach(function(id){
+      var info = fichaInfo[id];
+      if(!info) return;
+      var btn = document.createElement('button');
+      btn.className = 'hx-pop-item';
+      var areaSpan = document.createElement('span');
+      areaSpan.className = 'hx-pop-area';
+      areaSpan.textContent = AREA_LABELS[info.areaId] || info.areaId;
+      var nameDiv = document.createElement('div');
+      nameDiv.textContent = info.nombre;
+      btn.appendChild(areaSpan); btn.appendChild(nameDiv);
+      btn.addEventListener('click', function(){ closePicker(); jumpToFicha(id); });
+      pop.appendChild(btn);
+    });
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'hx-pop-close';
+    closeBtn.textContent = 'Cerrar';
+    closeBtn.addEventListener('click', closePicker);
+    pop.appendChild(closeBtn);
+    overlay.appendChild(pop);
+    document.body.appendChild(overlay);
+  }
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePicker(); });
+
+  var _origToggle = window.toggleFicha;
+  if(typeof _origToggle === 'function'){
+    window.toggleFicha = function(id){
+      var el = document.getElementById(id);
+      if(el) linkifyFicha(el);
+      _origToggle(id);
+    };
+  }
+  window.__hxVocabCount = VOCAB.length;
+})();
+</script>
 </body>
 </html>
