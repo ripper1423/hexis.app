@@ -58,7 +58,11 @@
   .area-num{font-family:var(--serif);color:var(--gold);font-size:18px;}
   .area-head h3{font-size:26px;}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}
-  .chip{font-size:11px;color:var(--muted2);border:1px solid var(--line);border-radius:14px;padding:5px 12px;background:var(--bg2);}
+    .chip{font-size:11px;color:var(--muted2);border:1px solid var(--line);border-radius:14px;padding:5px 12px;background:var(--bg2);}
+  .chip{cursor:pointer;-webkit-tap-highlight-color:rgba(200,170,80,0.35);touch-action:manipulation;transition:background .15s,border-color .15s,color .15s;}
+  .chip:active{background:rgba(200,170,80,0.3);}
+  .chip.chip-active{background:rgba(200,170,80,0.85);border-color:#c8aa50;color:#151515;font-weight:600;}
+
 
   .area-note{font-size:12.5px;color:#c9c2b4;background:rgba(200,170,80,0.06);border:1px solid rgba(200,170,80,0.2);border-radius:10px;padding:14px 18px;margin-bottom:20px;}
   .area-note-empty{background:var(--card);border-color:var(--line);color:var(--muted);}
@@ -35145,15 +35149,87 @@ function toggleFicha(id){
 function filterFichas(areaId){
   var q = document.getElementById('search-'+areaId).value.toLowerCase().trim();
   var items = document.querySelectorAll('#fichas-list-'+areaId+' .ficha');
+  var activeInfo = window.HX_ACTIVE_CHIP ? window.HX_ACTIVE_CHIP[areaId] : null;
   var visible = 0;
   items.forEach(function(el){
-    var match = el.dataset.nombre.includes(q) || el.dataset.sub.includes(q);
+    var textMatch = el.dataset.nombre.includes(q) || el.dataset.sub.includes(q);
+    var chipMatch = !activeInfo || activeInfo.matchSet.has(el);
+    var match = textMatch && chipMatch;
     el.style.display = match ? '' : 'none';
     if(match) visible++;
   });
   var nr = document.getElementById('no-results-'+areaId);
   if(nr) nr.style.display = visible === 0 ? 'block' : 'none';
 }
+window.HX_ACTIVE_CHIP = {};
+window.HX_CHIP_INDEX = {};
+function hxNorm(s){ return (s||'').normalize('NFD').replace(/[Ì-Í¯]/g,'').toLowerCase(); }
+function hxStem(w){
+  if(w.length>5 && w.slice(-2)==='es') return w.slice(0,-2);
+  if(w.length>4 && w.slice(-1)==='s') return w.slice(0,-1);
+  return w;
+}
+function hxTokens(s){
+  return hxNorm(s).split(/[^a-z0-9]+/).filter(function(w){ return w.length>3; }).map(hxStem);
+}
+function hxStemMatch(chipTokens, targetTokens){
+  return chipTokens.some(function(ct){
+    return targetTokens.some(function(tt){
+      var minLen = Math.min(ct.length, tt.length, 5);
+      return ct.slice(0,minLen) === tt.slice(0,minLen);
+    });
+  });
+}
+function hxBuildChipIndex(areaId){
+  if(window.HX_CHIP_INDEX[areaId]) return window.HX_CHIP_INDEX[areaId];
+  var panel = document.getElementById('panel-'+areaId);
+  if(!panel){ return null; }
+  var fichas = Array.from(panel.querySelectorAll('.ficha'));
+  var fdata = fichas.map(function(f){
+    return { el:f, subT: hxTokens(f.dataset.sub||''), nomT: hxTokens(f.dataset.nombre||''), full: hxNorm(f.textContent||'') };
+  });
+  var chipEls = Array.from(panel.querySelectorAll('.chip'));
+  var chipInfo = chipEls.map(function(c){
+    var label = c.textContent.trim();
+    var ctoks = hxTokens(label);
+    var matchSet = new Set();
+    fdata.forEach(function(f){
+      if(hxStemMatch(ctoks, f.subT) || hxStemMatch(ctoks, f.nomT)) matchSet.add(f.el);
+    });
+    if(matchSet.size===0){
+      var nchip = hxNorm(label);
+      fdata.forEach(function(f){ if(f.full.indexOf(nchip)!==-1) matchSet.add(f.el); });
+    }
+    return { el:c, label:label, matchSet:matchSet };
+  });
+  var idx = { chipInfo: chipInfo };
+  window.HX_CHIP_INDEX[areaId] = idx;
+  return idx;
+}
+function hxAreaFromChip(chipEl){
+  var panel = chipEl.closest('[id^="panel-"]');
+  return panel ? panel.id.replace('panel-','') : null;
+}
+document.addEventListener('click', function(ev){
+  var chipEl = ev.target.closest ? ev.target.closest('.chip') : null;
+  if(!chipEl) return;
+  var areaId = hxAreaFromChip(chipEl);
+  if(!areaId) return;
+  var idx = hxBuildChipIndex(areaId);
+  if(!idx) return;
+  var info = idx.chipInfo.find(function(c){ return c.el===chipEl; });
+  if(!info) return;
+  var wasActive = chipEl.classList.contains('chip-active');
+  idx.chipInfo.forEach(function(c){ c.el.classList.remove('chip-active'); });
+  if(wasActive){
+    window.HX_ACTIVE_CHIP[areaId] = null;
+  } else {
+    chipEl.classList.add('chip-active');
+    window.HX_ACTIVE_CHIP[areaId] = info;
+  }
+  filterFichas(areaId);
+});
+
 </script>
 
 <style>
