@@ -123,6 +123,16 @@
   }
   @media(max-width:860px){ .control-grid{grid-template-columns:1fr;} }
 
+  .captures-note{font-size:11.5px;color:var(--muted2);font-style:italic;margin-top:18px;line-height:1.6;}
+  .captures-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+  .capture-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;}
+  .capture-card .cc-title{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+  .capture-card .cc-row{display:flex;justify-content:space-between;gap:10px;font-size:12px;padding:7px 0;border-top:1px solid var(--line);}
+  .capture-card .cc-row span{color:var(--muted);}
+  .capture-card .cc-row b{font-weight:500;}
+  .capture-card .cc-foot{font-size:11px;color:var(--muted2);margin-top:12px;line-height:1.5;}
+  @media(max-width:760px){ .captures-grid{grid-template-columns:1fr;} }
+
   /* METODO */
   .pillars{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
   .pillar{background:var(--bg2);padding:34px 30px;}
@@ -380,16 +390,33 @@
         <div style="font-size:12px;color:var(--muted);margin-bottom:26px;">El Arquitecto · Superávit +250 kcal</div>
         <div style="display:flex;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line);">
           <span style="font-size:12px;color:var(--muted)">Entreno de hoy</span>
-          <span style="font-size:12px;">Press banca · 4×8</span>
+          <span style="font-size:12px;">Press banca plano · 4×8 · 80kg</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line);">
           <span style="font-size:12px;color:var(--muted)">Objetivo calórico</span>
-          <span style="font-size:12px;">2.650 kcal</span>
+          <span style="font-size:12px;">2.983 kcal</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
-          <span style="font-size:12px;color:var(--muted)">Score de Coherencia</span>
-          <span style="font-size:12px;color:var(--gold)">78</span>
+          <span style="font-size:12px;color:var(--muted)">Macros</span>
+          <span style="font-size:12px;color:var(--gold)">172g P · 374g C · 89g G</span>
         </div>
+      </div>
+    </div>
+    <div class="captures-note">Datos reales generados por HEXIS CONTROL a partir de un perfil de ejemplo (28 años, 78kg, 178cm, arquetipo ALPHA) — nada inventado.</div>
+    <div class="captures-grid">
+      <div class="capture-card">
+        <div class="cc-title">Nutrición · Hoy</div>
+        <div class="cc-row"><span>08:00 Desayuno fuerza</span><b>680 kcal</b></div>
+        <div class="cc-row"><span>13:30 Almuerzo</span><b>720 kcal</b></div>
+        <div class="cc-row"><span>17:00 Pre-entreno</span><b>310 kcal</b></div>
+        <div class="cc-foot">6 huevos revueltos · avena 80g · plátano · leche &middot; pollo 250g · arroz basmati 150g · verduras salteadas · AOVE &middot; fruta · batido proteína · creatina 5g</div>
+      </div>
+      <div class="capture-card">
+        <div class="cc-title">Cuerpo Griego · Atlas muscular</div>
+        <div class="cc-row"><span>Cuádriceps</span><b>4 ejercicios</b></div>
+        <div class="cc-row"><span>Isquiotibiales</span><b>2 ejercicios</b></div>
+        <div class="cc-row"><span>Glúteo mayor</span><b>2 ejercicios</b></div>
+        <div class="cc-foot">20 grupos musculares reales, +40 ejercicios categorizados. Toca cualquier zona del cuerpo para ver el detalle.</div>
       </div>
     </div>
   </div>
