@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Alimentos y Suplementos — HEXIS</title>
+<meta name="description" content="El catálogo real de alimentos y suplementos que usa HEXIS CONTROL: macros por ración, micronutrientes, índice glucémico, dosis y evidencia científica.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050505; --bg2:#0a0a0a; --card:#0c0c0c; --line:#1a1a1a;
+    --gold:#C8AA50; --ink:#f2ede4; --muted:#8a8a8a; --muted2:#5c5c5c;
+    --serif:'Playfair Display',Georgia,serif; --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:400;letter-spacing:-0.01em;}
+  p{color:#c9c2b4;font-size:13.5px;line-height:1.7;font-weight:300;}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,5,0.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .logo{font-family:var(--serif);font-size:18px;letter-spacing:3px;}
+  .logo .sub{font-size:10px;letter-spacing:2px;color:var(--gold);display:block;font-family:var(--sans);margin-top:-2px;}
+  .back-link{font-size:11px;letter-spacing:1px;color:var(--muted);border:1px solid var(--line);padding:8px 16px;border-radius:20px;}
+  .back-link:hover{color:var(--ink);border-color:var(--gold);}
+
+  header.hero{padding:150px 0 50px;text-align:center;}
+  .eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;font-weight:500;}
+  header.hero h1{font-size:clamp(34px,6vw,56px);margin-bottom:18px;}
+  header.hero p.lead{max-width:640px;margin:0 auto 30px;font-size:16px;color:#c9c2b4;}
+
+  .methodology{max-width:820px;margin:30px auto 0;padding:22px 26px;border:1px solid var(--line);border-radius:14px;background:var(--card);text-align:left;}
+  .methodology h4{font-size:14px;color:var(--gold);margin-bottom:10px;}
+  .methodology p{font-size:12.5px;margin-bottom:8px;}
+
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:36px 0 10px;}
+  .tab{background:var(--card);border:1px solid var(--line);color:var(--muted);font-family:var(--sans);font-size:12px;letter-spacing:0.5px;padding:10px 18px;border-radius:24px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .15s;}
+  .tab-num{color:var(--gold);font-family:var(--serif);font-size:12px;}
+  .tab:hover{color:var(--ink);border-color:var(--gold);}
+  .tab.active{background:var(--gold);color:#050505;border-color:var(--gold);}
+  .tab.active .tab-num{color:#050505;}
+
+  main{padding-bottom:120px;}
+  .area-panel{display:none;padding-top:20px;}
+  .area-panel.active{display:block;}
+
+  .macro-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:36px;}
+  @media(max-width:820px){.macro-strip{grid-template-columns:1fr 1fr;}}
+  .macro-card{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:16px 18px;}
+  .macro-card .mc-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .macro-card .mc-icon{font-size:18px;}
+  .macro-card .mc-name{font-family:var(--serif);font-size:15px;}
+  .macro-card p{font-size:11.5px;margin-bottom:4px;}
+  .macro-card .mc-need{color:var(--gold);font-size:11px;}
+
+  .food-group{margin-bottom:34px;}
+  .food-group-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;border-bottom:1px solid var(--line);padding-bottom:10px;}
+  .food-group-head .fg-icon{font-size:20px;}
+  .food-group-head h3{font-size:20px;}
+  .food-group-head .fg-count{font-size:11px;color:var(--muted2);}
+
+  .food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  @media(max-width:900px){.food-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.food-grid{grid-template-columns:1fr;}}
+  .food-card{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:16px 18px;}
+  .food-card .fc-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .food-card .fc-icon{font-size:20px;}
+  .food-card .fc-name{font-family:var(--serif);font-size:15px;}
+  .food-card .fc-ration{font-size:11px;color:var(--muted);margin-bottom:10px;}
+  .macro-row{display:flex;justify-content:space-between;font-size:11.5px;padding:5px 0;border-top:1px solid var(--line);color:#c9c2b4;}
+  .macro-row b{color:var(--ink);font-weight:500;}
+  .fc-micro{font-size:11px;color:var(--muted2);margin-top:10px;line-height:1.5;}
+  .fc-gi{display:inline-block;font-size:10.5px;color:var(--gold);border:1px solid rgba(200,170,80,0.3);border-radius:10px;padding:3px 9px;margin-top:8px;}
+  .fc-tip{font-size:11.5px;color:#c9c2b4;font-style:italic;margin-top:10px;line-height:1.5;}
+
+  .fichas-list{display:flex;flex-direction:column;gap:10px;}
+  .ficha{border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden;}
+  .ficha-head{width:100%;background:none;border:none;cursor:pointer;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;color:var(--ink);font-family:var(--sans);text-align:left;}
+  .ficha-head-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .ficha-icon{font-size:18px;}
+  .ficha-nombre{font-family:var(--serif);font-size:16px;}
+  .ficha-sub{font-size:11px;color:var(--muted);border-left:1px solid var(--line);padding-left:12px;}
+  .ficha-head-right{display:flex;align-items:center;gap:12px;}
+  .ev-stars{color:var(--gold);font-size:13px;letter-spacing:1px;}
+  .chevron{color:var(--muted);transition:transform .2s;}
+  .ficha.open .chevron{transform:rotate(180deg);}
+  .ficha-body{display:none;padding:0 20px 22px;border-top:1px solid var(--line);}
+  .ficha.open .ficha-body{display:block;}
+  .ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding-top:18px;}
+  @media (max-width:820px){.ficha-grid{grid-template-columns:1fr;}}
+  .side-box{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:12px;background:var(--bg2);}
+  .obj-row{display:flex;justify-content:space-between;font-size:12px;color:#c9c2b4;margin-bottom:5px;}
+  .obj-row b{color:var(--ink);font-weight:500;}
+  h5{font-family:var(--sans);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin:14px 0 6px;font-weight:600;}
+  h5:first-child{margin-top:0;}
+
+  footer{border-top:1px solid var(--line);padding:50px 0;text-align:center;}
+  footer p{font-size:11px;color:var(--muted2);max-width:600px;margin:0 auto 8px;}
+  footer .logo{margin-bottom:16px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">HEXIS<span class="sub">CATÁLOGO</span></div>
+    <a class="back-link" href="/">← Volver a h3xis.com</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap" style="max-width:760px;margin:0 auto;">
+    <div class="eyebrow">Base de datos real de HEXIS CONTROL</div>
+    <h1>Alimentos y Suplementos</h1>
+    <p class="lead" style="margin-left:auto;margin-right:auto;">Este es exactamente el catálogo que usa la app para calcular tus macros y recomendarte suplementos: los mismos 27 alimentos y 12 suplementos, con los mismos datos — nada resumido ni simplificado para esta página.</p>
+    <div class="methodology">
+      <h4>De dónde sale esto</h4>
+      <p>Estos son los datos que HEXIS CONTROL usa internamente para el seguimiento nutricional y las recomendaciones de suplementación por arquetipo. Macros por 100g, ración de referencia, micronutrientes principales e índice glucémico en alimentos; dosis, momento de toma, mecanismo, evidencia y seguridad en suplementos. Es una selección curada, no una base exhaustiva tipo HEXISPEDIA — si buscas la ciencia completa de cada ingrediente, consulta <a href="/hexispedia.html" style="color:var(--gold);">HEXISPEDIA</a>.</p>
+    </div>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab active" data-area="alimentos" onclick="showArea('alimentos')"><span class="tab-num">01</span>Alimentos (27)</button>
+  <button class="tab" data-area="suplementos" onclick="showArea('suplementos')"><span class="tab-num">02</span>Suplementos (12)</button>
+</div>
+
+<main class="wrap">
+
+  <div class="area-panel active" id="panel-alimentos" data-area="alimentos">
+    <div class="macro-strip" id="macro-strip"></div>
+    <div id="food-groups"></div>
+  </div>
+
+  <div class="area-panel" id="panel-suplementos" data-area="suplementos">
+    <p style="margin-bottom:20px;">⭐ = nivel de evidencia científica (5 = máxima evidencia disponible, 3 = evidencia moderada/emergente). Toca cada suplemento para ver el detalle completo.</p>
+    <div class="fichas-list" id="supp-list"></div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="logo">HEXIS</div>
+  <p>Catálogo generado directamente desde la base de datos real de la app (src/data/foods.js). Cualquier cambio en la app se refleja aquí de la misma forma — no hay una copia paralela.</p>
+  <p><a href="/" style="color:var(--gold);">Volver a h3xis.com</a></p>
+</footer>
+
+<script>
+const MACRO_INFO = {
+  proteina: { name:"Proteína", icon:"🥩",
+    desc:"Los ladrillos del músculo. 4 kcal por gramo. Tu cuerpo los usa para reparar y construir tejido muscular, fabricar enzimas y hormonas.",
+    need:"1.6-2.4g por kg de peso corporal al día para quienes entrenan." },
+  carbohidratos: { name:"Carbohidratos", icon:"🌾",
+    desc:"El combustible principal del cuerpo. 4 kcal por gramo. Se almacenan como glucógeno en músculo e hígado.",
+    need:"El resto de calorías una vez cubierta proteína y grasa esencial." },
+  verduras: { name:"Verduras", icon:"🥦",
+    desc:"Densidad de micronutrientes y fibra con mínimo aporte calórico. Base de la saciedad y la salud digestiva.",
+    need:"Al menos 400g diarios repartidos en varias raciones." },
+  grasas: { name:"Grasas", icon:"🥑",
+    desc:"Esencial para hormonas (testosterona incluida), vitaminas liposolubles A, D, E y K, y función cerebral. 9 kcal por gramo.",
+    need:"0.8-1.2g por kg de peso. Mínimo 20% del total calórico." },
+};
+
+const FOODS = {
+  proteina: [
+    { name:"Pechuga de pollo", icon:"🐔", per100:{kcal:165,prot:31,carbs:0,fat:3.6}, ration:"150g cocinado", rdata:{kcal:248,prot:46,carbs:0,fat:5}, micro:"B3, B6, fósforo, selenio", gi:"—", tip:"La fuente de proteína más completa y versátil. A la plancha sin añadir grasa." },
+    { name:"Huevo entero", icon:"🥚", per100:{kcal:155,prot:13,carbs:1,fat:11}, ration:"2 huevos (120g)", rdata:{kcal:186,prot:16,carbs:1,fat:13}, micro:"B12, D, colina, selenio, luteína", gi:"—", tip:"Proteína de máxima calidad biológica. La yema contiene todos los micronutrientes. No temas la yema." },
+    { name:"Salmón", icon:"🐟", per100:{kcal:208,prot:20,carbs:0,fat:13}, ration:"200g", rdata:{kcal:416,prot:40,carbs:0,fat:26}, micro:"Omega 3 EPA/DHA, vitamina D, B12, astaxantina", gi:"—", tip:"Omega 3 antiinflamatorios. Comer 2-3 veces por semana. No freír para preservar los ácidos grasos." },
+    { name:"Atún al natural", icon:"🐠", per100:{kcal:116,prot:26,carbs:0,fat:1}, ration:"150g (1 lata)", rdata:{kcal:174,prot:39,carbs:0,fat:2}, micro:"B3, B12, selenio, yodo", gi:"—", tip:"Proteína muy magra. Cuidado con el mercurio: máximo 2-3 veces por semana." },
+    { name:"Yogur griego natural", icon:"🥛", per100:{kcal:97,prot:9,carbs:4,fat:5}, ration:"200g", rdata:{kcal:194,prot:18,carbs:8,fat:10}, micro:"Calcio, probióticos vivos, B12, fósforo", gi:"Bajo (35)", tip:"Rico en caseína (digestión lenta). Ideal antes de dormir o como snack saciante." },
+    { name:"Pavo", icon:"🦃", per100:{kcal:135,prot:29,carbs:0,fat:2}, ration:"150g", rdata:{kcal:202,prot:44,carbs:0,fat:3}, micro:"B3, B6, triptófano, zinc, selenio", gi:"—", tip:"El triptófano es precursor de serotonina. Excelente opción para la cena." },
+    { name:"Requesón", icon:"🧀", per100:{kcal:98,prot:11,carbs:3,fat:4}, ration:"200g", rdata:{kcal:196,prot:22,carbs:6,fat:8}, micro:"Calcio, caseína, B12, fósforo", gi:"Bajo", tip:"Altísimo en caseína. La fuente proteica nocturna por excelencia para síntesis muscular." },
+    { name:"Merluza", icon:"🐟", per100:{kcal:82,prot:16,carbs:0,fat:1.5}, ration:"200g", rdata:{kcal:164,prot:32,carbs:0,fat:3}, micro:"B12, yodo, fósforo, selenio", gi:"—", tip:"Proteína muy magra y de fácil digestión. Ideal para la cena o post-entreno." },
+  ],
+  carbohidratos: [
+    { name:"Arroz basmati", icon:"🍚", per100:{kcal:350,prot:7,carbs:77,fat:0.5}, ration:"80g seco (200g cocido)", rdata:{kcal:280,prot:6,carbs:62,fat:0.4}, micro:"B1, manganeso, bajo en arsénico vs arroz integral", gi:"Alto (58-65)", tip:"El carbo del deportista. Fácil digestión, rápida absorción. Ideal pre o post-entreno." },
+    { name:"Avena", icon:"🌾", per100:{kcal:389,prot:17,carbs:66,fat:7}, ration:"60g", rdata:{kcal:233,prot:10,carbs:40,fat:4}, micro:"Beta-glucanos, hierro, magnesio, fibra soluble", gi:"Medio (55)", tip:"Los beta-glucanos reducen colesterol y estabilizan la glucemia. Desayuno insustituible." },
+    { name:"Boniato (patata dulce)", icon:"🍠", per100:{kcal:86,prot:1.6,carbs:20,fat:0.1}, ration:"150g cocido", rdata:{kcal:129,prot:2,carbs:30,fat:0.2}, micro:"Betacaroteno, vitamina C, potasio, fibra", gi:"Medio (50-55)", tip:"IG medio con alto valor nutricional. Mejor opción que la patata blanca para recomposición." },
+    { name:"Plátano", icon:"🍌", per100:{kcal:89,prot:1,carbs:23,fat:0.3}, ration:"1 mediano (120g)", rdata:{kcal:107,prot:1,carbs:28,fat:0.4}, micro:"Potasio, B6, vitamina C, magnesio", gi:"Medio (51)", tip:"Carbohidrato rápido ideal pre-entreno. El potasio previene calambres musculares." },
+    { name:"Pan integral de masa madre", icon:"🍞", per100:{kcal:247,prot:9,carbs:41,fat:3}, ration:"2 rebanadas (60g)", rdata:{kcal:148,prot:5,carbs:25,fat:2}, micro:"Fibra, B1, hierro, zinc, magnesio", gi:"Medio (54)", tip:"La fermentación mejora la digestibilidad y reduce el IG respecto al pan normal." },
+    { name:"Lentejas", icon:"🫘", per100:{kcal:116,prot:9,carbs:20,fat:0.4}, ration:"150g cocidas", rdata:{kcal:174,prot:14,carbs:30,fat:0.6}, micro:"Hierro, folato, fibra, potasio, proteína vegetal", gi:"Bajo (29)", tip:"Carbohidrato + proteína + fibra. IG bajo. Una de las mejores comidas del planeta." },
+    { name:"Quinoa", icon:"🌱", per100:{kcal:120,prot:4,carbs:21,fat:2}, ration:"150g cocida", rdata:{kcal:180,prot:6,carbs:32,fat:3}, micro:"Los 9 aminoácidos esenciales, hierro, magnesio, manganeso", gi:"Bajo (53)", tip:"Único 'grano' con proteína completa. Excelente para veganos y vegetarianos." },
+    { name:"Patata hervida", icon:"🥔", per100:{kcal:77,prot:2,carbs:17,fat:0.1}, ration:"200g", rdata:{kcal:154,prot:4,carbs:34,fat:0.2}, micro:"Vitamina C, B6, potasio, almidón resistente (fría)", gi:"Alto hervida (78), Bajo enfriada (35)", tip:"Enfriada y recalentada forma almidón resistente que alimenta la microbiota y baja el IG." },
+  ],
+  verduras: [
+    { name:"Brócoli", icon:"🥦", per100:{kcal:34,prot:2.8,carbs:7,fat:0.4}, ration:"200g", rdata:{kcal:68,prot:6,carbs:14,fat:0.8}, micro:"Vitamina C, K, glucosinolatos, sulforafano, folato", gi:"Muy bajo (10)", tip:"El sulforafano tiene propiedades anticancerígenas demostradas. Vapor ligero para preservarlos." },
+    { name:"Espinacas", icon:"🌿", per100:{kcal:23,prot:2.9,carbs:3.6,fat:0.4}, ration:"100g", rdata:{kcal:23,prot:3,carbs:4,fat:0.4}, micro:"Hierro no hemo, vitamina K, folato, magnesio, luteína", gi:"Muy bajo", tip:"El hierro mejora su absorción con vitamina C. Consumir variado para evitar el exceso de oxalatos." },
+    { name:"Pimiento rojo", icon:"🫑", per100:{kcal:31,prot:1,carbs:6,fat:0.3}, ration:"1 pimiento (120g)", rdata:{kcal:37,prot:1,carbs:7,fat:0.4}, micro:"Vitamina C (2x naranja), betacaroteno, B6, vitamina E", gi:"Muy bajo (15)", tip:"Más vitamina C que cualquier fruta. Comer crudo para máximo aporte." },
+    { name:"Pepino", icon:"🥒", per100:{kcal:16,prot:0.7,carbs:3.6,fat:0.1}, ration:"150g", rdata:{kcal:24,prot:1,carbs:5,fat:0.2}, micro:"Vitamina K, molibdeno, 96% agua", gi:"Muy bajo", tip:"96% agua. Muy saciante con casi cero calorías. Ideal en déficit calórico." },
+    { name:"Tomate", icon:"🍅", per100:{kcal:18,prot:0.9,carbs:3.9,fat:0.2}, ration:"1 tomate (150g)", rdata:{kcal:27,prot:1,carbs:6,fat:0.3}, micro:"Licopeno, vitamina C, K, potasio", gi:"Muy bajo", tip:"El licopeno del tomate cocinado con aceite se absorbe mucho mejor. Salsa de tomate = salud." },
+    { name:"Kale (col rizada)", icon:"🥬", per100:{kcal:49,prot:4.3,carbs:9,fat:0.9}, ration:"80g", rdata:{kcal:39,prot:3,carbs:7,fat:0.7}, micro:"Vitamina K (10x IDR), C, calcio, hierro, antioxidantes", gi:"Muy bajo", tip:"Una de las verduras más densas nutricionalmente. Masajear con limón mejora la digestión." },
+    { name:"Calabacín", icon:"🥬", per100:{kcal:17,prot:1.2,carbs:3.1,fat:0.3}, ration:"200g", rdata:{kcal:34,prot:2,carbs:6,fat:0.6}, micro:"Vitamina C, B6, potasio, manganeso, fibra", gi:"Muy bajo (15)", tip:"Muy versátil y bajo en calorías. Buena fuente de potasio para función muscular." },
+  ],
+  grasas: [
+    { name:"Aguacate", icon:"🥑", per100:{kcal:160,prot:2,carbs:9,fat:15}, ration:"½ aguacate (75g)", rdata:{kcal:120,prot:1.5,carbs:7,fat:11}, micro:"Potasio, ácido oleico, vitamina E, K, folato", gi:"Muy bajo", tip:"Grasa monoinsaturada antiinflamatoria. Mejora la absorción de vitaminas liposolubles de las verduras." },
+    { name:"AOVE", icon:"🫒", per100:{kcal:884,prot:0,carbs:0,fat:100}, ration:"1 cucharada (15ml)", rdata:{kcal:133,prot:0,carbs:0,fat:15}, micro:"Polifenoles, vitamina E, ácido oleico, oleocantal antiinflamatorio", gi:"—", tip:"El aceite más estudiado del mundo. No freír a alta temperatura para preservar los polifenoles." },
+    { name:"Almendras", icon:"🥜", per100:{kcal:579,prot:21,carbs:22,fat:50}, ration:"30g (un puñado)", rdata:{kcal:174,prot:6,carbs:7,fat:15}, micro:"Vitamina E, magnesio, manganeso, riboflavina", gi:"Muy bajo (15)", tip:"Saciantes y nutritivos. Sin sal añadida. Los frutos secos reducen riesgo cardiovascular." },
+    { name:"Nueces", icon:"🥜", per100:{kcal:654,prot:15,carbs:14,fat:65}, ration:"30g", rdata:{kcal:196,prot:4,carbs:4,fat:20}, micro:"Omega 3 ALA, vitamina E, magnesio, polifenoles", gi:"Muy bajo", tip:"La fruta seca más rica en omega 3 vegetales. Comer 4-5 nueces al día tiene efecto cardioprotector." },
+  ],
+};
+
+const SUPPLEMENTS = [
+  { name:"Creatina monohidrato", icon:"⚡", cat:"Rendimiento", ev:5, dose:"3-5g diarios", timing:"Cualquier hora del día (no importa el momento)", what:"Compuesto natural presente en el músculo. Aumenta los depósitos de fosfocreatina para regenerar ATP más rápido en esfuerzos explosivos e intensos.", forwho:"Cualquier persona que haga ejercicio de alta intensidad, sin excepción. Especialmente útil en vegetarianos.", science:"El suplemento con más evidencia científica de la historia. Más de 500 estudios. Aumenta fuerza, potencia y masa muscular de forma consistente.", safe:"Completamente seguro a largo plazo. Los riñones solo se ven afectados si hay enfermedad renal preexistente. No hay necesidad de fase de carga." },
+  { name:"Proteína Whey", icon:"🥛", cat:"Nutrición", ev:5, dose:"20-40g por toma", timing:"Post-entreno o cuando no llegas al objetivo proteico diario", what:"Proteína de suero de leche de rápida absorción. Alta en leucina, el aminoácido que activa el mTOR y dispara la síntesis proteica muscular.", forwho:"Cualquiera que no llegue a 1.6-2.4g/kg de proteína con la dieta.", science:"Efectiva para síntesis proteica muscular post-entreno. No es magia: es comida concentrada con perfil de aminoácidos óptimo.", safe:"Segura. Puede causar malestar en intolerantes a la lactosa. Las versiones isoladas tienen menos lactosa." },
+  { name:"Vitamina D3", icon:"☀️", cat:"Salud", ev:5, dose:"1000-4000 UI diarias según déficit", timing:"Con comida que contenga grasa para mejor absorción", what:"Hormona esteroidea (no es solo una vitamina) que regula calcio, función inmune, síntesis muscular y más de 1000 genes.", forwho:"El 80% de la población en climas del sur de Europa tiene déficit. Especialmente en invierno.", science:"Déficit asociado a menor fuerza muscular, mayor fatiga, más lesiones y estados depresivos. La suplementación revierte estos efectos.", safe:"Tomar junto a vitamina K2 para dirigir el calcio hacia los huesos y no a las arterias." },
+  { name:"Omega 3 (EPA+DHA)", icon:"🐟", cat:"Salud", ev:5, dose:"2-4g de EPA+DHA combinados", timing:"Con la comida principal para mayor absorción", what:"Ácidos grasos poliinsaturados esenciales. El cuerpo no puede fabricarlos. Son componentes fundamentales de las membranas celulares y precursores antiinflamatorios.", forwho:"Personas que no comen pescado azul 2-3 veces por semana.", science:"Reducen DOMS (agujetas), mejoran síntesis proteica, reducen triglicéridos y mejoran función cognitiva.", safe:"Muy seguro. A altas dosis puede reducir la coagulación. Consultar con médico si se toman anticoagulantes." },
+  { name:"Magnesio", icon:"🔋", cat:"Salud", ev:4, dose:"300-400mg de magnesio elemental", timing:"Antes de dormir por su efecto relajante", what:"Mineral cofactor en más de 300 reacciones enzimáticas. Esencial para síntesis proteica, función muscular y nerviosa, y producción de energía.", forwho:"Deportistas (se pierde con el sudor), personas con estrés crónico, o con dieta pobre en verduras.", science:"El 70% de la población no llega al requerimiento mínimo. Déficit causa calambres, mala calidad de sueño y mayor fatiga.", safe:"Preferir bisglicinato o treonato (mejor absorción y menos efecto laxante que el óxido de magnesio)." },
+  { name:"Cafeína", icon:"☕", cat:"Rendimiento", ev:5, dose:"3-6mg por kg de peso corporal", timing:"30-60 minutos antes del ejercicio. Evitar después de las 14-15h.", what:"Alcaloide que bloquea los receptores de adenosina en el cerebro. Reduce la percepción de esfuerzo, aumenta la alerta y moviliza ácidos grasos.", forwho:"Cualquier tipo de ejercicio: fuerza, resistencia, HIIT.", science:"Mejora rendimiento un 10-15% en promedio. Uno de los ergogénicos más eficaces y estudiados disponibles.", safe:"Genera tolerancia con el uso diario. Ciclar cada 4-6 semanas. No tomar si hay hipertensión no controlada." },
+  { name:"Ashwagandha", icon:"🌿", cat:"Adaptógeno", ev:4, dose:"300-600mg de extracto KSM-66 o Sensoril", timing:"Con la cena o antes de dormir", what:"Planta adaptógena de la medicina ayurvédica. Modula la respuesta al estrés reduciendo cortisol y puede elevar testosterona.", forwho:"Personas con estrés crónico, cortisol alto, mala calidad de sueño, o bajo rendimiento por estrés.", science:"Reduce cortisol hasta un 27% en estudios. Mejora fuerza y composición corporal junto al entrenamiento.", safe:"Ciclar 8-12 semanas de uso con 4 semanas de descanso. No usar en embarazo ni con medicación tiroidea." },
+  { name:"Zinc", icon:"💎", cat:"Salud", ev:4, dose:"15-30mg diarios", timing:"Lejos de comidas ricas en fitatos (cereales integrales)", what:"Mineral esencial para síntesis de testosterona, función inmune, cicatrización y síntesis proteica.", forwho:"Déficit muy común en deportistas por pérdida en el sudor. También en vegetarianos.", science:"La suplementación en personas con déficit mejora niveles de testosterona libre y recuperación muscular.", safe:"No superar 40mg/día de forma prolongada. Compite con la absorción de cobre." },
+  { name:"L-Teanina", icon:"🍵", cat:"Cognitivo", ev:4, dose:"100-200mg", timing:"Cuando necesitas calma con enfoque. Combina con cafeína para efecto sinérgico.", what:"Aminoácido del té verde. Aumenta las ondas alfa cerebrales generando un estado de calma alerta sin sedación.", forwho:"Reducir ansiedad, mejorar enfoque, potenciar la cafeína sin el nerviosismo.", science:"Sinergia bien documentada con cafeína: mismo efecto estimulante pero sin la ansiedad ni el crash posterior.", safe:"Completamente seguro. Sin efectos secundarios conocidos a dosis normales." },
+  { name:"Vitamina B12", icon:"💉", cat:"Salud", ev:5, dose:"500-1000mcg diarios", timing:"Con el desayuno", what:"Vitamina esencial para formación de glóbulos rojos, función neurológica y síntesis de ADN. Solo se encuentra en productos animales.", forwho:"Obligatoria en veganos. Muy recomendable en vegetarianos y en mayores de 50 años.", science:"El déficit causa anemia megaloblástica, fatiga extrema y daño neurológico que es reversible si se trata a tiempo.", safe:"Preferir metilcobalamina (mejor absorción que cianocobalamina). No hay toxicidad a dosis normales." },
+  { name:"Beta-Alanina", icon:"🔥", cat:"Rendimiento", ev:4, dose:"3.2-6.4g diarios en dosis divididas", timing:"Con las comidas para reducir el hormigueo", what:"Precursor de carnosina muscular. La carnosina tamponea el ácido láctico en el músculo durante el ejercicio intenso.", forwho:"Ejercicio de 1-4 minutos de duración a alta intensidad: HIIT, CrossFit, natación, ciclismo.", science:"Aumenta carnosina muscular hasta un 80% en 10-12 semanas. Mejora rendimiento en esa franja de tiempo.", safe:"El hormigueo (parestesia) es normal e inofensivo. Dividir la dosis en tomas más pequeñas lo reduce." },
+  { name:"Colágeno hidrolizado", icon:"🦴", cat:"Recuperación", ev:3, dose:"10-15g diarios", timing:"Con vitamina C, 1 hora antes del ejercicio para máxima síntesis", what:"Proteína estructural de tendones, ligamentos, cartílagos y huesos. Se degrada con la edad y el ejercicio intenso.", forwho:"Personas con lesiones de tendón o ligamento, deportistas de impacto, y a partir de los 35 años.", science:"Evidencia sólida para tendones. No es una proteína completa (falta triptófano), no sustituye a la whey.", safe:"Completamente seguro. La vitamina C es cofactor necesario para la síntesis de colágeno." },
+];
+
+const catIcon = {proteina:"🥩",carbohidratos:"🌾",verduras:"🥦",grasas:"🥑"};
+const catName = {proteina:"Proteínas",carbohidratos:"Carbohidratos",verduras:"Verduras",grasas:"Grasas saludables"};
+
+function renderMacroStrip(){
+  const el = document.getElementById('macro-strip');
+  el.innerHTML = Object.keys(MACRO_INFO).map(k=>{
+    const m = MACRO_INFO[k];
+    return `<div class="macro-card"><div class="mc-head"><span class="mc-icon">${m.icon}</span><span class="mc-name">${m.name}</span></div><p>${m.desc}</p><p class="mc-need">${m.need}</p></div>`;
+  }).join('');
+}
+
+function renderFoods(){
+  const el = document.getElementById('food-groups');
+  el.innerHTML = Object.keys(FOODS).map(cat=>{
+    const items = FOODS[cat];
+    const cards = items.map(f=>`
+      <div class="food-card">
+        <div class="fc-head"><span class="fc-icon">${f.icon}</span><span class="fc-name">${f.name}</span></div>
+        <div class="fc-ration">Ración: ${f.ration}</div>
+        <div class="macro-row"><span>kcal / 100g</span><b>${f.per100.kcal}</b></div>
+        <div class="macro-row"><span>P / C / G (100g)</span><b>${f.per100.prot}g · ${f.per100.carbs}g · ${f.per100.fat}g</b></div>
+        <div class="macro-row"><span>En la ración (${f.rdata.kcal} kcal)</span><b>${f.rdata.prot}g P · ${f.rdata.carbs}g C · ${f.rdata.fat}g G</b></div>
+        <div class="fc-micro">${f.micro}</div>
+        ${f.gi!=="—" ? `<div class="fc-gi">IG: ${f.gi}</div>` : ''}
+        <div class="fc-tip">${f.tip}</div>
+      </div>`).join('');
+    return `<div class="food-group">
+      <div class="food-group-head"><span class="fg-icon">${catIcon[cat]}</span><h3>${catName[cat]}</h3><span class="fg-count">${items.length} alimentos</span></div>
+      <div class="food-grid">${cards}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderSupplements(){
+  const el = document.getElementById('supp-list');
+  el.innerHTML = SUPPLEMENTS.map((s,i)=>`
+    <div class="ficha" id="supp-${i}">
+      <button class="ficha-head" onclick="toggleSupp(${i})">
+        <div class="ficha-head-left">
+          <span class="ficha-icon">${s.icon}</span>
+          <span class="ficha-nombre">${s.name}</span>
+          <span class="ficha-sub">${s.cat}</span>
+        </div>
+        <div class="ficha-head-right">
+          <span class="ev-stars">${'★'.repeat(s.ev)}${'☆'.repeat(5-s.ev)}</span>
+          <span class="chevron">▾</span>
+        </div>
+      </button>
+      <div class="ficha-body">
+        <div class="ficha-grid">
+          <div>
+            <h5>Qué es</h5><p>${s.what}</p>
+            <h5>Para quién</h5><p>${s.forwho}</p>
+            <h5>Evidencia científica</h5><p>${s.science}</p>
+            <h5>Seguridad</h5><p>${s.safe}</p>
+          </div>
+          <div>
+            <div class="side-box">
+              <div class="obj-row"><span>Dosis</span><b>${s.dose}</b></div>
+              <div class="obj-row"><span>Momento</span><b>${s.timing}</b></div>
+              <div class="obj-row"><span>Categoría</span><b>${s.cat}</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function toggleSupp(i){
+  document.getElementById('supp-'+i).classList.toggle('open');
+}
+
+function showArea(area){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.area===area));
+  document.querySelectorAll('.area-panel').forEach(p=>p.classList.toggle('active', p.dataset.area===area));
+}
+
+renderMacroStrip();
+renderFoods();
+renderSupplements();
+</script>
+
+</body>
+</html>
