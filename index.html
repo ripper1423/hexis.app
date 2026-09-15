@@ -185,10 +185,10 @@
   .price-list{list-style:none;font-size:13px;color:var(--muted);line-height:2.1;margin-bottom:24px;flex:1;}
   .price-list li:before{content:"— ";color:var(--gold);}
   .price-cta{
-    display:block;text-align:center;padding:13px;border:1px solid var(--gold);color:var(--gold);
-    font-size:12px;letter-spacing:1px;border-radius:2px;transition:.2s;
+    display:block;text-align:center;padding:16px;background:var(--gold);color:#050505;border:1px solid var(--gold);
+    font-size:13px;font-weight:600;letter-spacing:1px;border-radius:2px;transition:.2s;
   }
-  .price-cta:hover{background:var(--gold);color:#050505;}
+  .price-cta:hover{background:transparent;color:var(--gold);}
   .price-alt-pay{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;flex-wrap:wrap;}
   .price-alt-label{font-size:9.5px;color:var(--muted2);letter-spacing:.5px;}
   .price-alt-btn{display:inline-flex;align-items:center;gap:4px;font-size:10px;letter-spacing:.3px;padding:6px 10px;border:1px solid var(--line);color:var(--muted);border-radius:2px;cursor:default;opacity:.8;transition:.2s;}
@@ -201,6 +201,12 @@
   .price-list.rich li{margin-bottom:12px;}
   .price-list.rich li strong{color:var(--ink);font-weight:500;}
   .price-closing{font-size:13px;color:var(--muted);margin-bottom:20px;}
+  .price-details{margin-top:6px;}
+  .price-details summary{cursor:pointer;font-size:12px;color:var(--gold);letter-spacing:.5px;list-style:none;padding:10px 0;border-top:1px solid var(--line);}
+  .price-details summary::-webkit-details-marker{display:none;}
+  .price-details summary:before{content:"+ ";}
+  .price-details[open] summary:before{content:"– ";}
+  .price-details[open] summary{margin-bottom:14px;}
   @media(max-width:860px){ .pricing-grid{grid-template-columns:1fr;} }
 
   footer{padding:60px 0;border-top:1px solid var(--line);text-align:center;color:var(--muted2);font-size:12px;}
@@ -246,7 +252,8 @@
       <a href="#perfiles">Perfiles</a>
       <a href="/hexispedia">Hexispedia</a>
       <a href="/catalogo">Catálogo</a>
-      <a href="#entra">Precios</a>
+      <a href="#entra">Plan personalizado</a>
+      <a href="#suscripcion">Suscripción</a>
     </div>
     <a class="navcta" href="#entra">Empezar</a>
   </div>
@@ -510,41 +517,50 @@
     <div class="eyebrow">Tu camino dentro de HEXIS</div>
     <h2>Empieza, evoluciona, <em>o entra con todo.</em></h2>
     <p class="lead">START es tu plan inicial calculado con tus datos reales. PRO es la capa de inteligencia que lo hace ajustarse solo a ti. No son productos distintos: es el mismo sistema, en el punto en el que tú decidas empezar.</p>
-<p class="lead" style="margin-top:14px;font-size:14px;color:var(--muted);">1. Compras &rarr; 2. Recibes tu acceso por email &rarr; 3. Entras en app.h3xis.com y empiezas.</p>
-    <div class="eyebrow" style="margin-top:40px;margin-bottom:0;">Pago único</div>
+    <p class="lead" style="margin-top:14px;font-size:14px;color:var(--gold);">Pago único. 12 meses de acceso a tu sistema HEXIS incluidos, en START y en PRO.</p>
+<p class="lead" style="margin-top:10px;font-size:14px;color:var(--muted);">1. Compras → 2. Recibes tu acceso por email → 3. Entras en app.h3xis.com y empiezas.</p>
+    <div class="eyebrow" style="margin-top:40px;margin-bottom:0;">Pago único · 12 meses incluidos</div>
     <div class="pricing-grid" style="grid-template-columns:repeat(2,1fr);max-width:820px;margin:56px auto 0;">
       <div class="price-card">
         <h3>HEXIS START</h3>
         <div class="price-amount">77 €</div>
         <div class="price-tagline">Dejas de improvisar.</div>
-        <p class="price-sub">Tu sistema personal empieza aquí.</p>
-        <p class="price-desc">Descubre tu arquetipo y recibe un punto de partida calculado específicamente para ti: nutrición, entrenamiento y hábitos.</p>
-        <div class="price-includes">Incluye:</div>
-        <ul class="price-list rich">
-          <li><strong>Tu arquetipo HEXIS</strong> — perfil, necesidades y estrategia.</li>
-          <li><strong>Tu nutrición</strong> — calorías y macros calculados con tus datos reales.</li>
-          <li><strong>Tu entrenamiento</strong> — planificación estructurada según tu perfil.</li>
-          <li><strong>Tu sistema de hábitos</strong> — seguimiento y racha diaria.</li>
-        </ul>
-        <p class="price-closing"><em>Tu plan llega calculado. Tú empiezas a ejecutarlo.</em></p>
+        <p class="price-sub">Tu plan personal calculado, con 12 meses de acceso incluidos.</p>
         <a class="price-cta" href="https://pay.hotmart.com/K107014697X">Empezar con START →</a><div class="price-alt-pay"><span class="price-alt-label">o paga con</span><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">💳 Tarjeta</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">Apple Pay</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">G Pay</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">₿ Cripto</a></div>
+        <details class="price-details">
+          <summary>Ver todo lo que incluye</summary>
+          <p class="price-desc">Descubre tu arquetipo y recibe un punto de partida calculado específicamente para ti: nutrición, entrenamiento y hábitos.</p>
+          <div class="price-includes">Incluye:</div>
+          <ul class="price-list rich">
+            <li><strong>Tu arquetipo HEXIS</strong> — perfil, necesidades y estrategia.</li>
+            <li><strong>Tu nutrición</strong> — calorías y macros calculados con tus datos reales.</li>
+            <li><strong>Tu entrenamiento</strong> — planificación estructurada según tu perfil.</li>
+            <li><strong>Tu sistema de hábitos</strong> — seguimiento y racha diaria.</li>
+            <li><strong>12 meses de acceso</strong> — a la app con tu plan, en esta modalidad de pago único.</li>
+          </ul>
+          <p class="price-closing"><em>Tu plan llega calculado. Tú empiezas a ejecutarlo.</em></p>
+        </details>
       </div>
       <div class="price-card hi" style="background:rgba(10,10,10,.5);">
         <h3>HEXIS PRO</h3>
         <div class="price-amount">149 €</div>
         <div class="price-tagline">Dejas de ajustar a ciegas.</div>
-        <p class="price-sub">Tu sistema empieza a aprender de ti.</p>
-        <p class="price-desc">Todo lo de START, más la capa adaptativa que utiliza tus datos reales para interpretar tu evolución y ajustar el sistema.</p>
-        <div class="price-includes">Incluye:</div>
-        <ul class="price-list rich">
-          <li><strong>Motor adaptativo</strong> — el sistema evoluciona según tu rendimiento y tus datos.</li>
-          <li><strong>Métricas avanzadas</strong> — seguimiento y visualización de tu evolución.</li>
-          <li><strong>Coherencia + Recovery</strong> — interpreta la relación entre tus hábitos, rendimiento y recuperación.</li>
-          <li><strong>Arquitectura de Dominio</strong> — 6 ciclos para convertir el proceso en una progresión real.</li>
-          <li><strong>Análisis con IA</strong> — análisis de plato y evolución física.</li>
-        </ul>
-        <p class="price-closing"><em>No recibes otro plan. El sistema empieza a responder a ti.</em></p>
+        <p class="price-sub">Tu sistema empieza a aprender de ti, con 12 meses de acceso incluidos.</p>
         <a class="price-cta" href="https://pay.hotmart.com/B107168387J">Empezar con PRO →</a><div class="price-alt-pay"><span class="price-alt-label">o paga con</span><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">💳 Tarjeta</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">Apple Pay</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">G Pay</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">₿ Cripto</a></div>
+        <details class="price-details">
+          <summary>Ver todo lo que incluye</summary>
+          <p class="price-desc">Todo lo de START, más la capa adaptativa que utiliza tus datos reales para interpretar tu evolución y ajustar el sistema.</p>
+          <div class="price-includes">Incluye:</div>
+          <ul class="price-list rich">
+            <li><strong>Motor adaptativo</strong> — el sistema evoluciona según tu rendimiento y tus datos.</li>
+            <li><strong>Métricas avanzadas</strong> — seguimiento y visualización de tu evolución.</li>
+            <li><strong>Coherencia + Recovery</strong> — interpreta la relación entre tus hábitos, rendimiento y recuperación.</li>
+            <li><strong>Arquitectura de Dominio</strong> — 6 ciclos para convertir el proceso en una progresión real.</li>
+            <li><strong>Análisis con IA</strong> — análisis de plato y evolución física.</li>
+            <li><strong>12 meses de acceso</strong> — a la app con tu plan, en esta modalidad de pago único.</li>
+          </ul>
+          <p class="price-closing"><em>No recibes otro plan. El sistema empieza a responder a ti.</em></p>
+        </details>
       </div>
     </div>
 
@@ -555,25 +571,55 @@
       <p style="color:var(--muted);font-size:14px;margin-bottom:18px;">No vuelves a pagar por lo que ya tienes. Desbloqueas la capa adaptativa y continúas desde tu punto actual.</p>
       <a class="price-cta" style="display:inline-block;max-width:260px;padding-left:24px;padding-right:24px;" href="https://pay.hotmart.com/K107168260M">Actualizar a PRO →</a><div class="price-alt-pay"><span class="price-alt-label">o paga con</span><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">💳 Tarjeta</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">Apple Pay</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">G Pay</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">₿ Cripto</a></div>
     </div>
-
-    <div style="margin-top:56px;padding-top:40px;border-top:1px solid var(--line);">
-      <div class="eyebrow" style="margin-bottom:16px;">O mes a mes, sin compromiso</div>
-      <div style="display:flex;gap:48px;flex-wrap:wrap;margin-bottom:20px;">
-        <div>
-          <div style="font-family:var(--serif);font-size:20px;color:var(--ink);">HEXIS START</div>
-          <div style="font-family:var(--serif);font-size:22px;color:var(--gold);margin-bottom:12px;">9,99 €/mes</div>
-          <a class="price-cta" style="display:inline-block;padding:10px 22px;" href="https://pay.hotmart.com/T107350999G">Suscribirme a START →</a><div class="price-alt-pay"><span class="price-alt-label">o paga con</span><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">💳 Tarjeta</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">Apple Pay</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">G Pay</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">₿ Cripto</a></div>
-        </div>
-        <div>
-          <div style="font-family:var(--serif);font-size:20px;color:var(--ink);">HEXIS PRO</div>
-          <div style="font-family:var(--serif);font-size:22px;color:var(--gold);margin-bottom:12px;">19,99 €/mes</div>
-          <a class="price-cta" style="display:inline-block;padding:10px 22px;" href="https://pay.hotmart.com/Q107351037R">Suscribirme a PRO →</a><div class="price-alt-pay"><span class="price-alt-label">o paga con</span><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">💳 Tarjeta</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">Apple Pay</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">G Pay</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">₿ Cripto</a></div>
-        </div>
-      </div>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:18px;">Vía independiente del pago único. Usa el mismo email al pagar y al entrar en la app: el acceso se activa solo, sin códigos.</p>
-      <p style="font-size:11px;color:var(--muted2);line-height:1.7;max-width:640px;">El primer pago se realiza al confirmar la compra; después, la suscripción se renueva automáticamente cada mes por el importe correspondiente hasta que la canceles. Puedes cancelar en cualquier momento desde tu perfil, y el acceso sigue activo hasta el final del periodo ya pagado.</p>
-</div>
     </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- SUSCRIPCIÓN MENSUAL -->
+<section id="suscripcion">
+  <div class="wrap">
+    <div class="eyebrow">Suscripción mensual</div>
+    <h2>Por libre. <em>Sin plan cerrado.</em></h2>
+    <p class="lead">Esto no es el plan personalizado de 12 meses. Es acceso a HEXIS START o PRO mes a mes, sin un programa fijo de 12 semanas detrás: usas el sistema por libre, a tu ritmo.</p>
+    <p class="lead" style="margin-top:14px;font-size:14px;color:var(--muted);">Se cobra cada 30 días desde la fecha de compra y se renueva en automático hasta que la canceles.</p>
+    <div class="pricing-grid" style="grid-template-columns:repeat(2,1fr);max-width:820px;margin:56px auto 0;">
+      <div class="price-card">
+        <h3>HEXIS START</h3>
+        <div class="price-amount">9,99 €/mes</div>
+        <p class="price-sub">Acceso mes a mes, sin plan cerrado.</p>
+        <a class="price-cta" href="https://pay.hotmart.com/T107350999G">Suscribirme a START →</a><div class="price-alt-pay"><span class="price-alt-label">o paga con</span><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">💳 Tarjeta</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">Apple Pay</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">G Pay</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">₿ Cripto</a></div>
+        <details class="price-details">
+          <summary>Ver todo lo que incluye</summary>
+          <div class="price-includes">Incluye:</div>
+          <ul class="price-list rich">
+            <li><strong>Tu arquetipo HEXIS</strong> — perfil, necesidades y estrategia.</li>
+            <li><strong>Tu nutrición</strong> — calorías y macros calculados con tus datos reales.</li>
+            <li><strong>Tu entrenamiento</strong> — planificación estructurada según tu perfil.</li>
+            <li><strong>Tu sistema de hábitos</strong> — seguimiento y racha diaria.</li>
+          </ul>
+        </details>
+      </div>
+      <div class="price-card hi" style="background:rgba(10,10,10,.5);">
+        <h3>HEXIS PRO</h3>
+        <div class="price-amount">19,99 €/mes</div>
+        <p class="price-sub">Acceso mes a mes, con motor adaptativo.</p>
+        <a class="price-cta" href="https://pay.hotmart.com/Q107351037R">Suscribirme a PRO →</a><div class="price-alt-pay"><span class="price-alt-label">o paga con</span><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">💳 Tarjeta</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">Apple Pay</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">G Pay</a><a class="price-alt-btn" href="javascript:void(0)" title="Próximamente">₿ Cripto</a></div>
+        <details class="price-details">
+          <summary>Ver todo lo que incluye</summary>
+          <div class="price-includes">Incluye:</div>
+          <ul class="price-list rich">
+            <li><strong>Motor adaptativo</strong> — el sistema evoluciona según tu rendimiento y tus datos.</li>
+            <li><strong>Métricas avanzadas</strong> — seguimiento y visualización de tu evolución.</li>
+            <li><strong>Coherencia + Recovery</strong> — interpreta la relación entre tus hábitos, rendimiento y recuperación.</li>
+            <li><strong>Arquitectura de Dominio</strong> — 6 ciclos para convertir el proceso en una progresión real.</li>
+            <li><strong>Análisis con IA</strong> — análisis de plato y evolución física.</li>
+          </ul>
+        </details>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--muted2);line-height:1.7;max-width:640px;margin-top:32px;">El primer pago se realiza al confirmar la compra; después, la suscripción se renueva automáticamente cada 30 días por el importe correspondiente hasta que la canceles. Puedes cancelar en cualquier momento desde tu perfil, y el acceso sigue activo hasta el final del periodo ya pagado.</p>
   </div>
 </section>
 
