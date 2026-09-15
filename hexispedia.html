@@ -35395,6 +35395,11 @@ document.addEventListener('click', function(ev){
   }
   window.hxJumpToFicha = jumpToFicha;
 
+  if(location.hash){
+    var __hxInitHash = location.hash.slice(1);
+    if(fichaInfo[__hxInitHash]) setTimeout(function(){ jumpToFicha(__hxInitHash); }, 150);
+  }
+
   function closePicker(){
     var ov = document.querySelector('.hx-pop-overlay');
     if(ov) ov.remove();
