@@ -313,7 +313,7 @@
         <div class="ptag">"Construyo lo que otros solo desean."</div>
         <div class="penemy">Enemigo: <b>la comodidad</b></div>
 <div class="pdecide" style="font-size:11px;color:var(--muted2);letter-spacing:.3px;margin-top:10px;">Prioriza progresión de fuerza y superávit calculado.</div>
-        <a class="plink" href="#entra">¿Eres tú? →</a>
+        <a class="plink" href="#entra" data-quiz-link>¿Eres tú? →</a>
       </div>
       <div class="profile-card" style="color:var(--shape)">
         <div class="pname">SHAPE</div>
@@ -321,7 +321,7 @@
         <div class="ptag">"No elijo entre perder o ganar. Hago ambas cosas."</div>
         <div class="penemy">Enemigo: <b>la impaciencia</b></div>
 <div class="pdecide" style="font-size:11px;color:var(--muted2);letter-spacing:.3px;margin-top:10px;">Equilibra recomposición corporal y adherencia real.</div>
-        <a class="plink" href="#entra">¿Eres tú? →</a>
+        <a class="plink" href="#entra" data-quiz-link>¿Eres tú? →</a>
       </div>
       <div class="profile-card" style="color:var(--zen)">
         <div class="pname">ZEN</div>
@@ -329,7 +329,7 @@
         <div class="ptag">"Bajo la intensidad para subir la vida."</div>
         <div class="penemy">Enemigo: <b>el desgaste acumulado</b></div>
 <div class="pdecide" style="font-size:11px;color:var(--muted2);letter-spacing:.3px;margin-top:10px;">Reduce fricción y reconstruye capacidad sin sobrecarga.</div>
-        <a class="plink" href="#entra">¿Eres tú? →</a>
+        <a class="plink" href="#entra" data-quiz-link>¿Eres tú? →</a>
       </div>
       <div class="profile-card" style="color:var(--hera)">
         <div class="pname">HERA</div>
@@ -337,7 +337,7 @@
         <div class="ptag">"Defino sin castigarme."</div>
         <div class="penemy">Enemigo: <b>la restricción extrema</b></div>
 <div class="pdecide" style="font-size:11px;color:var(--muted2);letter-spacing:.3px;margin-top:10px;">Busca definición sin ciclos de restricción y rebote.</div>
-        <a class="plink" href="#entra">¿Eres tú? →</a>
+        <a class="plink" href="#entra" data-quiz-link>¿Eres tú? →</a>
       </div>
       <div class="profile-card" style="color:var(--atenea)">
         <div class="pname">ATENEA</div>
@@ -345,7 +345,7 @@
         <div class="ptag">"Mi tiempo es finito. Mi sistema, no."</div>
         <div class="penemy">Enemigo: <b>la falta de tiempo</b></div>
 <div class="pdecide" style="font-size:11px;color:var(--muted2);letter-spacing:.3px;margin-top:10px;">Maximiza resultado con el tiempo que tienes.</div>
-        <a class="plink" href="#entra">¿Eres tú? →</a>
+        <a class="plink" href="#entra" data-quiz-link>¿Eres tú? →</a>
       </div>
       <div class="profile-card" style="color:var(--gaia)">
         <div class="pname">GAIA</div>
@@ -353,7 +353,7 @@
         <div class="ptag">"Reconecto, no fuerzo."</div>
         <div class="penemy">Enemigo: <b>la prisa por volver a como era</b></div>
 <div class="pdecide" style="font-size:11px;color:var(--muted2);letter-spacing:.3px;margin-top:10px;">Reinicia de forma progresiva, a tu ritmo.</div>
-        <a class="plink" href="#entra">¿Eres tú? →</a>
+        <a class="plink" href="#entra" data-quiz-link>¿Eres tú? →</a>
       </div>
     </div>
   </div>
@@ -675,6 +675,8 @@ document.getElementById("quiz-cta").addEventListener("click", closeQuiz);
 document.addEventListener("DOMContentLoaded", function(){
 var trigger = document.getElementById("quiz-trigger");
 if (trigger) trigger.addEventListener("click", openQuiz);
+var quizLinks = document.querySelectorAll("[data-quiz-link]");
+quizLinks.forEach(function(a){ a.addEventListener("click", function(e){ e.preventDefault(); openQuiz(); }); });
 var closeBtn = document.getElementById("quiz-close");
 if (closeBtn) closeBtn.addEventListener("click", closeQuiz);
 var overlay = document.getElementById("quiz-overlay");
